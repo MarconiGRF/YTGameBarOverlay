@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  IgnorableNamespaces="uap uap3 mp">
+
+	<Identity
+	  Name="91c9800a-9154-4091-bb4c-3532b6b52b90"
+	  Publisher="CN=marco"
+	  Version="0.0.1.0" />
+
+	<mp:PhoneIdentity PhoneProductId="91c9800a-9154-4091-bb4c-3532b6b52b90" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
+	<Properties>
+		<DisplayName>Youtube GameBar Overlay</DisplayName>
+		<PublisherDisplayName>Marconi Gomes</PublisherDisplayName>
+		<Logo>Assets\StoreLogo.png</Logo>
+	</Properties>
+
+	<Dependencies>
+		<TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+	</Dependencies>
+
+	<Resources>
+		<Resource Language="x-generate"/>
+	</Resources>
+
+	<Applications>
+		<Application Id="App"
+		  Executable="$targetnametoken$.exe"
+		  EntryPoint="YoutubeGameBarOverlay.App">
+			<uap:VisualElements
+			  DisplayName="Youtube GameBar Overlay"
+			  Square150x150Logo="Assets\Square150x150Logo.png"
+			  Square44x44Logo="Assets\Square44x44Logo.png"
+			  Description="YoutubeGameBarOverlay"
+			  BackgroundColor="transparent"
+			  AppListEntry="none">
+				<uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+					<uap:ShowNameOnTiles>
+						<uap:ShowOn Tile="square150x150Logo"/>
+						<uap:ShowOn Tile="wide310x150Logo"/>
+					</uap:ShowNameOnTiles>
+				</uap:DefaultTile >
+				<uap:SplashScreen Image="Assets\SplashScreen.png" />
+				<uap:InitialRotationPreference>
+					<uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
+			</uap:VisualElements>
+			<Extensions>
+				<uap3:Extension Category="windows.appExtension">
+					<uap3:AppExtension Name="microsoft.gameBarUIExtension"
+                         Id="YoutubeGameBarOverlay"
+                         DisplayName="Youtube GameBar Overlay"
+                         Description="An Youtube Player Widget for Xbox Game Bar."
+                         PublicFolder="GameBar">
+						<uap3:Properties>
+							<GameBarWidget Type="Standard">
+								<HomeMenuVisible>true</HomeMenuVisible>
+								<PinningSupported>true</PinningSupported>
+								<ActivateAfterInstall>false</ActivateAfterInstall>
+								<Window>
+									<Size>
+										<Height>240</Height>
+										<Width>426</Width>
+										<MinHeight>240</MinHeight>
+										<MinWidth>426</MinWidth>
+										<MaxHeight>720</MaxHeight>
+										<MaxWidth>1280</MaxWidth>
+									</Size>
+									<ResizeSupported>
+										<Horizontal>true</Horizontal>
+										<Vertical>true</Vertical>
+									</ResizeSupported>
+								</Window>
+							</GameBarWidget>
+						</uap3:Properties>
+					</uap3:AppExtension>
+				</uap3:Extension>
+			</Extensions>
+		</Application>
+	</Applications>
+
+	<Extensions>
+		<Extension Category="windows.activatableClass.proxyStub">
+			<ProxyStub ClassId="00000355-0000-0000-C000-000000000046">
+				<Path>Microsoft.Gaming.XboxGameBar.winmd</Path>
+				<Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetAuthHost" InterfaceId="DC263529-B12F-469E-BB35-B94069F5B15A" />
+				<Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetControlHost" InterfaceId="C309CAC7-8435-4082-8F37-784523747047" />
+				<Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarNavigationKeyCombo" InterfaceId="5EEA3DBF-09BB-42A5-B491-CF561E33C172" />
+				<Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetActivatedEventArgsPrivate" InterfaceId="782535A7-9407-4572-BFCB-316B4086F102" />
+				<Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetHost" InterfaceId="5D12BC93-212B-4B9F-9091-76B73BF56525" />
+				<Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetPrivate" InterfaceId="22ABA97F-FB0F-4439-9BDD-2C67B2D5AA8F" />
+			</ProxyStub>
+		</Extension>
+
+	</Extensions>
+
+	<Capabilities>
+		<Capability Name="internetClient" />
+	</Capabilities>
+</Package>
