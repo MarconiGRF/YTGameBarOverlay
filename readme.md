@@ -2,11 +2,12 @@
 An Extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
 
 ## Setting up
-1 - Clone this repository  
+1 - Clone this repository.  
 2 - Clone the [VideoUI](https://github.com/MarconiGRF/YoutubeGameBarVideoUI) repository, it is the core of videos playback on this project.  
-3 - Open the `YoutubeGameBarOverlay.sln` on Visual Studio  
-4 - Update/install the NuGet Packages  
-5 - You're ready to contribute!
+3 - Build the VideoUI (Instructions on its readme), copy the content of `YoutubeGameBarVideoUI/dist` inside `YoutubeGameBarOverlay/VideoUI`.  
+4 - Open the `YoutubeGameBarOverlay.sln` on Visual Studio.  
+5 - Update/install the NuGet Packages.  
+6 - You're ready to contribute!
 
 ## Development tips
 ### Debugging with Game Bar
