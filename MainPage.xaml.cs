@@ -1,12 +1,21 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Devices.SmartCards;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Networking.Sockets;
+using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -15,6 +24,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using YoutubeGameBarWidget.WebServer;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -24,7 +34,8 @@ namespace YoutubeGameBarOverlay {
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private string mediaURL = "";   
+        private string mediaURL = "";
+        private WebServer ws;
 
         public MainPage()
         {
@@ -141,13 +152,19 @@ namespace YoutubeGameBarOverlay {
 
         /// <summary>
         /// Prepares the necessary elements to compose the video UI.
-        /// These elements are>
-        /// - The iFrame Element
-        /// - The Webview frame.
+        /// These elements are:
+        /// - The webserver with VideoUI
+        /// - The change to WebView on window.
         /// </summary>
-        private void PrepareVideoUI()
+        private async void PrepareVideoUI()
         {
-            string iFrameElement = buildIFrameElement(getMediaId());
+            initializeWebServer();
+        }
+
+        private void initializeWebServer()
+        {
+            this.ws = new WebServer();
+            GC.KeepAlive(this.ws);
         }
 
         /// <summary>
@@ -171,23 +188,6 @@ namespace YoutubeGameBarOverlay {
                 mediaId = mediaURL.Split(videoSeparator)[1].Substring(0,11);
                 return mediaId;
             }
-        }
-
-        /// <summary>
-        /// Builds and returns string representing the iFrame HTML Element.
-        /// </summary>
-        /// <param name="mediaId">The Youtube Media ID.</param>
-        /// <returns></returns>
-        private string buildIFrameElement(string videoId)
-        {
-            string iframe = "";
-
-            if (videoId.Length != 0)
-            {
-
-            }
-
-            return iframe;
         }
     }
 }
