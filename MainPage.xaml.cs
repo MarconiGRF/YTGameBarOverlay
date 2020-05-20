@@ -153,17 +153,22 @@ namespace YoutubeGameBarOverlay {
         /// <summary>
         /// Prepares the necessary elements to compose the video UI.
         /// These elements are:
-        /// - The webserver with VideoUI
-        /// - The change to WebView on window.
+        /// 1 - The webserver with VideoUI
+        /// 2 - The change to WebView on window.
         /// </summary>
         private async void PrepareVideoUI()
         {
             initializeWebServer();
         }
 
+        /// <summary>
+        /// Starts the Webserver by calling its constructor.
+        /// </summary>
         private void initializeWebServer()
         {
             this.ws = new WebServer();
+
+            //Just to be sure that GC will not collect our WebServer.
             GC.KeepAlive(this.ws);
         }
 

@@ -30,6 +30,10 @@ namespace YoutubeGameBarWidget.WebServer
             this.listener.BindServiceNameAsync("54523");
         }
 
+        /// <summary>
+        /// Responsible for processing (reading, validating and calling answerer) the request asynchronously.
+        /// </summary>
+        /// <param name="socket">The socket received from the Event Arguments.</param>
         public async void ProcessRequestAsync(StreamSocket socket)
         {
             StringBuilder request = new StringBuilder();
@@ -58,16 +62,23 @@ namespace YoutubeGameBarWidget.WebServer
             }
         }
 
+        /// <summary>
+        /// Task responsible for answering the HTTP request with the correct file (if it exists).
+        /// </summary>
+        /// <param name="path">The filepath provided by the Request.</param>
+        /// <param name="output">The output stream object.</param>
+        /// <returns></returns>
         private async Task WriteResponseAsync(string path, IOutputStream output)
         {
             using (Stream response = output.AsStreamForWrite())
             {
-                bool exists = true;
                 string filePath = "VideoUI\\";
                 byte[] headerArray;
 
                 try
                 {
+                    //Due to the VideoUI's implementation, the mediaUrl comes in a QueryString. 
+                    //So the path needs to be checked to return the correct file.
                     if(Regex.IsMatch(path, "/[?](.+)"))
                     {
                          filePath += "index.html";
@@ -90,7 +101,6 @@ namespace YoutubeGameBarWidget.WebServer
                 }
                 catch (FileNotFoundException)
                 {
-                    exists = false;
                     headerArray = Encoding.UTF8.GetBytes("HTTP/1.1 404 Not Found\r\n" +
                                                          "Content-Length:0\r\n" +
                                                          "Connection: close\r\n\r\n");
