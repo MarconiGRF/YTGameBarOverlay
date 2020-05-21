@@ -1,4 +1,5 @@
 # Youtube GameBar Overlay
+![Youtube GameBar Logo](https://raw.githubusercontent.com/MarconiGRF/YoutubeGameBarOverlay/master/Assets/Wide310x150Logo.scale-200.png)  
 An Extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
 
 ## Setting up

@@ -185,7 +185,7 @@ namespace YoutubeGameBarOverlay {
 
             try
             {
-                mediaId = mediaURL.Split(playlistSeparator)[1].Split(argumentSeparator)[0];
+                mediaId = mediaURL.Split(playlistSeparator)[1].Split(argumentSeparator).First();
                 return mediaId;
             } 
             catch (IndexOutOfRangeException)
