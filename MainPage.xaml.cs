@@ -24,13 +24,14 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using YoutubeGameBarWidget;
 using YoutubeGameBarWidget.WebServer;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace YoutubeGameBarOverlay {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The main page of the overlay. It exists to the user input and validate the URL, invoke webserver and redirect it to the webpage.
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -154,11 +155,15 @@ namespace YoutubeGameBarOverlay {
         /// Prepares the necessary elements to compose the video UI.
         /// These elements are:
         /// 1 - The webserver with VideoUI
-        /// 2 - The change to WebView on window.
+        /// 2 - Make the Webpage go to the Video URL.
         /// </summary>
-        private async void PrepareVideoUI()
+        private void PrepareVideoUI()
         {
             initializeWebServer();
+
+            string baseUri = "http://localhost:54523/?mediaUrl=";
+            Uri videoUri = new Uri(baseUri + getMediaId());
+            this.Frame.Navigate(typeof(Webpage), videoUri);
         }
 
         /// <summary>
