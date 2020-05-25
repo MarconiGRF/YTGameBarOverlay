@@ -14,11 +14,11 @@ namespace YoutubeGameBarOverlay {
     public sealed partial class MainPage : Page
     {
         private string mediaURL;
-        private WebServer ws;
 
         public MainPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         /// <summary>
@@ -27,7 +27,6 @@ namespace YoutubeGameBarOverlay {
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.ws = null;
             this.mediaURL = "";
 
             base.OnNavigatedTo(e);
@@ -144,27 +143,13 @@ namespace YoutubeGameBarOverlay {
         /// <summary>
         /// Prepares the necessary elements to compose the video UI.
         /// These elements are:
-        /// 1 - The webserver with VideoUI
-        /// 2 - Make the Webpage go to the Video URL.
+        /// 1 - Navigate to Webpage, passing the desired VideoURI.
         /// </summary>
         private void PrepareVideoUI()
         {
-            InitializeWebServer();
-
             string baseUri = "http://localhost:54523/?mediaUrl=";
             Uri videoUri = new Uri(baseUri + GetMediaId());
             this.Frame.Navigate(typeof(Webpage), videoUri);
-        }
-
-        /// <summary>
-        /// Starts the Webserver by calling its constructor.
-        /// </summary>
-        private void InitializeWebServer()
-        {
-            this.ws = new WebServer();
-
-            //Just to be sure that GC will not collect our WebServer.
-            GC.KeepAlive(this.ws);
         }
 
         /// <summary>
