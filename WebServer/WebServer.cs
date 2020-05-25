@@ -101,7 +101,6 @@ namespace YoutubeGameBarWidget.WebServer
                                                       "Connection: close\r\n\r\n",
                                                       fs.Length,
                                                       determinateContentType(fileExtension));
-                        Debug.WriteLine(headerString);
                         headerArray = Encoding.UTF8.GetBytes(headerString);
                         await response.WriteAsync(headerArray, 0, headerArray.Length);
                         await fs.CopyToAsync(response);
