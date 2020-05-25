@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarWidget;
-using YoutubeGameBarWidget.WebServer;
 
 namespace YoutubeGameBarOverlay {
     /// <summary>
@@ -93,20 +94,17 @@ namespace YoutubeGameBarOverlay {
         /// <param name="value"></param>
         private void InLoadingState(bool value)
         {
+            Thread t;
+
             if (value == true)
             {
-                LoadingRing.IsActive = true;
-                ErrorMessage.Visibility = Visibility.Collapsed;
-                inputUrlTextBox.IsEnabled = false;
-                PlayButton.IsEnabled = false;
+                t = new Thread(new ThreadStart(trueLoading));
             }
             else
             {
-                LoadingRing.IsActive = false;
-                inputUrlTextBox.IsEnabled = true;
-                PlayButton.IsEnabled = true;
+                t = new Thread(new ThreadStart(falseLoading));
             }
-            
+            t.Start();   
         }
 
         /// <summary>
@@ -161,20 +159,48 @@ namespace YoutubeGameBarOverlay {
         private string GetMediaId()
         {
             char argumentSeparator = '&';
-            string mediaId = "";
             string videoSeparator = "v=";
             string playlistSeparator = "list=";
 
             try
             {
-                mediaId = mediaURL.Split(playlistSeparator)[1].Split(argumentSeparator).First();
-                return mediaId;
+                return mediaURL.Split(playlistSeparator)[1].Split(argumentSeparator).First();
             } 
             catch (IndexOutOfRangeException)
             {   
-                mediaId = mediaURL.Split(videoSeparator)[1].Substring(0,11);
-                return mediaId;
+                return mediaURL.Split(videoSeparator)[1].Substring(0,11);
             }
+        }
+
+        /// <summary>
+        /// Auxiliary method to asynchronously update UI on a InLoadingState(true) ocasion.
+        /// </summary>
+        private async void trueLoading()
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        LoadingRing.IsActive = true;
+                        ErrorMessage.Visibility = Visibility.Collapsed;
+                        inputUrlTextBox.IsEnabled = false;
+                        PlayButton.IsEnabled = false;
+                    }
+                );
+        }
+
+        /// <summary>
+        /// Auxiliary method to asynchronously update UI on a InLoadingState(false) ocasion.
+        /// </summary>
+        private async void falseLoading()
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        LoadingRing.IsActive = false;
+                        inputUrlTextBox.IsEnabled = true;
+                        PlayButton.IsEnabled = true;
+                    }
+                );
         }
     }
 }
