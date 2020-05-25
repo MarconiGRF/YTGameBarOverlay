@@ -13,17 +13,26 @@ namespace YoutubeGameBarWidget
     /// </summary>
     public sealed partial class Webpage : Page
     {
-        public WebView VideoUIWebpage;
         public Webpage()
         {
             this.InitializeComponent();
-            this.VideoUIWebpage = _videoUIWebpage;
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+        }
+
+        /// <summary>
+        /// Cleans the Webpage's content after frame navigates from it.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            UnloadObject(VideoUIWebpage);
+            base.OnNavigatedFrom(e);
         }
 
         /// <summary>
         /// Navigates to the given Video URL and show tips as soon as frame navigates to this Webpage.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The Video URI.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.VideoUIWebpage.Navigate((Uri)e.Parameter);
@@ -53,8 +62,6 @@ namespace YoutubeGameBarWidget
                         }
                     );
         }
-
-        
 
         /// <summary>
         /// Handles the keypresses on Webpage's main grid.

@@ -28,6 +28,8 @@ namespace YoutubeGameBarOverlay {
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.mediaURL = "";
+            inputUrlTextBox.Text = "";
+            InLoadingState(false);
 
             base.OnNavigatedTo(e);
         }

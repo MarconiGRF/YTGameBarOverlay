@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     
-    <Grid KeyDown="HandleBackspacePress">
+    <Grid KeyDown="HandleBackspacePress" Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -54,6 +54,6 @@
             </StackPanel.Resources>
         </StackPanel>
 
-        <WebView Grid.RowSpan="2" CanBeScrollAnchor="False" Name="_videoUIWebpage"></WebView>
+        <WebView Grid.RowSpan="2" CanBeScrollAnchor="False" Name="VideoUIWebpage"></WebView>
     </Grid>
 </Page>
