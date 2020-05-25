@@ -1,6 +1,9 @@
-bin/*
 .vs/*
-packages/*
+
 obj/*
 VideoUI/*
+
 AppPackages/*
+packages/*
+bin/*
+BundleArtifacts/*
