@@ -3,3 +3,4 @@ bin/*
 packages/*
 obj/*
 VideoUI/*
+AppPackages/*
