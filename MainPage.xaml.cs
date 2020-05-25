@@ -35,12 +35,24 @@ namespace YoutubeGameBarOverlay {
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private string mediaURL = "";
+        private string mediaURL;
         private WebServer ws;
 
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// Cleans the app variables as soon as frame navigates to MainPage.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            this.ws = null;
+            this.mediaURL = "";
+
+            base.OnNavigatedTo(e);
         }
 
         /// <summary>
@@ -73,9 +85,9 @@ namespace YoutubeGameBarOverlay {
         private void PrepareToPlay()
         {
             InLoadingState(true);
-            setInputAsMediaURL();
+            SetInputAsMediaURL();
 
-            if (isMediaURLValid() == true)
+            if (IsMediaURLValid() == true)
             {
                 PrepareVideoUI();
             }
@@ -121,7 +133,7 @@ namespace YoutubeGameBarOverlay {
         /// <summary>
         /// Sets the MediaURL as the current string on the TextBox.
         /// </summary>
-        private void setInputAsMediaURL()
+        private void SetInputAsMediaURL()
         {
             mediaURL = inputUrlTextBox.Text;
         }
@@ -129,7 +141,7 @@ namespace YoutubeGameBarOverlay {
         /// <summary>
         /// Checks if the MediaURL is a valid Youtube URL.
         /// </summary>
-        private bool isMediaURLValid()
+        private bool IsMediaURLValid()
         {
             if (mediaURL.Length <= 32)
             {
@@ -159,17 +171,17 @@ namespace YoutubeGameBarOverlay {
         /// </summary>
         private void PrepareVideoUI()
         {
-            initializeWebServer();
+            InitializeWebServer();
 
             string baseUri = "http://localhost:54523/?mediaUrl=";
-            Uri videoUri = new Uri(baseUri + getMediaId());
+            Uri videoUri = new Uri(baseUri + GetMediaId());
             this.Frame.Navigate(typeof(Webpage), videoUri);
         }
 
         /// <summary>
         /// Starts the Webserver by calling its constructor.
         /// </summary>
-        private void initializeWebServer()
+        private void InitializeWebServer()
         {
             this.ws = new WebServer();
 
@@ -181,7 +193,7 @@ namespace YoutubeGameBarOverlay {
         /// Gets and returns the Video ID from the Media URL.
         /// </summary>
         /// <returns></returns>
-        private string getMediaId()
+        private string GetMediaId()
         {
             char argumentSeparator = '&';
             string mediaId = "";

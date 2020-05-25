@@ -7,8 +7,53 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Grid KeyDown="HandleBackspacePress">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" BorderBrush="White" BorderThickness="0,0,0,1" Name="TipPinWindow">
+            <Grid.Background>
+                <SolidColorBrush Color="#C92306" Opacity=".75"/>
+            </Grid.Background>
+            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
+                Pin the window
+                <LineBreak/>
+                <LineBreak/>
+                <LineBreak/>
+                to make it visible outside.
+            </TextBlock>
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE718;" Foreground="White"></FontIcon>
+        </Grid>
+        <Grid Grid.Row="1" Name="TipGoBack">
+            <Grid.Background>
+                <SolidColorBrush Color="#C92306" Opacity=".75"/>
+            </Grid.Background>
+            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
+                Press backspace
+                <LineBreak/>
+                <LineBreak/>
+                <LineBreak/>
+                to go back.
+            </TextBlock>
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="White"></FontIcon>
+        </Grid>
 
-    <Grid>
-        <WebView CanBeScrollAnchor="False" Name="_videoUIWebpage"></WebView>
+        <StackPanel>
+            <StackPanel.Resources>
+                <Storyboard x:Name="EnterStoryboard">
+                    <FadeInThemeAnimation Storyboard.TargetName="TipPinWindow"/>
+                    <FadeInThemeAnimation Storyboard.TargetName="TipGoBack"/>
+                </Storyboard>
+                <Storyboard x:Name="ExitStoryboard">
+                    <FadeOutThemeAnimation Storyboard.TargetName="TipPinWindow"/>
+                    <FadeOutThemeAnimation Storyboard.TargetName="TipGoBack"/>
+                </Storyboard>
+            </StackPanel.Resources>
+        </StackPanel>
+
+        <WebView Grid.RowSpan="2" CanBeScrollAnchor="False" Name="_videoUIWebpage"></WebView>
     </Grid>
 </Page>
