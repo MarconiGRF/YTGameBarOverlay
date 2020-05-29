@@ -13,3 +13,5 @@ BundleArtifacts/*
 
 # User Specific Files
 *.user
+*.csproj.user
+*.env
