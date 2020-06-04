@@ -10,7 +10,7 @@
 	<Identity
 	  Name="91c9800a-9154-4091-bb4c-3532b6b52b90"
 	  Publisher="CN=Marconi Gomes"
-	  Version="1.0.1.0" />
+	  Version="1.1.0.0" />
 
 	<mp:PhoneIdentity PhoneProductId="91c9800a-9154-4091-bb4c-3532b6b52b90" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
