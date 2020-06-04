@@ -6,6 +6,9 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
 using YoutubeGameBarWidget.WebServer;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace YoutubeGameBarOverlay
 {
@@ -23,8 +26,24 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         public App()
         {
+            SetEnvVars();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+        }
+        
+        /// <summary>
+        /// Searches for a .env file and sets the process' environment variables based on it.
+        /// </summary>
+        private void SetEnvVars()
+        {
+            string[] vars = File.ReadAllText("./.env").Split("\n");
+
+            foreach(string var in vars)
+            {
+                string key = var.Split("=").First();
+                string value = var.Split("=").Last();
+                Environment.SetEnvironmentVariable(key, value, EnvironmentVariableTarget.Process);
+            }
         }
 
         /// <summary>

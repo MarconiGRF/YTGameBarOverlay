@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using Windows.UI.Core;
@@ -7,6 +8,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarWidget;
+using YoutubeGameBarWidget.Search;
 
 namespace YoutubeGameBarOverlay {
     /// <summary>
@@ -15,9 +17,13 @@ namespace YoutubeGameBarOverlay {
     public sealed partial class MainPage : Page
     {
         private string mediaURL;
+        private Search search;
+        private Thread auxiliaryUIThread;
+        private bool inLoadingState;
 
         public MainPage()
         {
+            this.search = new Search();
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
@@ -29,7 +35,7 @@ namespace YoutubeGameBarOverlay {
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             this.mediaURL = "";
-            inputUrlTextBox.Text = "";
+            this.inputBox.Text = "";
             InLoadingState(false);
 
             base.OnNavigatedTo(e);
@@ -40,22 +46,18 @@ namespace YoutubeGameBarOverlay {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
-        private async void HandlePlayButton(object sender, RoutedEventArgs eventArgs)
+        private void HandlePlayButton(object sender, RoutedEventArgs eventArgs)
         {
-            PrepareToPlay();
-        }
-
-        /// <summary>
-        /// Handles the keypresses on inputUrl TextBox.
-        /// In case Enter/Return is pressed, executes the same funciton as clicking the play button.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="keyArgs"></param>
-        private async void HandleEnterPress(object sender, KeyRoutedEventArgs keyArgs)
-        {
-            if (keyArgs.Key == Windows.System.VirtualKey.Enter)
+            ListItems list = (ListItems)this.inputBox.ItemsSource;
+            
+            if (list.Count > 0)
             {
+                SetAsMediaURL(list.ElementAt(0).VideoId);
                 PrepareToPlay();
+            }
+            else
+            {
+                ShowErrorMessage("Please select a video.");
             }
         }
 
@@ -65,7 +67,6 @@ namespace YoutubeGameBarOverlay {
         private void PrepareToPlay()
         {
             InLoadingState(true);
-            SetInputAsMediaURL();
 
             if (IsMediaURLValid() == true)
             {
@@ -94,25 +95,25 @@ namespace YoutubeGameBarOverlay {
         /// <param name="value"></param>
         private void InLoadingState(bool value)
         {
-            Thread t;
-
             if (value == true)
             {
-                t = new Thread(new ThreadStart(trueLoading));
+                this.inLoadingState = true;
+                RunUIUpdateByMethod(TrueLoading);
             }
             else
             {
-                t = new Thread(new ThreadStart(falseLoading));
+                this.inLoadingState = false;
+                RunUIUpdateByMethod(FalseLoading);
             }
-            t.Start();   
         }
 
         /// <summary>
-        /// Sets the MediaURL as the current string on the TextBox.
+        /// Set MediaURL as the given string.
         /// </summary>
-        private void SetInputAsMediaURL()
+        /// <param name="input">The string to be set as MediaURL</param>
+        private void SetAsMediaURL(string input)
         {
-            mediaURL = inputUrlTextBox.Text;
+            this.mediaURL = input;
         }
 
         /// <summary>
@@ -173,16 +174,26 @@ namespace YoutubeGameBarOverlay {
         }
 
         /// <summary>
+        /// Asynchronously runs an UI updated defined by the given method using the auxiliary thread.
+        /// </summary>
+        /// <param name="uiMethod"></param>
+        private void RunUIUpdateByMethod(Action uiMethod)
+        {
+            this.auxiliaryUIThread = new Thread(new ThreadStart(uiMethod));
+            this.auxiliaryUIThread.Start();
+        }
+
+        /// <summary>
         /// Auxiliary method to asynchronously update UI on a InLoadingState(true) ocasion.
         /// </summary>
-        private async void trueLoading()
+        private async void TrueLoading()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         LoadingRing.IsActive = true;
                         ErrorMessage.Visibility = Visibility.Collapsed;
-                        inputUrlTextBox.IsEnabled = false;
+                        inputBox.IsEnabled = false;
                         PlayButton.IsEnabled = false;
                     }
                 );
@@ -191,16 +202,76 @@ namespace YoutubeGameBarOverlay {
         /// <summary>
         /// Auxiliary method to asynchronously update UI on a InLoadingState(false) ocasion.
         /// </summary>
-        private async void falseLoading()
+        private async void FalseLoading()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         LoadingRing.IsActive = false;
-                        inputUrlTextBox.IsEnabled = true;
+                        inputBox.IsEnabled = true;
                         PlayButton.IsEnabled = true;
                     }
                 );
+        }
+
+        /// <summary>
+        /// Auxiliary method to asynchronously update UI on to a loading state, without locking all elements.
+        /// </summary>
+        private async void WeakLoading()
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        LoadingRing.IsActive = true;
+                        ErrorMessage.Visibility = Visibility.Collapsed;
+                    }
+                );
+        }
+
+        private async void inputBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if(inputBox.Text == "")
+            {
+                inputBox.IsSuggestionListOpen = false;
+                sender.ItemsSource = new ListItems();
+            }
+            else if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                if (inputBox.Text.Length >= 8 &&inputBox.Text.Substring(0,8) == "https://")
+                {
+                    PrepareToPlay();
+                }
+                else
+                {
+                    if (this.inLoadingState == false)
+                    {
+                        this.inLoadingState = true;
+                        RunUIUpdateByMethod(WeakLoading);
+                    }
+
+                    await this.search.ByTerm(inputBox.Text);
+
+                    if (this.inLoadingState == true)
+                    {
+                        this.inLoadingState = false;
+                        RunUIUpdateByMethod(FalseLoading);
+                    }
+
+                    sender.ItemsSource = this.search.Retreive();
+                    inputBox.IsSuggestionListOpen = true;
+                }
+            }
+        }
+
+        private void inputBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.ChosenSuggestion != null)
+            {
+                RunUIUpdateByMethod(TrueLoading);
+                ListItem chosenItem = (ListItem)args.ChosenSuggestion;
+                SetAsMediaURL("https://www.youtube.com/watch?v=" + chosenItem.VideoId);
+                PrepareVideoUI();
+            }
         }
     }
 }

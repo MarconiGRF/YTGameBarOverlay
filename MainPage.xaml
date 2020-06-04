@@ -69,11 +69,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="TextBoxWithoutHover" TargetType="TextBox">
+        <Style x:Key="YTGBOTextBox" TargetType="TextBox">
             <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}"/>
             <Setter Property="Background" Value="{ThemeResource TextControlBackground}"/>
             <Setter Property="BorderBrush" Value="{ThemeResource TextControlBorderBrush}"/>
-            <Setter Property="SelectionHighlightColor" Value="{ThemeResource TextControlSelectionHighlightColor}"/>
+            <Setter Property="SelectionHighlightColor" Value="#7D1B0A"/>
             <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}"/>
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
@@ -230,29 +230,55 @@
 
     <Grid Background="#C92306">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
         <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
             <TextBlock Foreground="#FFFFFF">Welcome.</TextBlock>
         </Viewbox>
 
-        <TextBox 
-            Name="inputUrlTextBox" KeyDown="HandleEnterPress" IsSpellCheckEnabled="False"
-            Style="{StaticResource TextBoxWithoutHover}" PlaceholderText="Enter your playlist/video link here." 
-            Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" 
-            VerticalAlignment="Center" MinHeight="32" 
-            BorderBrush="#7D1B0A" SelectionHighlightColor="#7D1B0A"></TextBox>
+        <AutoSuggestBox 
+            Name="inputBox" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Center"
+            PlaceholderText="Search or paste your video/live link here"
+            BorderBrush="#7D1B0A" MinHeight="32" TextBoxStyle="{StaticResource YTGBOTextBox}"
+            TextChanged="inputBox_TextChanged" UpdateTextOnSelect="True" TextMemberPath="VideoTitle" QuerySubmitted="inputBox_QuerySubmitted">
+            <AutoSuggestBox.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </AutoSuggestBox.ItemContainerStyle>
+            <AutoSuggestBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="ItemGrid" Background="#C92306" HorizontalAlignment="Stretch" BorderBrush="#7D1B0A" BorderThickness="0,0,0,1" VerticalAlignment="Stretch" MinWidth="150">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="{Binding VideoTitle}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" FontSize="14" HorizontalAlignment="Left" Foreground="#FFFFFF"/>
+                        <TextBlock Text="{Binding ChannelTitle}" Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Left"  Foreground="#FFFFFF"/>
+                    </Grid>
+                </DataTemplate>
+            </AutoSuggestBox.ItemTemplate>
+        </AutoSuggestBox>
+        
         <Button 
             Name="PlayButton" Style="{StaticResource ButtonWithoutHover}" 
             Grid.Row="1" Grid.Column="5" 
@@ -263,11 +289,13 @@
                 <Path Fill="#FFFFFF" StrokeThickness="1" Data="m470.46 247.28-120.92-69.19-183.86-105.69-74.98-43.54-41.13-21.09v483.84l50.75-26.62 87.09-50.12 171.83-98.87 111.22-63.9 2.48-2.41-2.48-2.41"/>
             </Viewbox>
         </Button>
+
         <ProgressRing 
             Name="LoadingRing" Grid.Column="3" Grid.Row="2"
             Foreground="#FFFFFF" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
         <TextBlock 
             Name="ErrorMessage" Grid.Column="3" Grid.Row="2" Visibility="Collapsed"
-            Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center">fsadfasdf</TextBlock>
+            Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
     </Grid>
 </Page>
