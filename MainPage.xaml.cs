@@ -237,6 +237,7 @@ namespace YoutubeGameBarOverlay {
             {
                 if (inputBox.Text.Length >= 8 &&inputBox.Text.Substring(0,8) == "https://")
                 {
+                    SetAsMediaURL(inputBox.Text);
                     PrepareToPlay();
                 }
                 else
