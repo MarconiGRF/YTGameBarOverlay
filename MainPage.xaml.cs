@@ -27,7 +27,7 @@ namespace YoutubeGameBarOverlay {
         }
 
         /// <summary>
-        /// Cleans the app variables as soon as frame navigates to MainPage.
+        /// Cleans the page variables as soon as frame navigates to MainPage.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -41,6 +41,8 @@ namespace YoutubeGameBarOverlay {
 
         /// <summary>
         /// Handles the click on Play Button.
+        /// 
+        /// In case of no video has been searched, show an error.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
@@ -48,7 +50,7 @@ namespace YoutubeGameBarOverlay {
         {
             ListItems list = (ListItems)this.inputBox.ItemsSource;
             
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 SetAsMediaURL(list.ElementAt(0).VideoId);
                 PrepareToPlay();
