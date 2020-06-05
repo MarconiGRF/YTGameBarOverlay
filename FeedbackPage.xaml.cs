@@ -9,8 +9,6 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarOverlay;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace YoutubeGameBarWidget
 {
     /// <summary>
@@ -25,7 +23,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Cleans the fields as soon as frame navigates to MainPage.
+        /// Cleans the fields as soon as frame navigates to Feedback Page.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -42,6 +40,11 @@ namespace YoutubeGameBarWidget
             base.OnNavigatedTo(e);
         }
 
+        /// <summary>
+        /// Handles the app behavior when Send button is clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             this.ErrorMessage.Visibility = Visibility.Collapsed;
@@ -74,7 +77,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Auxiliary method to asynchronously update UI on a InLoadingState(true) ocasion.
+        /// Auxiliary method to asynchronously update UI on a "Error Sending feedback" ocasion.
         /// </summary>
         private async void ErrorSending()
         {
@@ -91,7 +94,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Auxiliary method to asynchronously update UI on a InLoadingState(true) ocasion.
+        /// Auxiliary method to asynchronously update UI on a "Sending feedback" ocasion.
         /// </summary>
         private async void SendingState()
         {
@@ -108,7 +111,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Auxiliary method to asynchronously update UI on a InLoadingState(true) ocasion.
+        /// Auxiliary method to asynchronously update UI on a "Finished sending feedback" ocasion.
         /// </summary>
         private async void DoneSending()
         {
@@ -132,7 +135,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// 
+        /// Composes a message using the given page information and sends it using the current environment variables configuration.
         /// </summary>
         /// <returns></returns>
         private bool sendMessage()

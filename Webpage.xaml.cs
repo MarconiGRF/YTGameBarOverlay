@@ -20,7 +20,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Cleans the Webpage's content after frame navigates from it.
+        /// Cleans Webpage's content after frame navigates from it.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -42,6 +42,11 @@ namespace YoutubeGameBarWidget
             base.OnNavigatedTo(e);
         }
 
+        /// <summary>
+        /// Presents VideoUI. 
+        /// 
+        /// Hiding the WebView, showing the tips and finally presents Webview.
+        /// </summary>
         private async void PresentPage()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
@@ -65,7 +70,7 @@ namespace YoutubeGameBarWidget
 
         /// <summary>
         /// Handles the keypresses on Webpage's main grid.
-        /// In case Backspace is pressed, executes navigates back to the main screen.
+        /// In case Backspace is pressed, navigates back to the main screen.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="keyArgs"></param>
