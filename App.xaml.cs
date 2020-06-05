@@ -7,7 +7,6 @@ using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
 using YoutubeGameBarWidget.WebServer;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace YoutubeGameBarOverlay
@@ -36,7 +35,7 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         private void SetEnvVars()
         {
-            string[] vars = File.ReadAllText("./.env").Split("\n");
+            string[] vars = File.ReadAllText("./.env").Split("\r\n");
 
             foreach(string var in vars)
             {

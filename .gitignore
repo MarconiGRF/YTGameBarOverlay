@@ -10,6 +10,7 @@ AppPackages/*
 packages/*
 bin/*
 BundleArtifacts/*
+Package.StoreAssociation.xml
 
 # User Specific Files
 *.user

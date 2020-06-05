@@ -8,11 +8,11 @@
   IgnorableNamespaces="uap uap3 mp">
 
 	<Identity
-	  Name="91c9800a-9154-4091-bb4c-3532b6b52b90"
-	  Publisher="CN=Marconi Gomes"
-	  Version="1.1.0.0" />
+	  Name="7772MarconiGomes.YoutubeGameBarOverlay"
+	  Publisher="CN=898CB6EC-BE9E-4A4A-B6D2-AF2A55B4118F"
+	  Version="1.1.1.0" />
 
-	<mp:PhoneIdentity PhoneProductId="91c9800a-9154-4091-bb4c-3532b6b52b90" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+	<mp:PhoneIdentity PhoneProductId="e3aa7c77-81b5-4b21-a173-a7e411312ab5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
 	<Properties>
 		<DisplayName>Youtube GameBar Overlay</DisplayName>

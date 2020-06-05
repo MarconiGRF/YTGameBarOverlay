@@ -60,6 +60,16 @@ namespace YoutubeGameBarOverlay {
         }
 
         /// <summary>
+        /// Handles the click on Feedback Button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void HandleFeedbackButton(object sender, RoutedEventArgs eventArgs)
+        {
+            this.Frame.Navigate(typeof(FeedbackPage));
+        }
+
+        /// <summary>
         /// Performs the necessary checks for validating the media URL, setting the XAML View states depending on the code worflow.
         /// </summary>
         private void PrepareToPlay()
@@ -148,6 +158,8 @@ namespace YoutubeGameBarOverlay {
         {
             string baseUri = "http://localhost:54523/?mediaUrl=";
             Uri videoUri = new Uri(baseUri + GetMediaId());
+            this.inputBox.Text = "";
+
             this.Frame.Navigate(typeof(Webpage), videoUri);
         }
 

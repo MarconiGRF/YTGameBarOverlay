@@ -8,6 +8,11 @@ An Extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as
 * 3: Build the VideoUI (Instructions on its readme), copy the content of `YoutubeGameBarVideoUI/dist/YoutubeGameBarVideoUI` inside `YoutubeGameBarOverlay/VideoUI`.  
 * 4: Rename the .env_sample to .env and update the necessary environment variables, which currently are:  
     *  YT_DATA_API_KEY (The YouTube Data API Key, used for implementing search)
+    *  YTGBO_SOURCE_MAIL_ADDRESS (The Source e-mail used to identify feedback e-mails)
+    *  YTGBO_DESTINATION_MAIL_ADDRESS (The destination e-mails where the feedbacks will go)
+    *  YTGBO_SMTP_SERVER_ADDRESS (The SMTP server address to be used to send feedback e-mails)
+    *  YTGBO_SMTP_USER (The SMTP Server's user login)
+    *  YTGBO_SMTP_PASSWORD (The SMTP Server's user password)
 * 5: Open the `YoutubeGameBarOverlay.sln` on Visual Studio.  
 * 6: Add the VideoUI files to the project
     * On VS' Team explorer, right click `VideoUI` Folder, then `Add...` > `Existing Item...`
