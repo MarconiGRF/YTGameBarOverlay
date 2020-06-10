@@ -1,0 +1,7 @@
+# Youtube GameBar Overlay's Privacy Policy
+
+## What do we do with your information:  
+1. The term "Name" used on Feedback screen is used to compose de Feedback Message. It cannot and will not be used to identify a user. No other further purpose or usage is planned for "Name" usage, also no future purpose will involve the "Name" provided by the user. "Name" will also not be shared with any organization or future disclosure or divulgation of the Youtube GameBar Overlay.
+
+## What does it mean?
+1. The term "Name" will be used only to compose the feedback message, which is used to improve the app's performance and funcitonality based on the messages we receive. It is not and will not be our purpose to identify identify the user, once that any string can be provided on "What's your name?" field.
