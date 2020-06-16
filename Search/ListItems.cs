@@ -21,6 +21,12 @@ namespace YoutubeGameBarWidget.Search
         public string ChannelTitle { get; set; }
         public string VideoId { get; set; }
 
+        /// <summary>
+        /// A list item object.
+        /// </summary>
+        /// <param name="videoTitle">The video title of the item.</param>
+        /// <param name="channelTitle">The channel title of the item.</param>
+        /// <param name="videoId">The video ID of the item.</param>
         public ListItem(string videoTitle, string channelTitle, string videoId)
         {
             this.VideoTitle = videoTitle;

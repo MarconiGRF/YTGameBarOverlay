@@ -18,6 +18,9 @@ namespace YoutubeGameBarWidget.Search
         private SearchListResponse _listResponse;
         public ListItems parsedResults;
 
+        /// <summary>
+        /// A simple constructor setting the common parameters for every request.
+        /// </summary>
         public Search()
         {
             _youtubeService = new YouTubeService(new BaseClientService.Initializer()
@@ -32,6 +35,11 @@ namespace YoutubeGameBarWidget.Search
             _listRequest.SafeSearch = SearchResource.ListRequest.SafeSearchEnum.None;
         }
 
+        /// <summary>
+        /// Performs a search request on Data API by the given term, parsing the response into a ListItems object.
+        /// </summary>
+        /// <param name="term">The term to compose the request.</param>
+        /// <returns></returns>
         public async Task ByTerm(string term)
         {
             this._listRequest.Q = term;
@@ -53,6 +61,10 @@ namespace YoutubeGameBarWidget.Search
             }
         }
 
+        /// <summary>
+        /// Returns the previously parsed result list from the last search by term.
+        /// </summary>
+        /// <returns></returns>
         public ListItems Retreive()
         {
             return this.parsedResults;
