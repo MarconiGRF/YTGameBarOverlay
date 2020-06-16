@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -133,14 +134,23 @@ namespace YoutubeGameBarOverlay {
         {
             if (mediaURL.Length <= 32)
             {
-                return false;
+                Regex ytCompressedUrlRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b(\/)");
+                if (ytCompressedUrlRegex.IsMatch(mediaURL))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                string youtubeBaseURLInput = mediaURL.Substring(0, 24);
-                string youtubeBaseURLExpected = "https://www.youtube.com/";
-                
-                if (youtubeBaseURLInput == youtubeBaseURLExpected)
+                string ytBaseURLInput = mediaURL.Substring(0, 24);
+                Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
+
+
+                if (ytBaseExpectedRegex.IsMatch(ytBaseURLInput))
                 {
                     return true;
                 }
@@ -174,6 +184,7 @@ namespace YoutubeGameBarOverlay {
         private string GetMediaId()
         {
             char argumentSeparator = '&';
+            char dashSeparator = '/';
             string videoSeparator = "v=";
             string playlistSeparator = "list=";
 
@@ -182,8 +193,15 @@ namespace YoutubeGameBarOverlay {
                 return mediaURL.Split(playlistSeparator)[1].Split(argumentSeparator).First();
             } 
             catch (IndexOutOfRangeException)
-            {   
-                return mediaURL.Split(videoSeparator)[1].Substring(0,11);
+            {
+                try
+                {
+                    return mediaURL.Split(videoSeparator)[1].Substring(0, 11);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    return mediaURL.Split(dashSeparator).Last();
+                }
             }
         }
 
@@ -256,10 +274,16 @@ namespace YoutubeGameBarOverlay {
             }
             else if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
-                if (inputBox.Text.Length >= 8 &&inputBox.Text.Substring(0,8) == "https://")
+                if (inputBox.Text.Length >= 8)
                 {
-                    SetAsMediaURL(inputBox.Text);
-                    PrepareToPlay();
+                    string inputStart = inputBox.Text.Substring(0, 8);
+                    Regex urlBaseRegex = new Regex(@"https?:\/\/");
+
+                    if (urlBaseRegex.IsMatch(inputStart))
+                    {
+                        SetAsMediaURL(inputBox.Text);
+                        PrepareToPlay();
+                    }
                 }
                 else
                 {
