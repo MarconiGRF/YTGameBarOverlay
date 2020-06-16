@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Windows.UI.Core;
@@ -269,7 +270,18 @@ namespace YoutubeGameBarOverlay {
                         RunUIUpdateByMethod(WeakLoading);
                     }
 
-                    await this.search.ByTerm(inputBox.Text);
+                    try
+                    {
+                        await this.search.ByTerm(inputBox.Text);
+                    }
+                    catch
+                    {
+                        this.inLoadingState = false;
+                        RunUIUpdateByMethod(FalseLoading);
+
+                        ShowErrorMessage("Search is not available now, please use links.");
+                        return;
+                    }
 
                     if (this.inLoadingState == true)
                     {

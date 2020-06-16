@@ -304,7 +304,7 @@
         </Button>
 
         <TextBlock 
-            Name="ErrorMessage" Grid.Column="3" Grid.Row="2" Visibility="Collapsed" TextWrapping="Wrap"
+            Name="ErrorMessage" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" Visibility="Collapsed" TextAlignment="Center" TextWrapping="Wrap"
             Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
     </Grid>
 </Page>
