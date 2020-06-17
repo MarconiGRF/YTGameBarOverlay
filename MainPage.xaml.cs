@@ -35,7 +35,7 @@ namespace YoutubeGameBarOverlay {
         {
             this.mediaURL = "";
             this.inputBox.Text = "";
-            InLoadingState(false);
+            this.InLoadingState(false);
 
             base.OnNavigatedTo(e);
         }
@@ -86,7 +86,7 @@ namespace YoutubeGameBarOverlay {
             else
             {
                 InLoadingState(false);
-                ShowErrorMessage("Invalid URL!");
+                ShowErrorMessage("The URL is not valid!");
             }
         }
 
@@ -94,10 +94,16 @@ namespace YoutubeGameBarOverlay {
         /// Shows an Error Message in the ErrorMessage's element.
         /// </summary>
         /// <param name="errorMessage">The error message to be displayed.</param>
-        public void ShowErrorMessage(string errorMessage)
+        public async void ShowErrorMessage(string errorMessage)
         {
-            ErrorMessage.Text = errorMessage;
-            ErrorMessage.Visibility = Visibility.Visible;
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+
+                        ErrorMessage.Text = errorMessage;
+                        ErrorMessage.Visibility = Visibility.Visible;
+                    }
+                );
         }
 
         /// <summary>
@@ -242,6 +248,11 @@ namespace YoutubeGameBarOverlay {
                         LoadingRing.IsActive = false;
                         inputBox.IsEnabled = true;
                         PlayButton.IsEnabled = true;
+
+                        if (ErrorMessage.Text != "")
+                        {
+                            ErrorMessage.Visibility = Visibility.Visible;
+                        }
                     }
                 );
         }
@@ -271,6 +282,7 @@ namespace YoutubeGameBarOverlay {
             {
                 inputBox.IsSuggestionListOpen = false;
                 sender.ItemsSource = new ListItems();
+                RunUIUpdateByMethod(FalseLoading);
             }
             else if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
@@ -299,8 +311,7 @@ namespace YoutubeGameBarOverlay {
                     }
                     catch
                     {
-                        this.inLoadingState = false;
-                        RunUIUpdateByMethod(FalseLoading);
+                        InLoadingState(false);
 
                         ShowErrorMessage("Search is not available now, please use links.");
                         return;
@@ -308,8 +319,7 @@ namespace YoutubeGameBarOverlay {
 
                     if (this.inLoadingState == true)
                     {
-                        this.inLoadingState = false;
-                        RunUIUpdateByMethod(FalseLoading);
+                        InLoadingState(false);
                     }
 
                     sender.ItemsSource = this.search.Retreive();
@@ -327,7 +337,7 @@ namespace YoutubeGameBarOverlay {
         {
             if (args.ChosenSuggestion != null)
             {
-                RunUIUpdateByMethod(TrueLoading);
+                InLoadingState(true);
                 ListItem chosenItem = (ListItem)args.ChosenSuggestion;
                 SetAsMediaURL("https://www.youtube.com/watch?v=" + chosenItem.VideoId);
 
