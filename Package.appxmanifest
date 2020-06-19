@@ -95,7 +95,6 @@
 				<Interface Name="Microsoft.Gaming.XboxGameBar.Private.IXboxGameBarWidgetPrivate" InterfaceId="22ABA97F-FB0F-4439-9BDD-2C67B2D5AA8F" />
 			</ProxyStub>
 		</Extension>
-
 	</Extensions>
 
 	<Capabilities>
