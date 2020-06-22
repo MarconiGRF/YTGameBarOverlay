@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,6 +24,7 @@ namespace YoutubeGameBarOverlay {
         public MainPage()
         {
             this.search = new Search();
+            this.search.FinishedFetchingResults += PresentResults;
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
@@ -53,7 +55,7 @@ namespace YoutubeGameBarOverlay {
             
             if (list != null && list.Count > 0)
             {
-                SetAsMediaURL(list.ElementAt(0).VideoId);
+                SetAsMediaURL(list.ElementAt(0).MediaUrl);
                 PrepareToPlay();
             }
             else
@@ -266,6 +268,7 @@ namespace YoutubeGameBarOverlay {
                     () =>
                     {
                         LoadingRing.IsActive = true;
+                        inputBox.IsSuggestionListOpen = false;
                         ErrorMessage.Visibility = Visibility.Collapsed;
                     }
                 );
@@ -296,36 +299,60 @@ namespace YoutubeGameBarOverlay {
                         SetAsMediaURL(inputBox.Text);
                         PrepareToPlay();
                     }
+                    else
+                    {
+                        await DoSearch();
+                    } 
                 }
                 else
                 {
-                    if (this.inLoadingState == false)
-                    {
-                        this.inLoadingState = true;
-                        RunUIUpdateByMethod(WeakLoading);
-                    }
-
-                    try
-                    {
-                        await this.search.ByTerm(inputBox.Text);
-                    }
-                    catch
-                    {
-                        InLoadingState(false);
-
-                        ShowErrorMessage("Search is not available now, please use links.");
-                        return;
-                    }
-
-                    if (this.inLoadingState == true)
-                    {
-                        InLoadingState(false);
-                    }
-
-                    sender.ItemsSource = this.search.Retreive();
-                    inputBox.IsSuggestionListOpen = true;
+                    await DoSearch();
                 }
             }
+        }
+
+        /// <summary>
+        /// Does the search using the text available on inputBox.
+        /// </summary>
+        /// <returns></returns>
+        private async Task DoSearch()
+        {
+            if (this.inLoadingState == false)
+            {
+                this.inLoadingState = true;
+                RunUIUpdateByMethod(WeakLoading);
+            }
+
+            try
+            {
+                await this.search.ByTerm(inputBox.Text);
+            }
+            catch (Exception ex)
+            {
+                if (!(ex is NotSupportedException))
+                {
+                    InLoadingState(false);
+                    ShowErrorMessage("Search is not available now, please use links.");
+                }
+                
+            }
+        }
+
+        /// <summary>
+        /// Presents the results on AutoSuggestBox when the results are ready.
+        /// This function is triggered by the Search's FinishedFetchingResults event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void PresentResults(Object sender, EventArgs e)
+        {
+            if (this.inLoadingState == true)
+            {
+                InLoadingState(false);
+            }
+
+            inputBox.ItemsSource = this.search.Retreive();
+            inputBox.IsSuggestionListOpen = true;
         }
 
         /// <summary>
@@ -339,7 +366,7 @@ namespace YoutubeGameBarOverlay {
             {
                 InLoadingState(true);
                 ListItem chosenItem = (ListItem)args.ChosenSuggestion;
-                SetAsMediaURL("https://www.youtube.com/watch?v=" + chosenItem.VideoId);
+                SetAsMediaURL(chosenItem.MediaUrl);
 
                 PrepareVideoUI();
             }

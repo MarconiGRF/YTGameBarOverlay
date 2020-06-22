@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace YoutubeGameBarWidget.Search
 {
@@ -19,19 +14,19 @@ namespace YoutubeGameBarWidget.Search
     {
         public string VideoTitle { get; set; }
         public string ChannelTitle { get; set; }
-        public string VideoId { get; set; }
+        public string MediaUrl { get; set; }
 
         /// <summary>
         /// A list item object.
         /// </summary>
         /// <param name="videoTitle">The video title of the item.</param>
         /// <param name="channelTitle">The channel title of the item.</param>
-        /// <param name="videoId">The video ID of the item.</param>
-        public ListItem(string videoTitle, string channelTitle, string videoId)
+        /// <param name="mediaUrl">The Media URL of the item.</param>
+        public ListItem(string videoTitle, string channelTitle, string mediaUrl)
         {
             this.VideoTitle = videoTitle;
             this.ChannelTitle = channelTitle;
-            this.VideoId = videoId;
+            this.MediaUrl = mediaUrl;
         }
     }
 }

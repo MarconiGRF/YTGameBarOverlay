@@ -1,64 +1,76 @@
-﻿using Google.Apis.Services;
-using Google.Apis.YouTube.v3;
-using Google.Apis.YouTube.v3.Data;
-using System;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
+using Windows.Data.Json;
 
 namespace YoutubeGameBarWidget.Search
 {
     /// <summary>
-    /// Implements a Data Retriever using Google's Youtube API.
+    /// Implements a Data Retriever using Youtube GameBar Search Server's service.
     /// 
-    /// For more details, see: https://developers.google.com/youtube/v3/docs/search/list
+    /// For more API details, see: https://github.com/MarconiGRF/YoutubeGameBarSearchServer
     /// </summary>
     class Search
     {
-        private YouTubeService _youtubeService;
-        private SearchResource.ListRequest _listRequest;
-        private SearchListResponse _listResponse;
+        private WebClient client;
+        private string ytgbssEndPoint;
         public ListItems parsedResults;
+        public event EventHandler FinishedFetchingResults;
 
         /// <summary>
-        /// A simple constructor setting the common parameters for every request.
+        /// The FinishedFetchingResults event method manager.
         /// </summary>
-        public Search()
+        /// <param name="e"></param>
+        protected virtual void OnFinishedFetchingResults(EventArgs e)
         {
-            _youtubeService = new YouTubeService(new BaseClientService.Initializer()
-            {
-                ApiKey = Environment.GetEnvironmentVariable("YT_DATA_API_KEY"),
-                ApplicationName = "YoutubeGameBarWidget"
-            });
-
-            this._listRequest = this._youtubeService.Search.List("snippet");
-            _listRequest.Type = "video";
-            _listRequest.MaxResults = 5;
-            _listRequest.SafeSearch = SearchResource.ListRequest.SafeSearchEnum.None;
+            EventHandler handler = FinishedFetchingResults;
+            handler?.Invoke(this, e);
         }
 
         /// <summary>
-        /// Performs a search request on Data API by the given term, parsing the response into a ListItems object.
+        /// A simple constructor setting the common parameters for every search request.
         /// </summary>
-        /// <param name="term">The term to compose the request.</param>
-        /// <returns></returns>
-        public async Task ByTerm(string term)
+        public Search()
         {
-            this._listRequest.Q = term;
-            this._listResponse = await _listRequest.ExecuteAsync();
+            this.ytgbssEndPoint = "http://" 
+                + Environment.GetEnvironmentVariable("YTGBSS_ADDRESS") + ":" 
+                + Environment.GetEnvironmentVariable("YTGBSS_PORT") + "/search/";
 
+            this.client = new WebClient();
+            this.client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            this.client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(ParseResults);
+        }
+
+        /// <summary>
+        /// Performs a search (GET) request on YTGBSS by the given term, raising events when the raw data is ready.
+        /// </summary>
+        /// <param name="givenTerm">The term to compose the request.</param>
+        /// <returns></returns>0
+        public async Task ByTerm(string givenTerm)
+        {
+            this.client.DownloadStringAsync(new Uri(ytgbssEndPoint + givenTerm));
+        }
+
+        /// <summary>
+        /// Parses the raw data into a ListItems object, raising FinishedFetchingResults event when finished.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ParseResults(Object sender, DownloadStringCompletedEventArgs e)
+        {
             this.parsedResults = new ListItems();
-            foreach (SearchResult resultItem in this._listResponse.Items)
+
+            JsonArray jArray = JsonArray.Parse((string)e.Result);
+            foreach (JsonValue jValue in jArray)
             {
-                switch (resultItem.Id.Kind)
-                {
-                    case "youtube#video":
-                        this.parsedResults.Add(new ListItem(
-                                resultItem.Snippet.Title, 
-                                resultItem.Snippet.ChannelTitle, 
-                                resultItem.Id.VideoId)
-                            );
-                        break;
-                }
+                JsonObject jObject = jValue.GetObject();
+                this.parsedResults.Add(new ListItem(
+                        jObject.GetNamedString("videoTitle"),
+                        jObject.GetNamedString("channelTitle"),
+                        jObject.GetNamedString("mediaUrl")));
             }
+
+            this.OnFinishedFetchingResults(EventArgs.Empty);
         }
 
         /// <summary>
