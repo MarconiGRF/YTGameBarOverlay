@@ -1,5 +1,5 @@
 # Youtube GameBar Overlay
-![Youtube GameBar Logo](https://raw.githubusercontent.com/MarconiGRF/YoutubeGameBarOverlay/master/Assets/Wide310x150Logo.scale-200.png)  
+![Youtube GameBar Logo](https://github.com/MarconiGRF/YoutubeGameBarOverlay/blob/master/Assets/SplashScreen.scale-200.png)  
 An Extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
 
 ## Setting up
@@ -7,8 +7,8 @@ An Extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as
 * 2: Clone the [VideoUI](https://github.com/MarconiGRF/YoutubeGameBarVideoUI) repository, it is the core of videos playback on this project.  
 * 3: Build the VideoUI (Instructions on its readme), copy the content of `YoutubeGameBarVideoUI/dist/YoutubeGameBarVideoUI` inside `YoutubeGameBarOverlay/VideoUI`.  
 * 4: Rename the .env_sample to .env and update the necessary environment variables, which currently are:  
-    *  YT_DATA_API_KEY (The YouTube Data API Key, used for implementing search)
-    *  YTGBO_SOURCE_MAIL_ADDRESS (The Source e-mail used to identify feedback e-mails)
+    *  YTGBSS_ADDRESS (The IP of a running [YTGBSS](https://github.com/MarconiGRF/YoutubeGameBarSearchServer) instance.)
+    *  YTGBO_SOURCE_MAIL_ADDRESS (The port of the previous YTGBSS instance.)
     *  YTGBO_DESTINATION_MAIL_ADDRESS (The destination e-mails where the feedbacks will go)
     *  YTGBO_SMTP_SERVER_ADDRESS (The SMTP server address to be used to send feedback e-mails)
     *  YTGBO_SMTP_USER (The SMTP Server's user login)
