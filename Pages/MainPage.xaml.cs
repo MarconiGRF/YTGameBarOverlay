@@ -11,16 +11,17 @@ using YoutubeGameBarWidget;
 using YoutubeGameBarWidget.Pages.PageObjects;
 using YoutubeGameBarWidget.Search;
 
-namespace YoutubeGameBarOverlay {
+namespace YoutubeGameBarOverlay
+{
     /// <summary>
     /// The main page of the overlay. It exists to the user input and validate the URL, invoke webserver and redirect it to the webpage.
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private string mediaURL;
         private Search search;
-        private Thread auxiliaryUIThread;
+        private Thread UIUpdateThread;
         private bool inLoadingState;
+        public string mediaURL;
 
         public MainPage()
         {
@@ -53,7 +54,7 @@ namespace YoutubeGameBarOverlay {
         private void HandlePlayButton(object sender, RoutedEventArgs eventArgs)
         {
             ListItems list = (ListItems)this.inputBox.ItemsSource;
-            
+
             if (list != null && list.Count > 0)
             {
                 SetAsMediaURL(list.ElementAt(0).MediaUrl);
@@ -137,35 +138,46 @@ namespace YoutubeGameBarOverlay {
         }
 
         /// <summary>
-        /// Checks if the MediaURL is a valid Youtube URL.
+        /// Checks if the MediaURL is a valid Youtube Video/Live URL.
         /// </summary>
-        private bool IsMediaURLValid()
+        public bool IsMediaURLValid()
         {
-            if (mediaURL.Length <= 32)
+            string playlistSeparator = "list=";
+            string userIdentifier = "/user/";
+            string channelIdentifier = "/channel/";
+
+            if (mediaURL.Contains(playlistSeparator) || mediaURL.Contains(userIdentifier) || mediaURL.Contains(channelIdentifier))
             {
-                Regex ytCompressedUrlRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b(\/)");
-                if (ytCompressedUrlRegex.IsMatch(mediaURL))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return false;
             }
             else
             {
-                string ytBaseURLInput = mediaURL.Substring(0, 24);
-                Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
-
-
-                if (ytBaseExpectedRegex.IsMatch(ytBaseURLInput))
+                if (mediaURL.Length <= 32)
                 {
-                    return true;
+                    Regex ytCompressedUrlRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b(\/)");
+                    if (ytCompressedUrlRegex.IsMatch(mediaURL))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+                    string ytBaseURLInput = mediaURL.Substring(0, 24);
+                    Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
+
+
+                    if (ytBaseExpectedRegex.IsMatch(ytBaseURLInput))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
         }
@@ -180,47 +192,38 @@ namespace YoutubeGameBarOverlay {
         private void PrepareVideoUI()
         {
             string baseUri = "http://localhost:54523/?mediaUrl=";
-            InformationPayload information = new InformationPayload(new Uri(baseUri + GetMediaId()), this);
+            InformationPayload information = new InformationPayload(new Uri(baseUri + GetMediaId(this.mediaURL)), this);
 
             this.Frame.Navigate(typeof(Webpage), information);
         }
 
         /// <summary>
-        /// Parses the Video ID from the current Media URL.
+        /// Parses the Video/Live ID from the givenMedia URL.
         /// </summary>
         /// <returns></returns>
-        public string GetMediaId()
+        public string GetMediaId(string url)
         {
-            char argumentSeparator = '&';
             char dashSeparator = '/';
             string videoSeparator = "v=";
-            string playlistSeparator = "list=";
 
             try
             {
-                return mediaURL.Split(playlistSeparator)[1].Split(argumentSeparator).First();
-            } 
+                return url.Split(videoSeparator)[1].Substring(0, 11);
+            }
             catch (IndexOutOfRangeException)
             {
-                try
-                {
-                    return mediaURL.Split(videoSeparator)[1].Substring(0, 11);
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    return mediaURL.Split(dashSeparator).Last();
-                }
+                return url.Split(dashSeparator).Last();
             }
         }
 
         /// <summary>
-        /// Asynchronously runs an UI updated defined by the given method using the auxiliary thread.
+        /// Asynchronously runs an UI updated defined by the given method using the UIUpdate thread.
         /// </summary>
         /// <param name="uiMethod">The UI update method to be executed.</param>
         private void RunUIUpdateByMethod(Action uiMethod)
         {
-            this.auxiliaryUIThread = new Thread(new ThreadStart(uiMethod));
-            this.auxiliaryUIThread.Start();
+            this.UIUpdateThread = new Thread(new ThreadStart(uiMethod));
+            this.UIUpdateThread.Start();
         }
 
         /// <summary>
@@ -281,7 +284,7 @@ namespace YoutubeGameBarOverlay {
         /// <param name="args"></param>
         private async void inputBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if(inputBox.Text == "")
+            if (inputBox.Text == "")
             {
                 inputBox.IsSuggestionListOpen = false;
                 sender.ItemsSource = new ListItems();
@@ -302,7 +305,7 @@ namespace YoutubeGameBarOverlay {
                     else
                     {
                         await DoSearch();
-                    } 
+                    }
                 }
                 else
                 {
@@ -312,7 +315,7 @@ namespace YoutubeGameBarOverlay {
         }
 
         /// <summary>
-        /// Does the search using the text available on inputBox.
+        /// Executes the search using the text available on inputBox.
         /// </summary>
         /// <returns></returns>
         private async Task DoSearch()
@@ -334,7 +337,7 @@ namespace YoutubeGameBarOverlay {
                     InLoadingState(false);
                     ShowErrorMessage("Search is not available now, please use links.");
                 }
-                
+
             }
         }
 

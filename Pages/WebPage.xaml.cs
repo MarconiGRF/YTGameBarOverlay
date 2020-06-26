@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarOverlay;
+using YoutubeGameBarWidget.Pages;
 using YoutubeGameBarWidget.Pages.PageObjects;
 
 namespace YoutubeGameBarWidget
@@ -16,6 +17,7 @@ namespace YoutubeGameBarWidget
     public sealed partial class Webpage : Page
     {
         private MainPage MainPageInstance;
+        private Thread UIUpdateThread;
         public Webpage()
         {
             this.InitializeComponent();
@@ -35,26 +37,38 @@ namespace YoutubeGameBarWidget
         /// <summary>
         /// Navigates to the given Video URL and show tips as soon as frame navigates to this Webpage.
         /// </summary>
-        /// <param name="e">The Video URI.</param>
+        /// <param name="e">The navigation events, may containing an InformationPayload.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            InformationPayload information = (InformationPayload)e.Parameter;
-            if(this.MainPageInstance == null)
+            if (e.Parameter != null)
             {
-                this.MainPageInstance = information.MainPage;
+                InformationPayload information = (InformationPayload)e.Parameter;
+                if (this.MainPageInstance == null)
+                {
+                    this.MainPageInstance = information.MainPage;
+                }
+
+                this.VideoUIWebpage.Navigate(information.VideoURI);
+                RunUIUpdateByMethod(PresentPage);
+
+                base.OnNavigatedTo(e);
             }
+        }
 
-            this.VideoUIWebpage.Navigate(information.VideoURI);
-            Thread t = new Thread(new ThreadStart(PresentPage));
-            t.Start();
-
-            base.OnNavigatedTo(e);
+        /// <summary>
+        /// Asynchronously runs an UI updated defined by the given method using the UIUpdate thread.
+        /// </summary>
+        /// <param name="uiMethod">The UI update method to be executed.</param>
+        private void RunUIUpdateByMethod(Action uiMethod)
+        {
+            this.UIUpdateThread = new Thread(new ThreadStart(uiMethod));
+            this.UIUpdateThread.Start();
         }
 
         /// <summary>
         /// Presents VideoUI. 
         /// 
-        /// Hiding the WebView, showing the tips and finally presents Webview.
+        /// Hides the WebView, showing the tips and finally presents Webview.
         /// </summary>
         private async void PresentPage()
         {
@@ -62,7 +76,7 @@ namespace YoutubeGameBarWidget
                         () =>
                             {
                                 this.VideoUIWebpage.Visibility = Visibility.Collapsed;
-                                EnterStoryboard.Begin();
+                                EnterTips.Begin();
                             }
                     );
 
@@ -71,7 +85,7 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
-                            ExitStoryboard.Begin();
+                            ExitTips.Begin();
                             this.VideoUIWebpage.Visibility = Visibility.Visible;
                         }
                     );
@@ -79,6 +93,7 @@ namespace YoutubeGameBarWidget
 
         /// <summary>
         /// Handles the keypresses on Webpage's main grid.
+        /// 
         /// In case Backspace is pressed, navigates back to the main screen.
         /// </summary>
         /// <param name="sender"></param>
@@ -87,8 +102,35 @@ namespace YoutubeGameBarWidget
         {
             if (keyArgs.Key == Windows.System.VirtualKey.Back)
             {
-                this.Frame.Navigate(typeof(YoutubeGameBarOverlay.MainPage));
+                this.Frame.Navigate(typeof(MainPage));
             }
+        }
+
+        /// <summary>
+        /// Handles redirects to inside the Webview, displaying the appropiate message.
+        /// 
+        /// In case of a valid URL selected by user, loads it on VideoUI. Otherwise, warn user about invalid link.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void LinkRedirectHandler(WebView sender, WebViewNewWindowRequestedEventArgs args)
+        {
+            string redirectUrl = args.Uri.ToString();
+            this.MainPageInstance.mediaURL = redirectUrl;
+
+            if (this.MainPageInstance.IsMediaURLValid() == true)
+            {
+                this.Frame.Navigate(typeof(WarnPage), new WarnPayload("Loading..."));
+
+                string baseUri = "http://localhost:54523/?mediaUrl=";
+                this.VideoUIWebpage.Navigate(new Uri(baseUri + this.MainPageInstance.GetMediaId(redirectUrl)));
+            }
+            else
+            {
+                this.Frame.Navigate(typeof(WarnPage), new WarnPayload("This link is not valid!"));
+            }
+            
+            args.Handled = true;
         }
     }
 }
