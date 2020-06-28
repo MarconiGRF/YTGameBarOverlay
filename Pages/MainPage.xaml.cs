@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarWidget;
+using YoutubeGameBarWidget.Pages;
 using YoutubeGameBarWidget.Pages.PageObjects;
 using YoutubeGameBarWidget.Search;
 
@@ -74,6 +75,16 @@ namespace YoutubeGameBarOverlay
         private void HandleFeedbackButton(object sender, RoutedEventArgs eventArgs)
         {
             this.Frame.Navigate(typeof(FeedbackPage));
+        }
+
+        /// <summary>
+        /// Handles the click at the Changelog Button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void HandleChangelogButton(object sender, RoutedEventArgs eventArgs)
+        {
+            this.Frame.Navigate(typeof(ChangelogPage));
         }
 
         /// <summary>

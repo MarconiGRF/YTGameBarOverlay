@@ -292,7 +292,7 @@
 
         <ProgressRing 
             Name="LoadingRing" Grid.Column="3" Grid.Row="2"
-            Foreground="#FFFFFF" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="True"/>
+            Foreground="#FFFFFF" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"/>
 
         <Button 
             Name="FeedbackButton" 
@@ -300,7 +300,15 @@
             HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
             Click="HandleFeedbackButton"
             Background="#C92306">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE715;" Foreground="White"></FontIcon>
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE715;" Foreground="White" FontSize="18"></FontIcon>
+        </Button>
+        <Button 
+            Name="ChangelogButton" 
+            Grid.Row="2" Grid.Column="1" 
+            HorizontalAlignment="right" MinWidth="32" MinHeight="32" 
+            Click="HandleChangelogButton"
+            Background="#C92306">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D5;" Foreground="White" FontSize="18"></FontIcon>
         </Button>
 
         <TextBlock 

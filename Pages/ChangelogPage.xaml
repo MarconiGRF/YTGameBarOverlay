@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="YoutubeGameBarWidget.Pages.ChangelogPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YoutubeGameBarWidget.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="#C92306">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="2.2*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="4" VerticalScrollBarVisibility="Auto">
+            <StackPanel Name="ScrollableContent"  HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        </ScrollViewer>
+        
+        <ProgressRing 
+            Name="LoadingRing" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3"
+            Foreground="#FFFFFF" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Button 
+            Name="BackButton" 
+            Grid.Row="5" Grid.Column="1" 
+            HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
+            Click="BackButton_Click"
+            Background="#C92306">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="White" FontSize="18"></FontIcon>
+        </Button>
+
+        <Viewbox Grid.Row="5" Grid.Column="3" >
+            <TextBlock Foreground="#FFFFFF" TextAlignment="Center">Changelog</TextBlock>
+        </Viewbox>
+
+        <Viewbox Grid.Row="5" Grid.Column="5">
+            <TextBlock Name="VersionDisplayer" Foreground="#FFFFFF" FontWeight="Light" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center">
+                Your version:
+                <LineBreak/>
+            </TextBlock>
+        </Viewbox>
+    </Grid>
+</Page>
