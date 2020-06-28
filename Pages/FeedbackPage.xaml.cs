@@ -20,6 +20,7 @@ namespace YoutubeGameBarWidget
         public FeedbackPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         /// <summary>
@@ -141,11 +142,11 @@ namespace YoutubeGameBarWidget
         private bool sendMessage()
         {
             var message = new MimeMessage();
-            string sourceMail = System.Environment.GetEnvironmentVariable("YTGBO_SOURCE_MAIL_ADDRESS");
-            string destinationMail = System.Environment.GetEnvironmentVariable("YTGBO_DESTINATION_MAIL_ADDRESS");
-            string smtpServerAddress = System.Environment.GetEnvironmentVariable("YTGBO_SMTP_SERVER_ADDRESS");
-            string smtpUser = System.Environment.GetEnvironmentVariable("YTGBO_SMTP_USER");
-            string smtpPassword = System.Environment.GetEnvironmentVariable("YTGBO_SMTP_PASSWORD");
+            string sourceMail = Environment.GetEnvironmentVariable("YTGBO_SOURCE_MAIL_ADDRESS");
+            string destinationMail = Environment.GetEnvironmentVariable("YTGBO_DESTINATION_MAIL_ADDRESS");
+            string smtpServerAddress = Environment.GetEnvironmentVariable("YTGBO_SMTP_SERVER_ADDRESS");
+            string smtpUser = Environment.GetEnvironmentVariable("YTGBO_SMTP_USER");
+            string smtpPassword = Environment.GetEnvironmentVariable("YTGBO_SMTP_PASSWORD");
 
             message.From.Add(new MailboxAddress("YTGBO Feedbacker", sourceMail));
             message.To.Add(new MailboxAddress("Marconi Gomes", destinationMail));
