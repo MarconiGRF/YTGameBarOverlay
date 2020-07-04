@@ -35,7 +35,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Navigates to the given Video URL and show tips as soon as frame navigates to this Webpage.
+        /// Navigates to the given Video URL and calls tips presentation as soon as the frame navigates to this WebPage.
         /// </summary>
         /// <param name="e">The navigation events, may containing an InformationPayload.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -93,7 +93,6 @@ namespace YoutubeGameBarWidget
 
         /// <summary>
         /// Handles the keypresses on Webpage's main grid.
-        /// 
         /// In case Backspace is pressed, navigates back to the main screen.
         /// </summary>
         /// <param name="sender"></param>
@@ -107,8 +106,7 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Handles redirects to inside the Webview, displaying the appropiate message.
-        /// 
+        /// Handles redirects to inside the Webview, displaying the appropiate message an acting based on the redirect URI.
         /// In case of a valid URL selected by user, loads it on VideoUI. Otherwise, warn user about invalid link.
         /// </summary>
         /// <param name="sender"></param>
@@ -122,8 +120,8 @@ namespace YoutubeGameBarWidget
             {
                 this.Frame.Navigate(typeof(WarnPage), new WarnPayload("Loading..."));
 
-                string baseUri = "http://localhost:54523/?mediaUrl=";
-                this.VideoUIWebpage.Navigate(new Uri(baseUri + this.MainPageInstance.GetMediaId(redirectUrl)));
+
+                this.VideoUIWebpage.Navigate(this.MainPageInstance.GetProperVideoUIUrl());
             }
             else
             {

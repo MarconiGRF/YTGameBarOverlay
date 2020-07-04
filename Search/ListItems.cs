@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 
 namespace YoutubeGameBarWidget.Search
 {
@@ -12,19 +14,30 @@ namespace YoutubeGameBarWidget.Search
 
     public class ListItem
     {
-        public string VideoTitle { get; set; }
+        public string MediaType { get; set; }
+        public string MediaTitle { get; set; }
         public string ChannelTitle { get; set; }
         public string MediaUrl { get; set; }
 
         /// <summary>
         /// A list item object.
         /// </summary>
-        /// <param name="videoTitle">The video title of the item.</param>
-        /// <param name="channelTitle">The channel title of the item.</param>
+        /// <param name="mediaType">The Media type (video or playlist), meant to be converted to a FontIcon Glyph string.</param>
+        /// <param name="videoTitle">The Media title of the item.</param>
+        /// <param name="channelTitle">The Channel title of the item.</param>
         /// <param name="mediaUrl">The Media URL of the item.</param>
-        public ListItem(string videoTitle, string channelTitle, string mediaUrl)
+        public ListItem(string mediaType, string mediaTitle, string channelTitle, string mediaUrl)
         {
-            this.VideoTitle = videoTitle;
+            if (mediaType == "playlist")
+            {
+                this.MediaType = "\xE8FD";
+            }
+            else
+            {
+                this.MediaType = "\xF5B0";
+            }
+
+            this.MediaTitle = mediaTitle;
             this.ChannelTitle = channelTitle;
             this.MediaUrl = mediaUrl;
         }

@@ -245,7 +245,7 @@
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
-            <TextBlock Foreground="#FFFFFF">Welcome.</TextBlock>
+            <TextBlock Foreground="#FFFFFF" TextAlignment="Center">Welcome.</TextBlock>
         </Viewbox>
 
         <AutoSuggestBox 
@@ -265,14 +265,14 @@
                     <Grid x:Name="ItemGrid" Background="#C92306" HorizontalAlignment="Stretch" BorderBrush="#7D1B0A" BorderThickness="0,0,0,1" VerticalAlignment="Stretch" MinWidth="150">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="6*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding VideoTitle}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" FontSize="14" HorizontalAlignment="Left" Foreground="#FFFFFF"/>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding MediaType}" Grid.RowSpan="2" Foreground="White"></FontIcon>
+                        <TextBlock Text="{Binding MediaTitle}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" FontSize="14" HorizontalAlignment="Left" Foreground="#FFFFFF"/>
                         <TextBlock Text="{Binding ChannelTitle}" Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Left"  Foreground="#FFFFFF"/>
                     </Grid>
                 </DataTemplate>
