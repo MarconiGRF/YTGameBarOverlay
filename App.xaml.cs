@@ -16,8 +16,8 @@ namespace YoutubeGameBarOverlay
     /// </summary>
     sealed partial class App : Application
     {
-        private XboxGameBarWidget widget1 = null;
-        private WebServer ws = new WebServer();
+        private XboxGameBarWidget widget;
+        private WebServer ws;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -26,6 +26,7 @@ namespace YoutubeGameBarOverlay
         public App()
         {
             SetEnvVars();
+            this.ws = new WebServer();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
@@ -77,7 +78,7 @@ namespace YoutubeGameBarOverlay
                     rootFrame.NavigationFailed += OnNavigationFailed;
                     Window.Current.Content = rootFrame;
 
-                    widget1 = new XboxGameBarWidget(
+                    widget = new XboxGameBarWidget(
                         widgetArgs,
                         Window.Current.CoreWindow,
                         rootFrame);
@@ -102,7 +103,7 @@ namespace YoutubeGameBarOverlay
         /// <param name="e"></param>
         private async void MainPageWindow_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
         {
-            widget1 = null;
+            widget = null;
             Window.Current.Closed -= MainPageWindow_Closed;
         }
 

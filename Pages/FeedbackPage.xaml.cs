@@ -1,6 +1,4 @@
-﻿using MailKit.Net.Smtp;
-using MimeKit;
-using System;
+﻿using System;
 using System.Text;
 using System.Threading;
 using Windows.UI.Core;
@@ -141,40 +139,7 @@ namespace YoutubeGameBarWidget
         /// <returns></returns>
         private bool sendMessage()
         {
-            var message = new MimeMessage();
-            string sourceMail = Environment.GetEnvironmentVariable("YTGBO_SOURCE_MAIL_ADDRESS");
-            string destinationMail = Environment.GetEnvironmentVariable("YTGBO_DESTINATION_MAIL_ADDRESS");
-            string smtpServerAddress = Environment.GetEnvironmentVariable("YTGBO_SMTP_SERVER_ADDRESS");
-            string smtpUser = Environment.GetEnvironmentVariable("YTGBO_SMTP_USER");
-            string smtpPassword = Environment.GetEnvironmentVariable("YTGBO_SMTP_PASSWORD");
-
-            message.From.Add(new MailboxAddress("YTGBO Feedbacker", sourceMail));
-            message.To.Add(new MailboxAddress("Marconi Gomes", destinationMail));
-            message.Subject = "Feedback";
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append(FeedbackTextBox.Text);
-            sb.Append("\n\n");
-            sb.Append("Author: " + FeedBackAuthor.Text);
-
-            message.Body = new TextPart("plain") { Text = sb.ToString() };
-
-            using (var client = new SmtpClient())
-            {
-                try
-                {
-                    client.Connect(smtpServerAddress, 25, false);
-                    client.Authenticate(smtpUser, smtpPassword);
-
-                    client.Send(message);
-                    client.Disconnect(true);
-                }
-                catch (Exception)
-                {
-                    //Mailing error.
-                    return false;
-                }
-            }
+            
 
             return true;
         }

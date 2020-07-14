@@ -121,7 +121,7 @@ namespace YoutubeGameBarWidget
                 this.Frame.Navigate(typeof(WarnPage), new WarnPayload("Loading..."));
 
 
-                this.VideoUIWebpage.Navigate(this.MainPageInstance.GetProperVideoUIUrl());
+                this.VideoUIWebpage.Navigate(this.MainPageInstance.GetProperVideoUIUri());
             }
             else
             {

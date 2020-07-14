@@ -204,29 +204,9 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         private void PrepareVideoUI()
         {
-            InformationPayload information = new InformationPayload(GetProperVideoUIUrl(), this);
+            InformationPayload information = new InformationPayload(GetProperVideoUIUri(), this);
 
             this.Frame.Navigate(typeof(Webpage), information);
-        }
-
-        public Uri GetProperVideoUIUrl()
-        {
-            Uri properVideoUIURI;
-            string baseAddress = "http://localhost:54523/?";
-            string videoQuerystring = "videoId=";
-            string playlistQuerystring = "listId=";
-
-            string mediaId = GetMediaId(this.mediaURL);
-            if (mediaId.Length > 11)
-            {
-                properVideoUIURI = new Uri(baseAddress + playlistQuerystring + mediaId);
-            }
-            else
-            {
-                properVideoUIURI = new Uri(baseAddress + videoQuerystring + mediaId);
-            }
-
-            return properVideoUIURI;
         }
 
         /// <summary>
@@ -237,18 +217,19 @@ namespace YoutubeGameBarOverlay
         public Uri GetProperVideoUIUri()
         {
             Uri properVideoUIURI;
-            string baseAddress = "http://localhost:54523/?";
-            string videoQuerystring = "videoId=";
-            string playlistQuerystring = "listId=";
+            string baseAddress = "http://localhost:";
+            string ytgbwsPort = Environment.GetEnvironmentVariable("YTGBWS_PORT");
+            string videoQuerystring = "/?videoId=";
+            string playlistQuerystring = "/?listId=";
 
             string mediaId = GetMediaId(this.mediaURL);
             if (mediaId.Length > 11)
             {
-                properVideoUIURI = new Uri(baseAddress + playlistQuerystring + mediaId);
+                properVideoUIURI = new Uri(baseAddress + ytgbwsPort + playlistQuerystring + mediaId);
             }
             else
             {
-                properVideoUIURI = new Uri(baseAddress + videoQuerystring + mediaId);
+                properVideoUIURI = new Uri(baseAddress + ytgbwsPort + videoQuerystring + mediaId);
             }
 
             return properVideoUIURI;

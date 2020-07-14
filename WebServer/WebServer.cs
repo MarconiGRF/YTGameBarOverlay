@@ -29,7 +29,7 @@ namespace YoutubeGameBarWidget.WebServer
         {
             this.listener = new StreamSocketListener();
             this.listener.ConnectionReceived += (sender, eventArgs) => ProcessRequestAsync(eventArgs.Socket);
-            this.listener.BindServiceNameAsync("54523");
+            this.listener.BindServiceNameAsync(Environment.GetEnvironmentVariable("YTGBWS_PORT"));
         }
 
         /// <summary>
