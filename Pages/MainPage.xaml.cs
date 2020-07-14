@@ -157,18 +157,19 @@ namespace YoutubeGameBarOverlay
             string userRoute = "/user/";
             string channelRoute = "/channel/";
             string redirKW = "redirect";
+            string featureKW = "feature";
             string eventQuery = "event=";
 
-            if (mediaURL.Contains(userRoute) || mediaURL.Contains(channelRoute) || mediaURL.Contains(redirKW) || mediaURL.Contains(eventQuery))
+            if (mediaURL.Contains(userRoute) || mediaURL.Contains(channelRoute) || mediaURL.Contains(redirKW) || mediaURL.Contains(eventQuery) || mediaURL.Contains(featureKW))
             {
                 return false;
             }
             else
             {
+                Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?youtu(\.be)?(be)?\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
                 if (mediaURL.Length <= 32)
                 {
-                    Regex ytCompressedUrlRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b(\/)");
-                    if (ytCompressedUrlRegex.IsMatch(mediaURL))
+                    if (ytBaseExpectedRegex.IsMatch(mediaURL))
                     {
                         return true;
                     }
@@ -180,8 +181,6 @@ namespace YoutubeGameBarOverlay
                 else
                 {
                     string ytBaseURLInput = mediaURL.Substring(0, 24);
-                    Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?[-a-zA-Z]{1,10}\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
-
 
                     if (ytBaseExpectedRegex.IsMatch(ytBaseURLInput))
                     {
@@ -339,25 +338,36 @@ namespace YoutubeGameBarOverlay
             }
             else if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
-                if (inputBox.Text.Length >= 8)
+                try
                 {
-                    string inputStart = inputBox.Text.Substring(0, 8);
-                    Regex urlBaseRegex = new Regex(@"https?:\/\/");
-
-                    if (urlBaseRegex.IsMatch(inputStart))
+                    if (inputBox.Text.Length >= 8)
                     {
-                        SetAsMediaURL(inputBox.Text);
-                        PrepareToPlay();
+                        string inputStart = inputBox.Text.Substring(0, 8);
+                        Regex urlBaseRegex = new Regex(@"https?:\/\/");
+
+                        if (urlBaseRegex.IsMatch(inputStart))
+                        {
+                            SetAsMediaURL(inputBox.Text);
+                            PrepareToPlay();
+                        }
+                        else
+                        {
+                            await DoSearch();
+                        }
                     }
                     else
                     {
                         await DoSearch();
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    await DoSearch();
+                    if (!(ex is NotSupportedException))
+                    {
+                        ShowErrorMessage("Search is not available now, please use links.");
+                    }
                 }
+                
             }
         }
 
