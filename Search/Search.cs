@@ -57,7 +57,7 @@ namespace YoutubeGameBarWidget.Search
         /// Performs a search (GET) request on YTGBSS by the given term, raising events when the raw data is ready.
         /// </summary>
         /// <param name="givenTerm">The term to compose the request.</param>
-        /// <returns></returns>0
+        /// <returns></returns>
         public async Task ByTerm(string givenTerm)
         {
             this.client.DownloadStringAsync(new Uri(ytgbssEndPoint + givenTerm));
