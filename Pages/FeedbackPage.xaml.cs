@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Data;
+using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Threading;
+using Windows.Data.Json;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,15 +14,24 @@ using YoutubeGameBarOverlay;
 namespace YoutubeGameBarWidget
 {
     /// <summary>
-    /// A feedback page to share and improve app experiences.
+    /// A feedback page to share and improve app experiences using Youtube Game Bar Feedback Server's services.
+    /// 
+    /// For more API details, see: https://github.com/MarconiGRF/YoutubeGameBarFeedbackServer
     /// </summary>
     public sealed partial class FeedbackPage : Page
     {
         private Thread auxiliaryUIThread;
+        private Uri ytgbfsUri;
         public FeedbackPage()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.ytgbfsUri = new Uri(
+                "http://" + 
+                Environment.GetEnvironmentVariable("YTGBFS_ADDRESS") + 
+                ":" +
+                Environment.GetEnvironmentVariable("YTGBFS_PORT") +
+                "/feedback");
         }
 
         /// <summary>
@@ -61,18 +74,45 @@ namespace YoutubeGameBarWidget
             else
             {
                 RunUIUpdateByMethod(SendingState);
-
-                if (sendMessage() == true)
-                {
-                    this.SendButtonText.Text = "Sent!";
-                    RunUIUpdateByMethod(DoneSending);
-                }
-                else
-                {
-                    RunUIUpdateByMethod(ErrorSending);
-                }
+                sendMessage();
             }
 
+        }
+
+        /// <summary>
+        /// Composes a message using the given page information and sends it using the current environment variables configuration.
+        /// </summary>
+        /// <returns></returns>
+        private void sendMessage()
+        {
+            StringBuilder feedbackContent = new StringBuilder();
+            feedbackContent.Append(FeedbackTextBox.Text);
+            feedbackContent.Append("\n\n");
+            feedbackContent.Append("Author: " + FeedBackAuthor.Text);
+
+            JsonObject json = new JsonObject();
+            json.Add("message", JsonValue.CreateStringValue(feedbackContent.ToString()));
+
+            WebClient client = new WebClient();
+            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            client.UploadDataCompleted += new UploadDataCompletedEventHandler(EvaluateResult);
+            client.UploadDataAsync(this.ytgbfsUri, "POST", Encoding.UTF8.GetBytes(json.Stringify()));
+        }
+
+        private void EvaluateResult(Object sender, UploadDataCompletedEventArgs e)
+        {
+            try
+            {
+                string result = Encoding.UTF8.GetString(e.Result);
+                if (result == "OK")
+                {
+                    RunUIUpdateByMethod(DoneSending);
+                }
+            }
+            catch
+            {
+                RunUIUpdateByMethod(ErrorSending);
+            }
         }
 
         /// <summary>
@@ -117,6 +157,7 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
+                        this.SendButtonText.Text = "Sent!";
                         this.LoadingRing.IsEnabled = false;
                         this.LoadingRing.Visibility = Visibility.Collapsed;
                     }
@@ -131,17 +172,6 @@ namespace YoutubeGameBarWidget
         {
             this.auxiliaryUIThread = new Thread(new ThreadStart(uiMethod));
             this.auxiliaryUIThread.Start();
-        }
-
-        /// <summary>
-        /// Composes a message using the given page information and sends it using the current environment variables configuration.
-        /// </summary>
-        /// <returns></returns>
-        private bool sendMessage()
-        {
-            
-
-            return true;
         }
 
         /// <summary>
