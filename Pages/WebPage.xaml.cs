@@ -12,7 +12,7 @@ using YoutubeGameBarWidget.Pages.PageObjects;
 namespace YoutubeGameBarWidget
 {
     /// <summary>
-    /// A webview page able to display the desired video.
+    /// A webview page able to display the desired video using Youtube Game Bar's VideoUI.
     /// </summary>
     public sealed partial class Webpage : Page
     {

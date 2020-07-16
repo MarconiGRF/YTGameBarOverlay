@@ -8,7 +8,7 @@ using YoutubeGameBarWidget.Pages.PageObjects;
 namespace YoutubeGameBarWidget.Pages
 {
     /// <summary>
-    /// A page to show a warn message to the user.
+    /// A page to show a warning message to the user.
     /// </summary>
     public partial class WarnPage : Page
     {

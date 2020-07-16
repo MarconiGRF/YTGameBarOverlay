@@ -4,7 +4,7 @@ using YoutubeGameBarWidget.Pages;
 namespace YoutubeGameBarWidget.Pages.PageObjects
 {
     /// <summary>
-    /// An Warn payload, intended to carry information between Webpage and WarnPage .
+    /// An Warn payload, intended to carry information between Webpage and WarnPage.
     /// </summary>
     class WarnPayload
     {

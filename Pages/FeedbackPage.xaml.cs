@@ -47,6 +47,8 @@ namespace YoutubeGameBarWidget
             this.SendButtonText.Text = "Send";
             this.SendButton.IsEnabled = true;
 
+            this.ErrorMessage.Visibility = Visibility.Collapsed;
+
             base.OnNavigatedTo(e);
         }
 

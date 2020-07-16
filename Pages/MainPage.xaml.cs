@@ -15,7 +15,7 @@ using YoutubeGameBarWidget.Search;
 namespace YoutubeGameBarOverlay
 {
     /// <summary>
-    /// The main page of the overlay. It exists to the user input and validate the URL, invoke webserver and redirect it to the webpage.
+    /// The main page of the overlay.
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -69,7 +69,7 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
-        /// Handles the click at the Feedback Button.
+        /// Handles the click at the Feedback Page Button navigating to it.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
@@ -79,7 +79,7 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
-        /// Handles the click at the Changelog Button.
+        /// Handles the click at the Changelog Page Button navigating to it.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
@@ -97,46 +97,12 @@ namespace YoutubeGameBarOverlay
 
             if (IsMediaURLValid() == true)
             {
-                PrepareVideoUI();
+                StartPlayback();
             }
             else
             {
                 InLoadingState(false);
                 ShowErrorMessage("The URL is not valid!");
-            }
-        }
-
-        /// <summary>
-        /// Shows an Error Message in the ErrorMessage element.
-        /// </summary>
-        /// <param name="errorMessage">The error message to be displayed.</param>
-        private async void ShowErrorMessage(string errorMessage)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                    () =>
-                    {
-
-                        ErrorMessage.Text = errorMessage;
-                        ErrorMessage.Visibility = Visibility.Visible;
-                    }
-                );
-        }
-
-        /// <summary>
-        /// Sets a "Loading State" for the objects in the page, enabling and disabling functionality based on the given value.
-        /// </summary>
-        /// <param name="value">The value indicating if it is in a loading state or not.</param>
-        private void InLoadingState(bool value)
-        {
-            if (value == true)
-            {
-                this.inLoadingState = true;
-                RunUIUpdateByMethod(TrueLoading);
-            }
-            else
-            {
-                this.inLoadingState = false;
-                RunUIUpdateByMethod(FalseLoading);
             }
         }
 
@@ -195,13 +161,13 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
-        /// Prepares the necessary elements to compose the video UI.
+        /// Prepares the necessary elements to start the playback on the WebPage.
         /// 
         /// These elements are:
         /// 1 - The Information payload to be passed to Webpage.
         /// 2 - Navigate to Webpage.
         /// </summary>
-        private void PrepareVideoUI()
+        private void StartPlayback()
         {
             InformationPayload information = new InformationPayload(GetProperVideoUIUri(), this);
 
@@ -209,7 +175,7 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
-        /// Gets the proper URI following YTGBO's VideoUI format.
+        /// Gets the proper URI following Youtube Game Bar's VideoUI format.
         /// Supported formats are described at https://github.com/MarconiGRF/YoutubeGameBarVideoUI
         /// </summary>
         /// <returns>A compatible VideoUI URI.</returns>
@@ -237,7 +203,7 @@ namespace YoutubeGameBarOverlay
         /// <summary>
         /// Parses the Video/Live ID from the given Media URL.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The parsed media ID.</returns>
         public string GetMediaId(string url)
         {
             char argumentSeparator = '&';
@@ -259,6 +225,147 @@ namespace YoutubeGameBarOverlay
                 {
                     return url.Split(dashSeparator).Last();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Handles the text changes on the Search bar.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private async void inputBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (inputBox.Text == "")
+            {
+                inputBox.IsSuggestionListOpen = false;
+                sender.ItemsSource = new ListItems();
+                RunUIUpdateByMethod(FalseLoading);
+            }
+            else if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                if (inputBox.Text.Length >= 8)
+                {
+                    string inputStart = inputBox.Text.Substring(0, 8);
+                    Regex urlBaseRegex = new Regex(@"https?:\/\/");
+
+                    if (urlBaseRegex.IsMatch(inputStart))
+                    {
+                        SetAsMediaURL(inputBox.Text);
+                        PrepareToPlay();
+                    }
+                    else
+                    {
+                        await DoSearch();
+                    }
+                }
+                else
+                {
+                    await DoSearch();
+                }                
+            }
+        }
+
+        /// <summary>
+        /// Handles the app behavior based on the selected suggestion.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void inputBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.ChosenSuggestion != null)
+            {
+                InLoadingState(true);
+                ListItem chosenItem = (ListItem)args.ChosenSuggestion;
+                SetAsMediaURL(chosenItem.MediaUrl);
+
+                StartPlayback();
+            }
+        }
+
+        /// <summary>
+        /// Executes the search using the text available on inputBox.
+        /// In case of a unkown exception is raised, shows a error message accordingly.
+        /// </summary>
+        private async Task DoSearch()
+        {
+            if (this.inLoadingState == false)
+            {
+                this.inLoadingState = true;
+                RunUIUpdateByMethod(WeakLoading);
+            }
+
+            try
+            {
+                await this.search.ByTerm(inputBox.Text);
+            }
+            catch (Exception ex)
+            {
+                if (!(ex is NotSupportedException))
+                {
+                    PresentSearchError(null, EventArgs.Empty);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Presents the results on AutoSuggestBox when the results are ready.
+        /// This function is triggered by the Search's FinishedFetchingResults event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void PresentResults(Object sender, EventArgs e)
+        {
+            if (this.inLoadingState == true)
+            {
+                InLoadingState(false);
+            }
+
+            inputBox.ItemsSource = this.search.Retreive();
+            inputBox.IsSuggestionListOpen = true;
+        }
+
+        /// <summary>
+        /// Presents a seach error when something went wrong with the request to server.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void PresentSearchError(Object sender, EventArgs e)
+        {
+            InLoadingState(false);
+            ShowErrorMessage("Search is not available now, please use links.");
+        }
+
+        /// <summary>
+        /// Shows an Error Message in the ErrorMessage element.
+        /// </summary>
+        /// <param name="errorMessage">The error message to be displayed.</param>
+        private async void ShowErrorMessage(string errorMessage)
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+
+                        ErrorMessage.Text = errorMessage;
+                        ErrorMessage.Visibility = Visibility.Visible;
+                    }
+                );
+        }
+
+        /// <summary>
+        /// Sets a "Loading State" for the objects in the page, enabling and disabling functionality based on the given value.
+        /// </summary>
+        /// <param name="value">The value indicating if it is in a loading state or not.</param>
+        private void InLoadingState(bool value)
+        {
+            if (value == true)
+            {
+                this.inLoadingState = true;
+                RunUIUpdateByMethod(TrueLoading);
+            }
+            else
+            {
+                this.inLoadingState = false;
+                RunUIUpdateByMethod(FalseLoading);
             }
         }
 
@@ -321,109 +428,6 @@ namespace YoutubeGameBarOverlay
                         ErrorMessage.Visibility = Visibility.Collapsed;
                     }
                 );
-        }
-
-        /// <summary>
-        /// Handles the text changes on the Search bar.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private async void inputBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (inputBox.Text == "")
-            {
-                inputBox.IsSuggestionListOpen = false;
-                sender.ItemsSource = new ListItems();
-                RunUIUpdateByMethod(FalseLoading);
-            }
-            else if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-            {
-                try
-                {
-                    if (inputBox.Text.Length >= 8)
-                    {
-                        string inputStart = inputBox.Text.Substring(0, 8);
-                        Regex urlBaseRegex = new Regex(@"https?:\/\/");
-
-                        if (urlBaseRegex.IsMatch(inputStart))
-                        {
-                            SetAsMediaURL(inputBox.Text);
-                            PrepareToPlay();
-                        }
-                        else
-                        {
-                            await DoSearch();
-                        }
-                    }
-                    else
-                    {
-                        await DoSearch();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (!(ex is NotSupportedException))
-                    {
-                        ShowErrorMessage("Search is not available now, please use links.");
-                    }
-                }
-                
-            }
-        }
-
-        /// <summary>
-        /// Executes the search using the text available on inputBox.
-        /// In case of a unkown exception is raised, shows a error message accordingly.
-        /// </summary>
-        private async Task DoSearch()
-        {
-            if (this.inLoadingState == false)
-            {
-                this.inLoadingState = true;
-                RunUIUpdateByMethod(WeakLoading);
-            }
-
-            await this.search.ByTerm(inputBox.Text);
-        }
-
-        /// <summary>
-        /// Presents the results on AutoSuggestBox when the results are ready.
-        /// This function is triggered by the Search's FinishedFetchingResults event.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void PresentResults(Object sender, EventArgs e)
-        {
-            if (this.inLoadingState == true)
-            {
-                InLoadingState(false);
-            }
-
-            inputBox.ItemsSource = this.search.Retreive();
-            inputBox.IsSuggestionListOpen = true;
-        }
-
-        public void PresentSearchError(Object sender, EventArgs e)
-        {
-            InLoadingState(false);
-            ShowErrorMessage("Search is not available now, please use links.");
-        }
-
-        /// <summary>
-        /// Handles the app behavior based on the selected suggestion.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="args"></param>
-        private void inputBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-        {
-            if (args.ChosenSuggestion != null)
-            {
-                InLoadingState(true);
-                ListItem chosenItem = (ListItem)args.ChosenSuggestion;
-                SetAsMediaURL(chosenItem.MediaUrl);
-
-                PrepareVideoUI();
-            }
         }
     }
 }

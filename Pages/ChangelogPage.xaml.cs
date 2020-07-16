@@ -26,11 +26,13 @@ namespace YoutubeGameBarWidget.Pages
     {
         List<String> changelogContent;
         string currentVersion;
-        
+        string githubReleasesEndpoint;
+
         public ChangelogPage()
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.githubReleasesEndpoint = "https://api.github.com/repos/MarconiGRF/YoutubeGameBarOverlay/releases";
         }
 
         /// <summary>
@@ -42,7 +44,7 @@ namespace YoutubeGameBarWidget.Pages
             if (this.currentVersion == null)
             {
                 GetFormattedAppVersion();
-                this.VersionDisplayer.Text = this.VersionDisplayer.Text + this.currentVersion;
+                this.VersionDisplayer.Text += this.currentVersion;
             }
 
             if (this.changelogContent == null)
@@ -97,9 +99,8 @@ namespace YoutubeGameBarWidget.Pages
             client.DownloadDataCompleted += new DownloadDataCompletedEventHandler(ParseResults);
             client.Headers.Add(HttpRequestHeader.Accept, "application/vnd.github.v3+json");
             client.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
-            string githubReleasesEndPoint = "https://api.github.com/repos/MarconiGRF/YoutubeGameBarOverlay/releases";
             
-            client.DownloadDataAsync(new Uri(githubReleasesEndPoint));
+            client.DownloadDataAsync(new Uri(this.githubReleasesEndpoint));
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace YoutubeGameBarWidget.Pages
             }
             catch
             {
-                this.changelogContent.Add("Error!11!!");
+                this.changelogContent.Add("Error!!1!!");
                 this.changelogContent.Add("Something went wrong while communicating with github. :(");
             }
 
@@ -132,7 +133,7 @@ namespace YoutubeGameBarWidget.Pages
         }
 
         /// <summary>
-        /// Inserts and updates the UI with stylished elements.
+        /// Inserts and updates the UI with stylished elements based on the results stored on changelogContent.
         /// 
         /// Each element could be a Version Title or Version Description.
         /// </summary>
