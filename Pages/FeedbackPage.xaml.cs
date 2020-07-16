@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-using System.Diagnostics;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -80,9 +78,8 @@ namespace YoutubeGameBarWidget
         }
 
         /// <summary>
-        /// Composes a message using the given page information and sends it using the current environment variables configuration.
+        /// Composes a feedback message using the given page information and sends it using the current Feedback Page's attributes instance.
         /// </summary>
-        /// <returns></returns>
         private void sendMessage()
         {
             StringBuilder feedbackContent = new StringBuilder();
@@ -99,6 +96,11 @@ namespace YoutubeGameBarWidget
             client.UploadDataAsync(this.ytgbfsUri, "POST", Encoding.UTF8.GetBytes(json.Stringify()));
         }
 
+        /// <summary>
+        /// Evaluates the result given by the response and acts accordingly to it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EvaluateResult(Object sender, UploadDataCompletedEventArgs e)
         {
             try
@@ -126,8 +128,7 @@ namespace YoutubeGameBarWidget
                         this.SendButtonText.Text = "Failed.";
                         this.ErrorMessage.Text = "Try again later.";
                         this.ErrorMessage.Visibility = Visibility.Visible;
-                        this.LoadingRing.IsEnabled = false;
-                        this.LoadingRing.Visibility = Visibility.Collapsed;
+                        this.LoadingRing.IsActive = false;
                     }
                 );
         }
@@ -143,8 +144,7 @@ namespace YoutubeGameBarWidget
                         this.SendButton.IsEnabled = false;
                         this.FeedbackTextBox.IsEnabled = false;
                         this.FeedBackAuthor.IsEnabled = false;
-                        this.LoadingRing.IsEnabled = true;
-                        this.LoadingRing.Visibility = Visibility.Visible;
+                        this.LoadingRing.IsActive = true;
                     }
                 );
         }
@@ -158,8 +158,7 @@ namespace YoutubeGameBarWidget
                     () =>
                     {
                         this.SendButtonText.Text = "Sent!";
-                        this.LoadingRing.IsEnabled = false;
-                        this.LoadingRing.Visibility = Visibility.Collapsed;
+                        this.LoadingRing.IsActive = false;
                     }
                 );
         }

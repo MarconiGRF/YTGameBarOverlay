@@ -243,7 +243,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.1*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="*"/>
@@ -265,14 +264,14 @@
         <TextBox 
             Name="FeedBackAuthor" IsSpellCheckEnabled="False"
             Style="{StaticResource YTGBOTextBox}" PlaceholderText="What's your name?"
-            Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" 
+            Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" 
             VerticalAlignment="Center" FontSize="12"
             BorderBrush="#7D1B0A" SelectionHighlightColor="#7D1B0A">
         </TextBox>
 
         <Button 
             Name="SendButton" Style="{StaticResource ButtonWithoutHover}" 
-            Grid.Row="6" Grid.Column="5" 
+            Grid.Row="5" Grid.Column="5" 
             HorizontalAlignment="Right" MinWidth="32"
             Click="SendButton_Click"
             Background="#7D1B0A" BorderBrush="#7D1B0A">
@@ -281,16 +280,16 @@
 
         <Button 
             Name="BackButton" 
-            Grid.Row="6" Grid.Column="1" 
+            Grid.Row="5" Grid.Column="1" 
             HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
             Click="BackButton_Click"
             Background="#C92306">
             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="White" FontSize="18"></FontIcon>
         </Button>
 
-        <TextBlock Name="ErrorMessage" Grid.Row="6" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+        <TextBlock Name="ErrorMessage" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
         <ProgressRing 
-            Name="LoadingRing" Grid.Row="6" Grid.Column="3"
-            Foreground="#FFFFFF" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False"/>
+            Name="LoadingRing" Grid.Row="5" Grid.Column="3"
+            Foreground="#FFFFFF" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"/>
     </Grid>
 </Page>
