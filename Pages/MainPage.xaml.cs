@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -120,42 +121,45 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         public bool IsMediaURLValid()
         {
-            string userRoute = "/user/";
-            string channelRoute = "/channel/";
-            string redirKW = "redirect";
-            string featureKW = "feature";
-            string eventQuery = "event=";
+            List<String> invalidWords = new List<string>();
+            invalidWords.Add("/user/");
+            invalidWords.Add("/channel/");
+            invalidWords.Add("redirect");
+            invalidWords.Add("share");
+            invalidWords.Add("login");
+            invalidWords.Add("event=");
 
-            if (mediaURL.Contains(userRoute) || mediaURL.Contains(channelRoute) || mediaURL.Contains(redirKW) || mediaURL.Contains(eventQuery) || mediaURL.Contains(featureKW))
+            foreach(string word in invalidWords)
             {
-                return false;
-            }
-            else
-            {
-                Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?youtu(\.be)?(be)?\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
-                if (mediaURL.Length <= 32)
+                if (mediaURL.Contains(word))
                 {
-                    if (ytBaseExpectedRegex.IsMatch(mediaURL))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
+                }
+            }
+            
+            Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?youtu(\.be)?(be)?\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
+            if (mediaURL.Length <= 32)
+            {
+                if (ytBaseExpectedRegex.IsMatch(mediaURL))
+                {
+                    return true;
                 }
                 else
                 {
-                    string ytBaseURLInput = mediaURL.Substring(0, 24);
+                    return false;
+                }
+            }
+            else
+            {
+                string ytBaseURLInput = mediaURL.Substring(0, 24);
 
-                    if (ytBaseExpectedRegex.IsMatch(ytBaseURLInput))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                if (ytBaseExpectedRegex.IsMatch(ytBaseURLInput))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
         }
