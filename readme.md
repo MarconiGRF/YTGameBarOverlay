@@ -10,16 +10,15 @@ An Extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as
 * 1: Clone this repository.  
 * 2: Clone the [VideoUI](https://github.com/MarconiGRF/YoutubeGameBarVideoUI) repository, it is the core of videos playback on this project.  
 * 3: Build the VideoUI (Instructions on its readme), copy the content of `YoutubeGameBarVideoUI/dist/YoutubeGameBarVideoUI` inside `YoutubeGameBarOverlay/VideoUI`.  
-* 4: Rename the .env_sample to .env and update the necessary environment variables, which currently are:  
-    *  YTGBSS_ADDRESS (The IP of a running [YTGBSS](https://github.com/MarconiGRF/YoutubeGameBarSearchServer) instance.)
-    *  YTGBO_SOURCE_MAIL_ADDRESS (The port of the previous YTGBSS instance.)
-    *  YTGBO_DESTINATION_MAIL_ADDRESS (The destination e-mails where the feedbacks will go)
-    *  YTGBO_SMTP_SERVER_ADDRESS (The SMTP server address to be used to send feedback e-mails)
-    *  YTGBO_SMTP_USER (The SMTP Server's user login)
-    *  YTGBO_SMTP_PASSWORD (The SMTP Server's user password)
+* 4: Rename the .env_sample to .env and update the necessary environment variables, which currently are:
+    *  YTGBFS_ADDRESS (The address of a running [YTGBFS](https://github.com/MarconiGRF/YoutubeGameBarFeedbackServer) instance.)
+    *  YTGBFS_PORT (The port of the previous YTGBFS instance.)
+    *  YTGBSS_ADDRESS= (The address of a running [YTGBSS](https://github.com/MarconiGRF/YoutubeGameBarSearchServer) instance.)
+    *  YTGBSS_PORT= (The port of the previous YTGBFS instance.)
+    *  YTGBWS_PORT= (The port of the Webserver contained in YTGBO)
 * 5: Open the `YoutubeGameBarOverlay.sln` on Visual Studio.  
 * 6: Add the VideoUI files to the project
-    * On VS' Team explorer, right click `VideoUI` Folder, then `Add...` > `Existing Item...`
+    * On VS' Solution explorer, right click `VideoUI` Folder, then `Add...` > `Existing Item...`
     * Select all files inside VideoUI/
 * 7: Update/install the NuGet Packages.  
 * 8: You're ready to contribute!
