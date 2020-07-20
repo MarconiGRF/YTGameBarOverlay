@@ -1,6 +1,6 @@
 # Youtube GameBar Overlay
 ![Youtube GameBar Logo](https://github.com/MarconiGRF/YoutubeGameBarOverlay/blob/master/Assets/SplashScreen.scale-200.png)  
-An Extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
+An extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
 
 ## Releases
 * [Get on Microsoft Store](https://www.microsoft.com/store/productId/9NK7J3V4LZS6)
@@ -34,6 +34,6 @@ Once that this overlay is intended to be used on Xbox Game Bar, and you're proba
 * 5: Once the process of deploy is succeed, press F5 to start debugging on Visual Studio (notice that it will **not** start the Overlay automatically).  
 * 6: Now go ahead to Xbox Game Bar (Windows + G), using the `Widget Menu` option select `Youtube GameBar Overlay`.  
 * 7: Pin the window and go back to Visual Studio.  
-* 8: Since step 7 Visual Studio should have already attached to the Overlay's process and you are now able to debug it properly.
+* 8: Since step 7 Visual Studio should have already attached to the YTGBO's process and you are now able to debug it properly.
 
 Everytime you change the code you'll need to redeploy to debug (Steps 4-7).
