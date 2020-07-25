@@ -17,7 +17,6 @@ namespace YoutubeGameBarWidget
     /// </summary>
     public sealed partial class Webpage : Page
     {
-        private MainPage MainPageInstance;
         private Thread UIUpdateThread;
         public Webpage()
         {
@@ -44,10 +43,6 @@ namespace YoutubeGameBarWidget
             if (e.Parameter != null)
             {
                 InformationPayload information = (InformationPayload)e.Parameter;
-                if (this.MainPageInstance == null)
-                {
-                    this.MainPageInstance = information.MainPage;
-                }
 
                 this.VideoUIWebpage.Navigate(information.VideoURI);
                 RunUIUpdateByMethod(PresentPage);
@@ -98,7 +93,7 @@ namespace YoutubeGameBarWidget
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="keyArgs"></param>
-        private async void HandleBackspacePress(object sender, KeyRoutedEventArgs keyArgs)
+        private void HandleBackspacePress(object sender, KeyRoutedEventArgs keyArgs)
         {
             if (keyArgs.Key == Windows.System.VirtualKey.Back)
             {
@@ -121,7 +116,7 @@ namespace YoutubeGameBarWidget
                 this.Frame.Navigate(typeof(WarnPage), new WarnPayload(Constants.Warn.Loading));
 
 
-                this.VideoUIWebpage.Navigate(this.MainPageInstance.GetProperVideoUIUri(redirectUrl));
+                this.VideoUIWebpage.Navigate(Utils.GetProperVideoUIUri(redirectUrl));
             }
             else
             {

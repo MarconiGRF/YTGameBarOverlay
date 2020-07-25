@@ -101,7 +101,7 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void MainPageWindow_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
+        private void MainPageWindow_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
         {
             widget = null;
             Window.Current.Closed -= MainPageWindow_Closed;
