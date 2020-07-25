@@ -115,14 +115,13 @@ namespace YoutubeGameBarWidget
         private void LinkRedirectHandler(WebView sender, WebViewNewWindowRequestedEventArgs args)
         {
             string redirectUrl = args.Uri.ToString();
-            this.MainPageInstance.mediaURL = redirectUrl;
 
-            if (this.MainPageInstance.IsMediaURLValid() == true)
+            if (Validator.IsMediaURLValid(redirectUrl) == true)
             {
                 this.Frame.Navigate(typeof(WarnPage), new WarnPayload(Constants.Warn.Loading));
 
 
-                this.VideoUIWebpage.Navigate(this.MainPageInstance.GetProperVideoUIUri());
+                this.VideoUIWebpage.Navigate(this.MainPageInstance.GetProperVideoUIUri(redirectUrl));
             }
             else
             {

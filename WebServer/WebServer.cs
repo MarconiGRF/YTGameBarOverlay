@@ -85,7 +85,7 @@ namespace YoutubeGameBarWidget.WebServer
                 {
                     //Due to the VideoUI's implementation, the mediaUrl comes in a QueryString. 
                     //So the path needs to be checked to return the correct file.
-                    if(Regex.IsMatch(path, "/[?](.+)"))
+                    if(Regex.IsMatch(path, Validator.RegexPatterns.PathFormat))
                     {
                          filePath += Constants.WebServer.IndexHTML;
                     }

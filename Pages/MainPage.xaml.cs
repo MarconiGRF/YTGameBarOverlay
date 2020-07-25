@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -97,7 +96,7 @@ namespace YoutubeGameBarOverlay
         {
             InLoadingState(true);
 
-            if (IsMediaURLValid() == true)
+            if (Validator.IsMediaURLValid(this.mediaURL) == true)
             {
                 StartPlayback();
             }
@@ -118,54 +117,6 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
-        /// Checks if the MediaURL is a valid Youtube video, live  or playlist URL.
-        /// </summary>
-        public bool IsMediaURLValid()
-        {
-            List<String> invalidWords = new List<string>();
-            invalidWords.Add("/user/");
-            invalidWords.Add("/channel/");
-            invalidWords.Add("redirect");
-            invalidWords.Add("share");
-            invalidWords.Add("login");
-            invalidWords.Add("event=");
-
-            foreach(string word in invalidWords)
-            {
-                if (mediaURL.Contains(word))
-                {
-                    return false;
-                }
-            }
-            
-            Regex ytBaseExpectedRegex = new Regex(@"https?:\/\/(www\.)?youtu(\.be)?(be)?\.[a-zA-Z]{1,6}\b([-a-zA-Z.\/]*)");
-            if (mediaURL.Length <= 32)
-            {
-                if (ytBaseExpectedRegex.IsMatch(mediaURL))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                string ytBaseURLInput = mediaURL.Substring(0, 24);
-
-                if (ytBaseExpectedRegex.IsMatch(ytBaseURLInput))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        /// <summary>
         /// Prepares the necessary elements to start the playback on the WebPage.
         /// 
         /// These elements are:
@@ -174,7 +125,7 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         private void StartPlayback()
         {
-            InformationPayload information = new InformationPayload(GetProperVideoUIUri(), this);
+            InformationPayload information = new InformationPayload(GetProperVideoUIUri(this.mediaURL), this);
 
             this.Frame.Navigate(typeof(Webpage), information);
         }
@@ -184,7 +135,7 @@ namespace YoutubeGameBarOverlay
         /// Supported formats are described at https://github.com/MarconiGRF/YoutubeGameBarVideoUI
         /// </summary>
         /// <returns>A compatible VideoUI URI.</returns>
-        public Uri GetProperVideoUIUri()
+        public Uri GetProperVideoUIUri(string _mediaUrl)
         {
             Uri properVideoUIURI;
             string baseAddress = Constants.VideoUI.BaseAddress;
@@ -192,7 +143,7 @@ namespace YoutubeGameBarOverlay
             string videoQS = Constants.VideoUI.VideoQueryString;
             string playlistQS = Constants.VideoUI.PlaylistQueryString;
 
-            string mediaId = GetMediaId(this.mediaURL);
+            string mediaId = GetMediaId(_mediaUrl);
             if (mediaId.Length > 11)
             {
                 properVideoUIURI = new Uri(baseAddress + ytgbwsPort + playlistQS + mediaId);
@@ -251,9 +202,8 @@ namespace YoutubeGameBarOverlay
                 if (inputBox.Text.Length >= 8)
                 {
                     string inputStart = inputBox.Text.Substring(0, 8);
-                    Regex urlBaseRegex = new Regex(@"https?:\/\/");
 
-                    if (urlBaseRegex.IsMatch(inputStart))
+                    if (Regex.IsMatch(inputStart, Validator.RegexPatterns.HTTPBaseExpected))
                     {
                         SetAsMediaURL(inputBox.Text);
                         PrepareToPlay();
