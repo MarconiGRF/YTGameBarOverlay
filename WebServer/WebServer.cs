@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -11,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.Networking.Sockets;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget.WebServer
 {
@@ -29,7 +28,7 @@ namespace YoutubeGameBarWidget.WebServer
         {
             this.listener = new StreamSocketListener();
             this.listener.ConnectionReceived += (sender, eventArgs) => ProcessRequestAsync(eventArgs.Socket);
-            this.listener.BindServiceNameAsync(Environment.GetEnvironmentVariable("YTGBWS_PORT"));
+            this.listener.BindServiceNameAsync(Utils.GetVar(Constants.Vars.WSPort));
         }
 
         /// <summary>
@@ -59,8 +58,12 @@ namespace YoutubeGameBarWidget.WebServer
                 string requestMethod = request.ToString().Split('\n').First();
                 string[] requestParts = requestMethod.Split(' ');
 
-                if (requestParts[0] == "GET") { await WriteResponseAsync(requestParts[1], output); }
-                else { throw new InvalidDataException("Request Method not supported: " + requestParts[0]); }
+                if (requestParts[0] == Constants.WebServer.GETMethod) {
+                    await WriteResponseAsync(requestParts[1], output); 
+                }
+                else {
+                    throw new InvalidDataException(Constants.WebServer.RequestNotSupportedException + requestParts[0]); 
+                }
             }
         }
 
@@ -74,8 +77,8 @@ namespace YoutubeGameBarWidget.WebServer
         {
             using (Stream response = output.AsStreamForWrite())
             {
-                string filePath = "VideoUI\\";
-                string fileExtension = "";
+                string filePath = Constants.WebServer.VideoUIFilePath;
+                string fileExtension = Constants.Common.EmptyString;
                 byte[] headerArray;
 
                 try
@@ -84,7 +87,7 @@ namespace YoutubeGameBarWidget.WebServer
                     //So the path needs to be checked to return the correct file.
                     if(Regex.IsMatch(path, "/[?](.+)"))
                     {
-                         filePath += "index.html";
+                         filePath += Constants.WebServer.IndexHTML;
                     }
                     else
                     {
@@ -95,12 +98,7 @@ namespace YoutubeGameBarWidget.WebServer
 
                     using (Stream fs = await videoUIDirectory.OpenStreamForReadAsync(filePath))
                     {
-                        string headerString = String.Format("HTTP/1.1 200 OK\r\n" +
-                                                      "Content-Length: {0}\r\n" +
-                                                      "{1}\r\n" +
-                                                      "Connection: close\r\n\r\n",
-                                                      fs.Length,
-                                                      determinateContentType(fileExtension));
+                        string headerString = String.Format(Constants.WebServer.OkHeader, fs.Length, determinateContentType(fileExtension));
                         headerArray = Encoding.UTF8.GetBytes(headerString);
                         await response.WriteAsync(headerArray, 0, headerArray.Length);
                         await fs.CopyToAsync(response);
@@ -108,9 +106,7 @@ namespace YoutubeGameBarWidget.WebServer
                 }
                 catch (FileNotFoundException)
                 {
-                    headerArray = Encoding.UTF8.GetBytes("HTTP/1.1 404 Not Found\r\n" +
-                                                         "Content-Length:0\r\n" +
-                                                         "Connection: close\r\n\r\n");
+                    headerArray = Encoding.UTF8.GetBytes(Constants.WebServer.NotFoundHeader);
                     await response.WriteAsync(headerArray, 0, headerArray.Length);
                 }
 
@@ -126,10 +122,10 @@ namespace YoutubeGameBarWidget.WebServer
         private string determinateContentType(string fileExtension)
         {
             Dictionary<string, string> contentType = new Dictionary<string, string>();
-            contentType.Add("js", "Content-Type: text/javascript");
-            contentType.Add("css", "Content-Type: text/css; charset=\"utf-8\"");
-            contentType.Add("html", "Content-Type: text/html");
-            contentType.Add("png", "Content-Type: image/png");
+            contentType.Add("js", Constants.WebServer.ContentJavascript);
+            contentType.Add("css", Constants.WebServer.ContentCSS);
+            contentType.Add("html", Constants.WebServer.ContentHTML);
+            contentType.Add("png", Constants.WebServer.ContentImage);
 
             switch (fileExtension)
             {

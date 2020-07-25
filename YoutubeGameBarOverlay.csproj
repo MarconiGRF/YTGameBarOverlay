@@ -150,6 +150,9 @@
     <Compile Include="Pages\WebPage.xaml.cs">
       <DependentUpon>WebPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\Utils.cs" />
+    <Compile Include="Utilities\Validator.cs" />
     <Compile Include="WebServer\WebServer.cs" />
   </ItemGroup>
   <ItemGroup>

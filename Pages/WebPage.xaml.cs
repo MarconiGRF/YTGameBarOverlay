@@ -8,6 +8,7 @@ using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarOverlay;
 using YoutubeGameBarWidget.Pages;
 using YoutubeGameBarWidget.Pages.PageObjects;
+using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget
 {
@@ -118,14 +119,14 @@ namespace YoutubeGameBarWidget
 
             if (this.MainPageInstance.IsMediaURLValid() == true)
             {
-                this.Frame.Navigate(typeof(WarnPage), new WarnPayload("Loading..."));
+                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(Constants.Warn.Loading));
 
 
                 this.VideoUIWebpage.Navigate(this.MainPageInstance.GetProperVideoUIUri());
             }
             else
             {
-                this.Frame.Navigate(typeof(WarnPage), new WarnPayload("This link is not valid!"));
+                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(Constants.Error.URLNotValid));
             }
             
             args.Handled = true;

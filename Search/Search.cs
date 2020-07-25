@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
-using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget.Search
 {
@@ -44,12 +44,10 @@ namespace YoutubeGameBarWidget.Search
         /// </summary>
         public Search()
         {
-            this.ytgbssEndPoint = "http://" 
-                + Environment.GetEnvironmentVariable("YTGBSS_ADDRESS") + ":" 
-                + Environment.GetEnvironmentVariable("YTGBSS_PORT") + "/current/search/";
+            this.ytgbssEndPoint = String.Format(Constants.Endpoints.SSBase, Utils.GetVar(Constants.Vars.SSAddress), Utils.GetVar(Constants.Vars.SSPort));
 
             this.client = new WebClient();
-            this.client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            this.client.Headers.Add(HttpRequestHeader.ContentType, Constants.Headers.Json);
             this.client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(ParseResults);
         }
 

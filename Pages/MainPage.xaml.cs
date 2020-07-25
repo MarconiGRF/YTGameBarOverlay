@@ -12,6 +12,7 @@ using YoutubeGameBarWidget;
 using YoutubeGameBarWidget.Pages;
 using YoutubeGameBarWidget.Pages.PageObjects;
 using YoutubeGameBarWidget.Search;
+using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarOverlay
 {
@@ -40,8 +41,8 @@ namespace YoutubeGameBarOverlay
         /// <param name="e">The navigation arguments.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.mediaURL = "";
-            this.inputBox.Text = "";
+            this.mediaURL = Constants.Common.EmptyString;
+            this.inputBox.Text = Constants.Common.EmptyString;
             this.InLoadingState(false);
 
             base.OnNavigatedTo(e);
@@ -65,7 +66,7 @@ namespace YoutubeGameBarOverlay
             }
             else
             {
-                ShowErrorMessage("Please select a video.");
+                ShowErrorMessage(Constants.Error.VideoNotSelected);
             }
         }
 
@@ -103,7 +104,7 @@ namespace YoutubeGameBarOverlay
             else
             {
                 InLoadingState(false);
-                ShowErrorMessage("The URL is not valid!");
+                ShowErrorMessage(Constants.Error.URLNotValid);
             }
         }
 
@@ -186,19 +187,19 @@ namespace YoutubeGameBarOverlay
         public Uri GetProperVideoUIUri()
         {
             Uri properVideoUIURI;
-            string baseAddress = "http://localhost:";
-            string ytgbwsPort = Environment.GetEnvironmentVariable("YTGBWS_PORT");
-            string videoQuerystring = "/?videoId=";
-            string playlistQuerystring = "/?listId=";
+            string baseAddress = Constants.VideoUI.BaseAddress;
+            string ytgbwsPort = Utils.GetVar(Constants.Vars.WSPort);
+            string videoQS = Constants.VideoUI.VideoQueryString;
+            string playlistQS = Constants.VideoUI.PlaylistQueryString;
 
             string mediaId = GetMediaId(this.mediaURL);
             if (mediaId.Length > 11)
             {
-                properVideoUIURI = new Uri(baseAddress + ytgbwsPort + playlistQuerystring + mediaId);
+                properVideoUIURI = new Uri(baseAddress + ytgbwsPort + playlistQS + mediaId);
             }
             else
             {
-                properVideoUIURI = new Uri(baseAddress + ytgbwsPort + videoQuerystring + mediaId);
+                properVideoUIURI = new Uri(baseAddress + ytgbwsPort + videoQS + mediaId);
             }
 
             return properVideoUIURI;
@@ -210,20 +211,20 @@ namespace YoutubeGameBarOverlay
         /// <returns>The parsed media ID.</returns>
         public string GetMediaId(string url)
         {
-            char argumentSeparator = '&';
-            char dashSeparator = '/';
-            string videoSeparator = "v=";
-            string listSeparator = "list=";
+            char qsSeparator = Constants.URL.QueryStringSeparator;
+            char dashSeparator = Constants.URL.DashSeparator;
+            string videoIdSeparator = Constants.URL.VideoIdSeparator;
+            string listIdSeparator = Constants.URL.ListIdSeparator;
 
             try
             {
-                return mediaURL.Split(listSeparator)[1].Split(argumentSeparator).First();
+                return mediaURL.Split(listIdSeparator)[1].Split(qsSeparator).First();
             }
             catch (IndexOutOfRangeException)
             {
                 try
                 {
-                    return url.Split(videoSeparator)[1].Substring(0, 11);
+                    return url.Split(videoIdSeparator)[1].Substring(0, 11);
                 }
                 catch (IndexOutOfRangeException)
                 {
@@ -239,7 +240,7 @@ namespace YoutubeGameBarOverlay
         /// <param name="args"></param>
         private async void inputBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (inputBox.Text == "")
+            if (inputBox.Text == Constants.Common.EmptyString)
             {
                 inputBox.IsSuggestionListOpen = false;
                 sender.ItemsSource = new ListItems();
@@ -336,7 +337,7 @@ namespace YoutubeGameBarOverlay
         public void PresentSearchError(Object sender, EventArgs e)
         {
             InLoadingState(false);
-            ShowErrorMessage("Search is not available now, please use links.");
+            ShowErrorMessage(Constants.Error.SearchNotAvailable);
         }
 
         /// <summary>
@@ -411,7 +412,7 @@ namespace YoutubeGameBarOverlay
                         inputBox.IsEnabled = true;
                         PlayButton.IsEnabled = true;
 
-                        if (ErrorMessage.Text != "")
+                        if (ErrorMessage.Text != Constants.Common.EmptyString)
                         {
                             ErrorMessage.Visibility = Visibility.Visible;
                         }

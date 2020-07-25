@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarOverlay;
+using YoutubeGameBarWidget.Utilities;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -32,7 +33,7 @@ namespace YoutubeGameBarWidget.Pages
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.githubReleasesEndpoint = "https://api.github.com/repos/MarconiGRF/YoutubeGameBarOverlay/releases";
+            this.githubReleasesEndpoint = Constants.Endpoints.Github;
         }
 
         /// <summary>
@@ -97,8 +98,8 @@ namespace YoutubeGameBarWidget.Pages
         {
             WebClient client = new WebClient();
             client.DownloadDataCompleted += new DownloadDataCompletedEventHandler(ParseResults);
-            client.Headers.Add(HttpRequestHeader.Accept, "application/vnd.github.v3+json");
-            client.Headers.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
+            client.Headers.Add(HttpRequestHeader.Accept, Constants.Headers.GithubJson);
+            client.Headers.Add(HttpRequestHeader.UserAgent, Constants.Headers.CommonUserAgent);
             
             client.DownloadDataAsync(new Uri(this.githubReleasesEndpoint));
         }
@@ -125,8 +126,8 @@ namespace YoutubeGameBarWidget.Pages
             }
             catch
             {
-                this.changelogContent.Add("Error!!1!!");
-                this.changelogContent.Add("Something went wrong while communicating with github. :(");
+                this.changelogContent.Add(Constants.Error.AmazingError);
+                this.changelogContent.Add(Constants.Error.GithubCommunicationError);
             }
 
             DisplayResults();

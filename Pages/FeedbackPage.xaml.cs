@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarOverlay;
+using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget
 {
@@ -24,12 +25,7 @@ namespace YoutubeGameBarWidget
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.ytgbfsUri = new Uri(
-                "http://" + 
-                Environment.GetEnvironmentVariable("YTGBFS_ADDRESS") + 
-                ":" +
-                Environment.GetEnvironmentVariable("YTGBFS_PORT") +
-                "/feedback");
+            this.ytgbfsUri = new Uri(String.Format(Constants.Endpoints.FSBase, Utils.GetVar(Constants.Vars.FSAddress), Utils.GetVar(Constants.Vars.FSPort)));
         }
 
         /// <summary>
@@ -38,13 +34,13 @@ namespace YoutubeGameBarWidget
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.FeedbackTextBox.Text = "";
+            this.FeedbackTextBox.Text = Constants.Common.EmptyString;
             this.FeedbackTextBox.IsEnabled = true;
 
-            this.FeedBackAuthor.Text = "";
+            this.FeedBackAuthor.Text = Constants.Common.EmptyString;
             this.FeedBackAuthor.IsEnabled = true;
 
-            this.SendButtonText.Text = "Send";
+            this.SendButtonText.Text = Constants.Common.Send;
             this.SendButton.IsEnabled = true;
 
             this.ErrorMessage.Visibility = Visibility.Collapsed;
@@ -63,12 +59,12 @@ namespace YoutubeGameBarWidget
 
             if (FeedbackTextBox.Text.Length == 0)
             {
-                this.ErrorMessage.Text = "Please say something.";
+                this.ErrorMessage.Text = Constants.Error.NoFeedbackMessageError;
                 this.ErrorMessage.Visibility = Visibility.Visible;
             }
             else if (FeedBackAuthor.Text.Length == 0)
             {
-                this.ErrorMessage.Text = "Please say your name.";
+                this.ErrorMessage.Text = Constants.Error.NoFeedbackAuthorError;
                 this.ErrorMessage.Visibility = Visibility.Visible;
             }
             else
@@ -87,15 +83,15 @@ namespace YoutubeGameBarWidget
             StringBuilder feedbackContent = new StringBuilder();
             feedbackContent.Append(FeedbackTextBox.Text);
             feedbackContent.Append("\n\n");
-            feedbackContent.Append("Author: " + FeedBackAuthor.Text);
+            feedbackContent.Append(Constants.Common.AuthorSignature + FeedBackAuthor.Text);
 
             JsonObject json = new JsonObject();
             json.Add("message", JsonValue.CreateStringValue(feedbackContent.ToString()));
 
             WebClient client = new WebClient();
-            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            client.Headers.Add(HttpRequestHeader.ContentType, Constants.Headers.Json);
             client.UploadDataCompleted += new UploadDataCompletedEventHandler(EvaluateResult);
-            client.UploadDataAsync(this.ytgbfsUri, "POST", Encoding.UTF8.GetBytes(json.Stringify()));
+            client.UploadDataAsync(this.ytgbfsUri, Constants.WebServer.POSTMethod, Encoding.UTF8.GetBytes(json.Stringify()));
         }
 
         /// <summary>
@@ -127,8 +123,8 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.SendButtonText.Text = "Failed.";
-                        this.ErrorMessage.Text = "Try again later.";
+                        this.SendButtonText.Text = Constants.Error.FailedError;
+                        this.ErrorMessage.Text = Constants.Warn.TryAgainLater;
                         this.ErrorMessage.Visibility = Visibility.Visible;
                         this.LoadingRing.IsActive = false;
                     }
@@ -159,7 +155,7 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.SendButtonText.Text = "Sent!";
+                        this.SendButtonText.Text = Constants.Common.Sent;
                         this.LoadingRing.IsActive = false;
                     }
                 );
