@@ -2,6 +2,9 @@
 ![Youtube GameBar Logo](https://github.com/MarconiGRF/YoutubeGameBarOverlay/blob/master/Assets/SplashScreen.scale-200.png)  
 An extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
 
+# Quality ensurance
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1b625ef3f7fb4f7182c781e5e6b2706d)](https://www.codacy.com/manual/MarconiGRF/YoutubeGameBarOverlay?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MarconiGRF/YoutubeGameBarOverlay&amp;utm_campaign=Badge_Grade)
+
 ## Releases
 * [Get on Microsoft Store](https://www.microsoft.com/store/productId/9NK7J3V4LZS6)
 * [Github Release](https://github.com/MarconiGRF/YoutubeGameBarOverlay/releases)
