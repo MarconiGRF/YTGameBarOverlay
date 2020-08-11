@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
 using Windows.ApplicationModel;
 using Windows.Data.Json;
 using Windows.UI;
@@ -50,7 +49,7 @@ namespace YoutubeGameBarWidget.Pages
 
             if (this.changelogContent == null)
             {
-                new Thread(new ThreadStart(StartLoading)).Start();
+                Painter.RunUIUpdateByMethod(StartLoading);
                 GetGithubContent();
             }
 
@@ -152,7 +151,7 @@ namespace YoutubeGameBarWidget.Pages
                 }
             }
 
-            new Thread(new ThreadStart(FinishLoading)).Start();
+            Painter.RunUIUpdateByMethod(FinishLoading);
         }
 
         /// <summary>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Text;
-using System.Threading;
 using Windows.Data.Json;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -19,7 +18,6 @@ namespace YoutubeGameBarWidget
     /// </summary>
     public sealed partial class FeedbackPage : Page
     {
-        private Thread auxiliaryUIThread;
         private Uri ytgbfsUri;
         public FeedbackPage()
         {
@@ -69,7 +67,7 @@ namespace YoutubeGameBarWidget
             }
             else
             {
-                RunUIUpdateByMethod(SendingState);
+                Painter.RunUIUpdateByMethod(SendingState);
                 sendMessage();
             }
 
@@ -106,12 +104,12 @@ namespace YoutubeGameBarWidget
                 string result = Encoding.UTF8.GetString(e.Result);
                 if (result == "OK")
                 {
-                    RunUIUpdateByMethod(DoneSending);
+                    Painter.RunUIUpdateByMethod(DoneSending);
                 }
             }
             catch
             {
-                RunUIUpdateByMethod(ErrorSending);
+                Painter.RunUIUpdateByMethod(ErrorSending);
             }
         }
 
@@ -159,16 +157,6 @@ namespace YoutubeGameBarWidget
                         this.LoadingRing.IsActive = false;
                     }
                 );
-        }
-
-        /// <summary>
-        /// Asynchronously runs an UI updated defined by the given method using the auxiliary thread.
-        /// </summary>
-        /// <param name="uiMethod"></param>
-        private void RunUIUpdateByMethod(Action uiMethod)
-        {
-            this.auxiliaryUIThread = new Thread(new ThreadStart(uiMethod));
-            this.auxiliaryUIThread.Start();
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarWidget.Pages.PageObjects;
+using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget.Pages
 {
@@ -28,8 +29,7 @@ namespace YoutubeGameBarWidget.Pages
             this.Payload = (WarnPayload)e.Parameter;
             this.WarnMessage.Text = Payload.Message;
 
-            Thread showWarningThread = new Thread(new ThreadStart(WarnAndReturn));
-            showWarningThread.Start();
+            Painter.RunUIUpdateByMethod(WarnAndReturn);
             
             base.OnNavigatedTo(e);
         }

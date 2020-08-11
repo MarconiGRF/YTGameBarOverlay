@@ -17,7 +17,6 @@ namespace YoutubeGameBarWidget
     /// </summary>
     public sealed partial class Webpage : Page
     {
-        private Thread UIUpdateThread;
         public Webpage()
         {
             this.InitializeComponent();
@@ -45,20 +44,10 @@ namespace YoutubeGameBarWidget
                 InformationPayload information = (InformationPayload)e.Parameter;
 
                 this.VideoUIWebpage.Navigate(information.VideoURI);
-                RunUIUpdateByMethod(PresentPage);
+                Painter.RunUIUpdateByMethod(PresentPage);
 
                 base.OnNavigatedTo(e);
             }
-        }
-
-        /// <summary>
-        /// Asynchronously runs an UI updated defined by the given method using the UIUpdate thread.
-        /// </summary>
-        /// <param name="uiMethod">The UI update method to be executed.</param>
-        private void RunUIUpdateByMethod(Action uiMethod)
-        {
-            this.UIUpdateThread = new Thread(new ThreadStart(uiMethod));
-            this.UIUpdateThread.Start();
         }
 
         /// <summary>

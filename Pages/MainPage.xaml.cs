@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -21,7 +20,6 @@ namespace YoutubeGameBarOverlay
     public sealed partial class MainPage : Page
     {
         private Search search;
-        private Thread UIUpdateThread;
         private bool inLoadingState;
         public string mediaURL;
 
@@ -141,7 +139,7 @@ namespace YoutubeGameBarOverlay
             {
                 inputBox.IsSuggestionListOpen = false;
                 sender.ItemsSource = new ListItems();
-                RunUIUpdateByMethod(FalseLoading);
+                Painter.RunUIUpdateByMethod(FalseLoading);
             }
             else if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
@@ -192,7 +190,7 @@ namespace YoutubeGameBarOverlay
             if (this.inLoadingState == false)
             {
                 this.inLoadingState = true;
-                RunUIUpdateByMethod(WeakLoading);
+                Painter.RunUIUpdateByMethod(WeakLoading);
             }
 
             try
@@ -261,23 +259,13 @@ namespace YoutubeGameBarOverlay
             if (value == true)
             {
                 this.inLoadingState = true;
-                RunUIUpdateByMethod(TrueLoading);
+                Painter.RunUIUpdateByMethod(TrueLoading);
             }
             else
             {
                 this.inLoadingState = false;
-                RunUIUpdateByMethod(FalseLoading);
+                Painter.RunUIUpdateByMethod(FalseLoading);
             }
-        }
-
-        /// <summary>
-        /// Asynchronously runs an UI updated defined by the given method using the UIUpdate thread.
-        /// </summary>
-        /// <param name="uiMethod">The UI update method to be executed.</param>
-        private void RunUIUpdateByMethod(Action uiMethod)
-        {
-            this.UIUpdateThread = new Thread(new ThreadStart(uiMethod));
-            this.UIUpdateThread.Start();
         }
 
         /// <summary>
