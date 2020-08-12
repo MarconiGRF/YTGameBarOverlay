@@ -72,6 +72,16 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="eventArgs"></param>
+        private void HandleLoginButton(object sender, RoutedEventArgs eventArgs)
+        {
+            this.Frame.Navigate(typeof(UserInfoPage));
+        }
+
+        /// <summary>
+        /// Handles the click at the Feedback Page Button navigating to it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
         private void HandleFeedbackButton(object sender, RoutedEventArgs eventArgs)
         {
             this.Frame.Navigate(typeof(FeedbackPage));

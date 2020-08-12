@@ -141,6 +141,9 @@
     </Compile>
     <Compile Include="Pages\PageObjects\InformationPayload.cs" />
     <Compile Include="Pages\PageObjects\WarnPayload.cs" />
+    <Compile Include="Pages\UserInfoPage.xaml.cs">
+      <DependentUpon>UserInfoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\WarnPage.xaml.cs">
       <DependentUpon>WarnPage.xaml</DependentUpon>
     </Compile>
@@ -207,6 +210,10 @@
     <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\UserInfoPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\WarnPage.xaml">
       <SubType>Designer</SubType>
