@@ -171,16 +171,9 @@
     <Content Include="Assets\Square44x44Logo.targetsize-32_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
-    <Content Include="VideoUI\3rdpartylicenses.txt" />
-    <Content Include="VideoUI\favicon.png" />
-    <Content Include="VideoUI\index.html" />
-    <Content Include="VideoUI\main-es2015.440a3e071074733cf31d.js" />
-    <Content Include="VideoUI\main-es5.440a3e071074733cf31d.js" />
-    <Content Include="VideoUI\polyfills-es2015.95bb65e853d2781ac3bd.js" />
-    <Content Include="VideoUI\polyfills-es5.341d48ffc88eaeae911d.js" />
-    <Content Include="VideoUI\runtime-es2015.5cda3eda75333850e3d6.js" />
-    <Content Include="VideoUI\runtime-es5.5cda3eda75333850e3d6.js" />
-    <Content Include="VideoUI\styles.338f70d8d9ec1c26d814.css" />
+    <Content Include="VideoUI\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
