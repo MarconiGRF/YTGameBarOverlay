@@ -245,7 +245,7 @@
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
-            <TextBlock Foreground="#FFFFFF" TextAlignment="Center">Welcome.</TextBlock>
+            <TextBlock Foreground="#FFFFFF" TextAlignment="Center" Text="{x:Bind Greeting}"></TextBlock>
         </Viewbox>
 
         <AutoSuggestBox 

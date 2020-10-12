@@ -21,6 +21,7 @@ namespace YoutubeGameBarOverlay
     {
         private Search search;
         private bool inLoadingState;
+        public String Greeting = "Welcome.";
         public string mediaURL;
 
         public MainPage()
