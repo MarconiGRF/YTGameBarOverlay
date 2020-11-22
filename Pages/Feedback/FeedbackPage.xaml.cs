@@ -19,11 +19,13 @@ namespace YoutubeGameBarWidget
     public sealed partial class FeedbackPage : Page
     {
         private Uri ytgbfsUri;
+        private FeedbackResources LangResources;
         public FeedbackPage()
         {
-            this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
             this.ytgbfsUri = new Uri(String.Format(Constants.Endpoints.FSBase, Utils.GetVar(Constants.Vars.FSAddress), Utils.GetVar(Constants.Vars.FSPort)));
+            this.LangResources = BabelTower.getTranslatedResources<FeedbackResources>();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.InitializeComponent();
         }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace YoutubeGameBarWidget
             this.FeedBackAuthor.Text = Constants.Common.EmptyString;
             this.FeedBackAuthor.IsEnabled = true;
 
-            this.SendButtonText.Text = Constants.Common.Send;
+            this.SendButtonText.Text = this.LangResources.Send;
             this.SendButton.IsEnabled = true;
 
             this.ErrorMessage.Visibility = Visibility.Collapsed;
@@ -57,12 +59,12 @@ namespace YoutubeGameBarWidget
 
             if (FeedbackTextBox.Text.Length == 0)
             {
-                this.ErrorMessage.Text = Constants.Error.NoFeedbackMessageError;
+                this.ErrorMessage.Text = this.LangResources.NoFeedbackMessageError;
                 this.ErrorMessage.Visibility = Visibility.Visible;
             }
             else if (FeedBackAuthor.Text.Length == 0)
             {
-                this.ErrorMessage.Text = Constants.Error.NoFeedbackAuthorError;
+                this.ErrorMessage.Text = this.LangResources.NoFeedbackAuthorError;
                 this.ErrorMessage.Visibility = Visibility.Visible;
             }
             else
@@ -121,8 +123,8 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.SendButtonText.Text = Constants.Error.FailedError;
-                        this.ErrorMessage.Text = Constants.Warn.TryAgainLater;
+                        this.SendButtonText.Text = this.LangResources.FailedError;
+                        this.ErrorMessage.Text = this.LangResources.TryAgainWarn;
                         this.ErrorMessage.Visibility = Visibility.Visible;
                         this.LoadingRing.IsActive = false;
                     }
@@ -153,7 +155,7 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.SendButtonText.Text = Constants.Common.Sent;
+                        this.SendButtonText.Text = this.LangResources.Sent;
                         this.LoadingRing.IsActive = false;
                     }
                 );

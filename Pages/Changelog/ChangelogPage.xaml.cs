@@ -14,25 +14,24 @@ using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarOverlay;
 using YoutubeGameBarWidget.Utilities;
 
-
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace YoutubeGameBarWidget.Pages
-{
+{ 
     /// <summary>
     /// A changelog page aimed to show changes between YTGBO's versions using Github API.
     /// </summary>
     public sealed partial class ChangelogPage : Page
     {
+        private ChangelogResources LangResources;
         List<String> changelogContent;
         string currentVersion;
         string githubReleasesEndpoint;
 
         public ChangelogPage()
         {
-            this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
             this.githubReleasesEndpoint = Constants.Endpoints.Github;
+            this.LangResources = BabelTower.getTranslatedResources<ChangelogResources>();
+            this.InitializeComponent();
         }
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace YoutubeGameBarWidget.Pages
             if (this.currentVersion == null)
             {
                 GetFormattedAppVersion();
-                this.VersionDisplayer.Text += this.currentVersion;
+                this.LangResources.VersionDisplayer += this.currentVersion;
             }
 
             if (this.changelogContent == null)
@@ -125,8 +124,8 @@ namespace YoutubeGameBarWidget.Pages
             }
             catch
             {
-                this.changelogContent.Add(Constants.Error.AmazingError);
-                this.changelogContent.Add(Constants.Error.GithubCommunicationError);
+                this.changelogContent.Add(this.LangResources.AmazingError);
+                this.changelogContent.Add(this.LangResources.GithubCommunicationError);
             }
 
             DisplayResults();

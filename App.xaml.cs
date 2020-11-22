@@ -8,6 +8,7 @@ using Microsoft.Gaming.XboxGameBar;
 using YoutubeGameBarWidget.WebServer;
 using System.IO;
 using System.Linq;
+using YoutubeGameBarWidget.Pages;
 
 namespace YoutubeGameBarOverlay
 {

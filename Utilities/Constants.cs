@@ -13,8 +13,6 @@
         {
             public const string AuthorSignature = "Author: ";
             public const string EmptyString = "";
-            public const string Send = "Send";
-            public const string Sent = "Sent!";
         }
 
         /// <summary>
@@ -25,21 +23,6 @@
             public const string FSBase = "http://{0}:{1}/feedback/";
             public const string Github = "https://api.github.com/repos/MarconiGRF/YoutubeGameBarOverlay/releases";
             public const string SSBase = "http://{0}:{1}/current/search/";
-        }
-
-        /// <summary>
-        /// Error constants.
-        /// </summary>
-        public static class Error
-        {
-            public const string AmazingError = "Error!!1!!";
-            public const string FailedError = "Failed!";
-            public const string GithubCommunicationError = "Something went wrong while communicating with github! :(";
-            public const string NoFeedbackAuthorError = "Please say your name!";
-            public const string NoFeedbackMessageError = "Please say something!";
-            public const string SearchNotAvailable = "Search is not available now! Please use links.";
-            public const string URLNotValid = "The URL is not valid!";
-            public const string VideoNotSelected = "Please select a video!";
         }
 
         /// <summary>
@@ -85,15 +68,6 @@
             public const string BaseAddress = "http://localhost:";
             public const string PlaylistQueryString = "/?listId=";
             public const string VideoQueryString = "/?videoId=";
-        }
-
-        /// <summary>
-        /// Warning constants.
-        /// </summary>
-        public static class Warn
-        {
-            public const string Loading = "Loading...";
-            public const string TryAgainLater = "Try again later.";
         }
 
         /// <summary>

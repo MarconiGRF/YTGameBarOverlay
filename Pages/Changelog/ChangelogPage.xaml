@@ -46,13 +46,11 @@
         </Button>
 
         <Viewbox Grid.Row="5" Grid.Column="3" >
-            <TextBlock Foreground="#FFFFFF" TextAlignment="Center">Changelog</TextBlock>
+            <TextBlock Foreground="#FFFFFF" TextAlignment="Center" Name="Title" Text="{x:Bind LangResources.Title}"></TextBlock>
         </Viewbox>
 
         <Viewbox Grid.Row="5" Grid.Column="5">
-            <TextBlock Name="VersionDisplayer" Foreground="#FFFFFF" FontWeight="Light" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center">
-                Your version:
-                <LineBreak/>
+            <TextBlock Name="VersionDisplayer" Foreground="#FFFFFF" xml:space="preserve" FontWeight="Light" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{x:Bind LangResources.VersionDisplayer}">
             </TextBlock>
         </Viewbox>
     </Grid>

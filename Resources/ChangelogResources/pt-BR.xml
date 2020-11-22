@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ChangelogResources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Title>Versões</Title>
+	<VersionDisplayer>Sua versão: &#10;</VersionDisplayer>
+	<AmazingError>Erro!!1!!</AmazingError>
+	<GithubCommunicationError>Algo deu errado na conversa com o github! :(</GithubCommunicationError>
+</ChangelogResources>

@@ -129,26 +129,31 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\ChangelogPage.xaml.cs">
+    <Compile Include="Pages\Changelog\ChangelogPage.xaml.cs">
       <DependentUpon>ChangelogPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\FeedbackPage.xaml.cs">
+    <Compile Include="Pages\Changelog\ChangelogResources.cs" />
+    <Compile Include="Pages\Feedback\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\MainPage.xaml.cs">
+    <Compile Include="Pages\Feedback\FeedbackResources.cs" />
+    <Compile Include="Pages\MainPage\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PageObjects\InformationPayload.cs" />
+    <Compile Include="Pages\MainPage\MainPageResources.cs" />
     <Compile Include="Pages\PageObjects\WarnPayload.cs" />
-    <Compile Include="Pages\WarnPage.xaml.cs">
+    <Compile Include="Pages\WarnPage\WarnPage.xaml.cs">
       <DependentUpon>WarnPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WebPage\WebPageResources.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Search\ListItems.cs" />
     <Compile Include="Search\Search.cs" />
-    <Compile Include="Pages\WebPage.xaml.cs">
+    <Compile Include="Pages\WebPage\WebPage.xaml.cs">
       <DependentUpon>WebPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\BabelTower.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\Painter.cs" />
     <Compile Include="Utilities\Utils.cs" />
@@ -170,6 +175,14 @@
     <Content Include="Assets\Square44x44Logo.targetsize-32_altform-unplated.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
+    <Content Include="Resources\ChangelogResources\en-US.xml" />
+    <Content Include="Resources\ChangelogResources\pt-BR.xml" />
+    <Content Include="Resources\FeedbackResources\en-US.xml" />
+    <Content Include="Resources\FeedbackResources\pt-BR.xml" />
+    <Content Include="Resources\MainPageResources\pt-BR.xml" />
+    <Content Include="Resources\MainPageResources\en-US.xml" />
+    <Content Include="Resources\WebPageResources\en-US.xml" />
+    <Content Include="Resources\WebPageResources\pt-BR.xml" />
     <Content Include="VideoUI\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -188,23 +201,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pages\ChangelogPage.xaml">
+    <Page Include="Pages\Changelog\ChangelogPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\FeedbackPage.xaml">
+    <Page Include="Pages\Feedback\FeedbackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\MainPage.xaml">
+    <Page Include="Pages\MainPage\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\WarnPage.xaml">
+    <Page Include="Pages\WarnPage\WarnPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\WebPage.xaml">
+    <Page Include="Pages\WebPage\WebPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

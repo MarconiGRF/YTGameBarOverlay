@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WebPageResources>
+	<!--The &#10; Characters indicate line breaks to XAML, so maintain the same amout of them for the expected layout.-->
+	<PinTip>Pin the window&#10;&#10;&#10;to make it visible outside.</PinTip>
+	<BackTip>Press backspace&#10;&#10;&#10;to go back.</BackTip>
+	<InvalidURLWarn>The URL is not valid!</InvalidURLWarn>
+	<LoadingWarn>Loading...</LoadingWarn>
+</WebPageResources>
