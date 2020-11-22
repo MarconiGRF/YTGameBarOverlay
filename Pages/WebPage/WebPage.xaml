@@ -18,12 +18,7 @@
             <Grid.Background>
                 <SolidColorBrush Color="#C92306" Opacity=".75"/>
             </Grid.Background>
-            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
-                Pin the window
-                <LineBreak/>
-                <LineBreak/>
-                <LineBreak/>
-                to make it visible outside.
+            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" xml:space="preserve" Text="{x:Bind LangResources.PinTip}">
             </TextBlock>
             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE718;" Foreground="White"></FontIcon>
         </Grid>
@@ -31,12 +26,7 @@
             <Grid.Background>
                 <SolidColorBrush Color="#C92306" Opacity=".75"/>
             </Grid.Background>
-            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center">
-                Press backspace
-                <LineBreak/>
-                <LineBreak/>
-                <LineBreak/>
-                to go back.
+            <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" xml:space="preserve" Text="{x:Bind LangResources.BackTip}">
             </TextBlock>
             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="White"></FontIcon>
         </Grid>

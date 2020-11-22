@@ -17,10 +17,12 @@ namespace YoutubeGameBarWidget
     /// </summary>
     public sealed partial class Webpage : Page
     {
+        WebPageResources LangResources;
         public Webpage()
         {
-            this.InitializeComponent();
+            this.LangResources = BabelTower.getTranslatedResources<WebPageResources>();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.InitializeComponent();
         }
 
         /// <summary>
@@ -102,14 +104,14 @@ namespace YoutubeGameBarWidget
 
             if (Validator.IsMediaURLValid(redirectUrl) == true)
             {
-                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(Constants.Warn.Loading));
+                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(this.LangResources.LoadingWarn));
 
 
                 this.VideoUIWebpage.Navigate(Utils.GetProperVideoUIUri(redirectUrl));
             }
             else
             {
-                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(Constants.Error.URLNotValid));
+                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(this.LangResources.InvalidURLWarn));
             }
             
             args.Handled = true;

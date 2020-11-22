@@ -25,6 +25,7 @@
             public const string SSBase = "http://{0}:{1}/current/search/";
         }
 
+        /// <summary>
         /// Header constants for requests.
         /// </summary>
         public static class Headers
@@ -67,14 +68,6 @@
             public const string BaseAddress = "http://localhost:";
             public const string PlaylistQueryString = "/?listId=";
             public const string VideoQueryString = "/?videoId=";
-        }
-
-        /// <summary>
-        /// Warning constants.
-        /// </summary>
-        public static class Warn
-        {
-            public const string Loading = "Loading...";
         }
 
         /// <summary>
