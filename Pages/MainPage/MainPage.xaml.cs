@@ -20,17 +20,18 @@ namespace YoutubeGameBarOverlay
     public sealed partial class MainPage : Page
     {
         private Search search;
+        private MainPageResources LangResources;
         private bool inLoadingState;
-        public String Greeting = "Welcome.";
-        public string mediaURL;
+        public string MediaURL;
 
         public MainPage()
         {
             this.search = new Search();
             this.search.FinishedFetchingResults += PresentResults;
+            this.LangResources = BabelTower.getTranslatedResources<MainPageResources>();
             this.search.FailedFetchingResults += PresentSearchError;
-            this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            this.InitializeComponent();
         }
 
         /// <summary>
@@ -39,7 +40,7 @@ namespace YoutubeGameBarOverlay
         /// <param name="e">The navigation arguments.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.mediaURL = Constants.Common.EmptyString;
+            this.MediaURL = Constants.Common.EmptyString;
             this.inputBox.Text = Constants.Common.EmptyString;
             this.InLoadingState(false);
 
@@ -64,7 +65,7 @@ namespace YoutubeGameBarOverlay
             }
             else
             {
-                ShowErrorMessage(Constants.Error.VideoNotSelected);
+                ShowErrorMessage(this.LangResources.VideoNotSelectedError);
             }
         }
 
@@ -95,14 +96,14 @@ namespace YoutubeGameBarOverlay
         {
             InLoadingState(true);
 
-            if (Validator.IsMediaURLValid(this.mediaURL) == true)
+            if (Validator.IsMediaURLValid(this.MediaURL) == true)
             {
                 StartPlayback();
             }
             else
             {
                 InLoadingState(false);
-                ShowErrorMessage(Constants.Error.URLNotValid);
+                ShowErrorMessage(this.LangResources.URLNotValidError);
             }
         }
 
@@ -112,7 +113,7 @@ namespace YoutubeGameBarOverlay
         /// <param name="input">The string to be set as MediaURL</param>
         private void SetAsMediaURL(string input)
         {
-            this.mediaURL = input;
+            this.MediaURL = input;
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         private void StartPlayback()
         {
-            InformationPayload information = new InformationPayload(Utils.GetProperVideoUIUri(this.mediaURL));
+            InformationPayload information = new InformationPayload(Utils.GetProperVideoUIUri(this.MediaURL));
 
             this.Frame.Navigate(typeof(Webpage), information);
         }
@@ -232,7 +233,7 @@ namespace YoutubeGameBarOverlay
         public void PresentSearchError(Object sender, EventArgs e)
         {
             InLoadingState(false);
-            ShowErrorMessage(Constants.Error.SearchNotAvailable);
+            ShowErrorMessage(this.LangResources.SearchNotAvailableError);
         }
 
         /// <summary>

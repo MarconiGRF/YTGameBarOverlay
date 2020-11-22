@@ -5,6 +5,7 @@
     xmlns:local="using:YoutubeGameBarOverlay"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
@@ -245,12 +246,12 @@
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
-            <TextBlock Foreground="#FFFFFF" TextAlignment="Center" Text="{x:Bind Greeting}"></TextBlock>
+            <TextBlock Foreground="#FFFFFF" TextAlignment="Center" Text="{x:Bind Path=LangResources.Greeting}"></TextBlock>
         </Viewbox>
 
         <AutoSuggestBox 
             Name="inputBox" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Center"
-            PlaceholderText="Search or paste your video/live link here"
+            PlaceholderText="{x:Bind Path=LangResources.SearchFieldPlaceholder}"
             BorderBrush="#7D1B0A" MinHeight="32" TextBoxStyle="{StaticResource YTGBOTextBox}"
             TextChanged="inputBox_TextChanged" UpdateTextOnSelect="True" TextMemberPath="VideoTitle" QuerySubmitted="inputBox_QuerySubmitted">
             <AutoSuggestBox.ItemContainerStyle>

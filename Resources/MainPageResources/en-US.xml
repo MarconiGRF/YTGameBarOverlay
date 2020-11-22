@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MainPageResources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Greeting>Welcome.</Greeting>
+	<SearchFieldPlaceholder>Search or paste your video/live link here</SearchFieldPlaceholder>
+	<VideoNotSelectedError>Please select a video!</VideoNotSelectedError>
+	<URLNotValidError>The URL is not valid!</URLNotValidError>
+	<SearchNotAvailableError>Search is not available now! Please use links.</SearchNotAvailableError>
+</MainPageResources>
