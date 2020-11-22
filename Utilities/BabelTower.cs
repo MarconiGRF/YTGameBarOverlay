@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace YoutubeGameBarWidget.Utilities
 {
+    /// <summary>
+    /// A translator aimed to parse XMLs and return filled language objects.
+    /// </summary>
     public static class BabelTower
     {
+        /// <summary>
+        /// Gets the translated resources for the given class based on the user system language.
+        /// In case of the user language is not yet translated en-US will be set as a failsase source language.
+        /// </summary>
+        /// <typeparam name="T">The class type to get resources of.</typeparam>
+        /// <returns>A resource object filled with the information parsed from XML.</returns>
         public static T getTranslatedResources<T>()
         {
             string currentLanguage = CultureInfo.InstalledUICulture.Name;

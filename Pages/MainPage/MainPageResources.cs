@@ -7,6 +7,10 @@ using System.Xml.Serialization;
 
 namespace YoutubeGameBarWidget.Pages
 {
+    /// <summary>
+    /// The resources for the Main Page.
+    /// Its values are intended to be set with the content on the user language's XML.
+    /// </summary>
     [XmlRoot("MainPageResources")]
     public class MainPageResources
     {

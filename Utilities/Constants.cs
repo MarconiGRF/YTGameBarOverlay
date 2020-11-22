@@ -25,7 +25,6 @@
             public const string SSBase = "http://{0}:{1}/current/search/";
         }
 
-        /// <summary>
         /// Header constants for requests.
         /// </summary>
         public static class Headers
