@@ -250,12 +250,12 @@
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5">
-            <TextBlock Foreground="#FFFFFF">Wanna say something?</TextBlock>
+            <TextBlock Foreground="#FFFFFF" Text="{x:Bind LangResources.Title}"></TextBlock>
         </Viewbox>
 
         <TextBox 
             Name="FeedbackTextBox" IsSpellCheckEnabled="False"
-            Style="{StaticResource YTGBOTextBox}" PlaceholderText="Enter here any suggestion, bug or feedback you want to share with me :)"
+            Style="{StaticResource YTGBOTextBox}" PlaceholderText="{x:Bind LangResources.MessagePlaceholder}"
             Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="5" TextWrapping="Wrap"
             VerticalAlignment="Center" MinHeight="40" FontSize="12"
             BorderBrush="#7D1B0A" SelectionHighlightColor="#7D1B0A">
@@ -263,7 +263,7 @@
 
         <TextBox 
             Name="FeedBackAuthor" IsSpellCheckEnabled="False"
-            Style="{StaticResource YTGBOTextBox}" PlaceholderText="What's your name?"
+            Style="{StaticResource YTGBOTextBox}" PlaceholderText="{x:Bind LangResources.AuthorPlaceholder}"
             Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" 
             VerticalAlignment="Center" FontSize="12"
             BorderBrush="#7D1B0A" SelectionHighlightColor="#7D1B0A">
@@ -275,7 +275,7 @@
             HorizontalAlignment="Right" MinWidth="32"
             Click="SendButton_Click"
             Background="#7D1B0A" BorderBrush="#7D1B0A">
-            <TextBlock Name="SendButtonText" Foreground="#FFFFFF" FontSize="18">Send</TextBlock>
+            <TextBlock Name="SendButtonText" Foreground="#FFFFFF" FontSize="18" Text="{x:Bind LangResources.Send}"></TextBlock>
         </Button>
 
         <Button 

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FeedbackResources>
+	<Title>Tem algo para dizer?</Title>
+	<MessagePlaceholder>Insira aqui qualquer sugestão, falha ou comentário que você queira compartilhar comigo :)</MessagePlaceholder>
+	<AuthorPlaceholder>Qual seu nome?</AuthorPlaceholder>
+	<FailedError>Falha!</FailedError>
+	<TryAgainWarn>Tente novamente mais tarde.</TryAgainWarn>
+	<NoFeedbackMessageError>Por favor diga algo!</NoFeedbackMessageError>
+	<NoFeedbackAuthorError>Por favor diga seu nome!</NoFeedbackAuthorError>
+	<Send>Enviar</Send>
+	<Sent>Enviado!</Sent>
+</FeedbackResources>
