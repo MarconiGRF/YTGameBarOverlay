@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <WebPageResources>
 	<PinTip>Marque a janela&#10;&#10;&#10;para que ela seja visível fora da Game Bar.</PinTip>
-	<BackTip>Pressione backspace&#10;&#10;&#10;para voltar.</BackTip>
+	<BackTip>Use o botão no canto superior esquerdo&#10;&#10;&#10; ou backspace para voltar.</BackTip>
 	<InvalidURLWarn>A URL não é válida!</InvalidURLWarn>
 	<LoadingWarn>Carregando...</LoadingWarn>
 </WebPageResources>

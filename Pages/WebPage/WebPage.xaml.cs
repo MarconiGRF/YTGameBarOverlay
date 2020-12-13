@@ -116,5 +116,13 @@ namespace YoutubeGameBarWidget
             
             args.Handled = true;
         }
+
+        private void VideoUIWebpage_ScriptNotify(object sender, NotifyEventArgs e)
+        {
+            if (e.Value == "goback")
+            {
+                this.Frame.Navigate(typeof(MainPage));
+            }
+        }
     }
 }

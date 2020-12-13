@@ -80,6 +80,9 @@
 					</uap3:AppExtension>
 				</uap3:Extension>
 			</Extensions>
+			<uap:ApplicationContentUriRules>
+				<uap:Rule Type="include" Match="http://localhost:54520/" WindowsRuntimeAccess="none"/>
+			</uap:ApplicationContentUriRules>
 		</Application>
 	</Applications>
 
