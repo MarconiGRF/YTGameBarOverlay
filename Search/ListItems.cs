@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
 
 namespace YoutubeGameBarWidget.Search
 {
@@ -18,6 +16,7 @@ namespace YoutubeGameBarWidget.Search
         public string MediaTitle { get; set; }
         public string ChannelTitle { get; set; }
         public string MediaUrl { get; set; }
+        public ThemeResources ColorResources { get; set; }
 
         /// <summary>
         /// A list item object.

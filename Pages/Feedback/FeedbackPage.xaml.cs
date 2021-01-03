@@ -20,12 +20,14 @@ namespace YoutubeGameBarWidget
     {
         private Uri ytgbfsUri;
         private FeedbackResources LangResources;
+        private ThemeResources ColorResources;
         public FeedbackPage()
         {
-            this.ytgbfsUri = new Uri(String.Format(Constants.Endpoints.FSBase, Utils.GetVar(Constants.Vars.FSAddress), Utils.GetVar(Constants.Vars.FSPort)));
-            this.LangResources = BabelTower.getTranslatedResources<FeedbackResources>();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.InitializeComponent();
+            ytgbfsUri = new Uri(String.Format(Constants.Endpoints.FSBase, Utils.GetVar(Constants.Vars.FSAddress), Utils.GetVar(Constants.Vars.FSPort)));
+            LangResources = BabelTower.getTranslatedResources<FeedbackResources>();
+            ColorResources = Painter.GetTheme();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            InitializeComponent();
         }
 
         /// <summary>
@@ -34,16 +36,16 @@ namespace YoutubeGameBarWidget
         /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.FeedbackTextBox.Text = Constants.Common.EmptyString;
-            this.FeedbackTextBox.IsEnabled = true;
+            FeedbackTextBox.Text = Constants.Common.EmptyString;
+            FeedbackTextBox.IsEnabled = true;
 
-            this.FeedBackAuthor.Text = Constants.Common.EmptyString;
-            this.FeedBackAuthor.IsEnabled = true;
+            FeedBackAuthor.Text = Constants.Common.EmptyString;
+            FeedBackAuthor.IsEnabled = true;
 
-            this.SendButtonText.Text = this.LangResources.Send;
-            this.SendButton.IsEnabled = true;
+            SendButtonText.Text = this.LangResources.Send;
+            SendButton.IsEnabled = true;
 
-            this.ErrorMessage.Visibility = Visibility.Collapsed;
+            ErrorMessage.Visibility = Visibility.Collapsed;
 
             base.OnNavigatedTo(e);
         }
@@ -55,17 +57,17 @@ namespace YoutubeGameBarWidget
         /// <param name="e"></param>
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
-            this.ErrorMessage.Visibility = Visibility.Collapsed;
+            ErrorMessage.Visibility = Visibility.Collapsed;
 
             if (FeedbackTextBox.Text.Length == 0)
             {
-                this.ErrorMessage.Text = this.LangResources.NoFeedbackMessageError;
-                this.ErrorMessage.Visibility = Visibility.Visible;
+                ErrorMessage.Text = this.LangResources.NoFeedbackMessageError;
+                ErrorMessage.Visibility = Visibility.Visible;
             }
             else if (FeedBackAuthor.Text.Length == 0)
             {
-                this.ErrorMessage.Text = this.LangResources.NoFeedbackAuthorError;
-                this.ErrorMessage.Visibility = Visibility.Visible;
+                ErrorMessage.Text = this.LangResources.NoFeedbackAuthorError;
+                ErrorMessage.Visibility = Visibility.Visible;
             }
             else
             {
@@ -91,7 +93,7 @@ namespace YoutubeGameBarWidget
             WebClient client = new WebClient();
             client.Headers.Add(HttpRequestHeader.ContentType, Constants.Headers.Json);
             client.UploadDataCompleted += new UploadDataCompletedEventHandler(EvaluateResult);
-            client.UploadDataAsync(this.ytgbfsUri, Constants.WebServer.POSTMethod, Encoding.UTF8.GetBytes(json.Stringify()));
+            client.UploadDataAsync(ytgbfsUri, Constants.WebServer.POSTMethod, Encoding.UTF8.GetBytes(json.Stringify()));
         }
 
         /// <summary>
@@ -123,10 +125,10 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.SendButtonText.Text = this.LangResources.FailedError;
-                        this.ErrorMessage.Text = this.LangResources.TryAgainWarn;
-                        this.ErrorMessage.Visibility = Visibility.Visible;
-                        this.LoadingRing.IsActive = false;
+                        SendButtonText.Text = LangResources.FailedError;
+                        ErrorMessage.Text = LangResources.TryAgainWarn;
+                        ErrorMessage.Visibility = Visibility.Visible;
+                        LoadingRing.IsActive = false;
                     }
                 );
         }
@@ -139,10 +141,10 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.SendButton.IsEnabled = false;
-                        this.FeedbackTextBox.IsEnabled = false;
-                        this.FeedBackAuthor.IsEnabled = false;
-                        this.LoadingRing.IsActive = true;
+                        SendButton.IsEnabled = false;
+                        FeedbackTextBox.IsEnabled = false;
+                        FeedBackAuthor.IsEnabled = false;
+                        LoadingRing.IsActive = true;
                     }
                 );
         }
@@ -155,8 +157,8 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.SendButtonText.Text = this.LangResources.Sent;
-                        this.LoadingRing.IsActive = false;
+                        SendButtonText.Text = LangResources.Sent;
+                        LoadingRing.IsActive = false;
                     }
                 );
         }
@@ -168,7 +170,7 @@ namespace YoutubeGameBarWidget
         /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

@@ -9,11 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid Grid.Row="0" Grid.RowSpan="2" BorderBrush="White" Name="Warn">
+        <Grid Grid.Row="0" Grid.RowSpan="2" Name="Warn">
             <Grid.Background>
-                <SolidColorBrush Color="#C92306" Opacity=".75"/>
+                <SolidColorBrush Color="{x:Bind ColorResources.AccentColor}" Opacity=".75"/>
             </Grid.Background>
-            <TextBlock Name="WarnMessage" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Name="WarnMessage" Foreground="{x:Bind ColorResources.AuxiliaryColor}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
         </Grid>
 
         <StackPanel>

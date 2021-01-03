@@ -18,11 +18,13 @@ namespace YoutubeGameBarWidget
     public sealed partial class Webpage : Page
     {
         WebPageResources LangResources;
+        ThemeResources ColorResources;
         public Webpage()
         {
-            this.LangResources = BabelTower.getTranslatedResources<WebPageResources>();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.InitializeComponent();
+            LangResources = BabelTower.getTranslatedResources<WebPageResources>();
+            ColorResources = Painter.GetTheme();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            InitializeComponent();
         }
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace YoutubeGameBarWidget
             {
                 InformationPayload information = (InformationPayload)e.Parameter;
 
-                this.VideoUIWebpage.Navigate(information.VideoURI);
+                VideoUIWebpage.Navigate(information.VideoURI);
                 Painter.RunUIUpdateByMethod(PresentPage);
 
                 base.OnNavigatedTo(e);
@@ -62,7 +64,7 @@ namespace YoutubeGameBarWidget
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                             {
-                                this.VideoUIWebpage.Visibility = Visibility.Collapsed;
+                                VideoUIWebpage.Visibility = Visibility.Collapsed;
                                 EnterTips.Begin();
                             }
                     );
@@ -73,7 +75,7 @@ namespace YoutubeGameBarWidget
                         () =>
                         {
                             ExitTips.Begin();
-                            this.VideoUIWebpage.Visibility = Visibility.Visible;
+                            VideoUIWebpage.Visibility = Visibility.Visible;
                         }
                     );
         }
@@ -88,7 +90,7 @@ namespace YoutubeGameBarWidget
         {
             if (keyArgs.Key == Windows.System.VirtualKey.Back)
             {
-                this.Frame.Navigate(typeof(MainPage));
+                Frame.Navigate(typeof(MainPage));
             }
         }
 
@@ -104,14 +106,14 @@ namespace YoutubeGameBarWidget
 
             if (Validator.IsMediaURLValid(redirectUrl) == true)
             {
-                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(this.LangResources.LoadingWarn));
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.LoadingWarn));
 
 
-                this.VideoUIWebpage.Navigate(Utils.GetProperVideoUIUri(redirectUrl));
+                VideoUIWebpage.Navigate(Utils.GetProperVideoUIUri(redirectUrl));
             }
             else
             {
-                this.Frame.Navigate(typeof(WarnPage), new WarnPayload(this.LangResources.InvalidURLWarn));
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.InvalidURLWarn));
             }
             
             args.Handled = true;
@@ -121,7 +123,7 @@ namespace YoutubeGameBarWidget
         {
             if (e.Value == "goback")
             {
-                this.Frame.Navigate(typeof(MainPage));
+                Frame.Navigate(typeof(MainPage));
             }
         }
     }

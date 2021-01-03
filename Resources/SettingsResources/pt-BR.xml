@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsResources>
+	<Title>Configurações</Title>
+	<AccentColor>Cor destaque</AccentColor>
+	<SecondaryColor>Cor secundária</SecondaryColor>
+	<TextIconColor>Cor de texto e ícone</TextIconColor>
+	<PreferredLanguage>Idioma</PreferredLanguage>
+	<Save>Salvar</Save>
+	<Black>Preto</Black>
+	<White>Branco</White>
+	<Blue>Azul</Blue>
+	<Red>Vermelho</Red>
+	<Yellow>Amarelo</Yellow>
+	<Green>Verde</Green>
+	<EnglishUS>Inglês - US</EnglishUS>
+	<PortugueseBR>Português - BR</PortugueseBR>
+</SettingsResources>
