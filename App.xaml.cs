@@ -57,24 +57,24 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         private void SetupLocalSettings()
         {
-            String accentColor = (string) Utils.GetSettingValue(Constants.Settings.AccentColor);
-            String secondaryColor = (string) Utils.GetSettingValue(Constants.Settings.SecondaryColor);
-            String auxiliaryColor = (string) Utils.GetSettingValue(Constants.Settings.AuxiliaryColor);
+            String accentColor = (string) Utils.GetSettingValue(Constants.Settings.AccentColors["varname"]);
+            String secondaryColor = (string) Utils.GetSettingValue(Constants.Settings.SecondaryColors["varname"]);
+            String auxiliaryColor = (string) Utils.GetSettingValue(Constants.Settings.AuxiliaryColors["varname"]);
             String prefferedLanguage = (string) Utils.GetSettingValue(Constants.Settings.PreferredLanguage);
 
             if (accentColor == null)
             {
-                Utils.setSettingValue(Constants.Settings.AccentColor, "#C92306");
+                Utils.setSettingValue(Constants.Settings.AccentColors["varname"], Constants.Settings.AccentColors["Red"]);
             }
 
             if (secondaryColor == null)
             { 
-                Utils.setSettingValue(Constants.Settings.SecondaryColor, "#7D1B0A");
+                Utils.setSettingValue(Constants.Settings.SecondaryColors["varname"], Constants.Settings.SecondaryColors["Red"]);
             }
 
             if (auxiliaryColor == null)
             {
-                Utils.setSettingValue(Constants.Settings.AuxiliaryColor, "#000000");
+                Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], Constants.Settings.AuxiliaryColors["White"]);
             }
 
             if (prefferedLanguage == null)

@@ -1,4 +1,6 @@
-﻿namespace YoutubeGameBarWidget.Utilities
+﻿using System.Collections.Generic;
+
+namespace YoutubeGameBarWidget.Utilities
 {
     /// <summary>
     /// A class with contant values common to the code.
@@ -101,37 +103,38 @@
             public const string PreferredLanguage = "preferredLanguage";
             public const string DefaultPreferredLanguage = "en-US";
 
-            public static string[] colorValues = { "Red", "Yellow", "Green", "Blue", "Black" };
+            public static string[] ColorNames = { "Red", "Yellow", "Green", "Blue", "Black" };
+            public static string[] AuxiliaryNames = { "Black", "White" };
 
-            public static string AccentColor = "accentColor";
-            //public static readonly Dictionary<string, string> AccentColors =
-            //    new Dictionary<string, string>
-            //    {
-            //        { "Red", "#C92306" },
-            //        { "Yellow", "#FFBA08" },
-            //        { "Green", "#81BC06" },
-            //        { "Blue", "#05A6F0" },
-            //        { "Black", "#000000" }
-            //    };
+            public static readonly Dictionary<string, string> AccentColors =
+                new Dictionary<string, string>
+                {
+                    { "varname", "accentColor" },
+                    { "Red", "#C92306" },
+                    { "Yellow", "#FFBA08" },
+                    { "Green", "#81BC06" },
+                    { "Blue", "#05A6F0" },
+                    { "Black", "#000000" }
+                };
 
-            public static string SecondaryColor = "secondaryColor";
-            //public static readonly Dictionary<string, string> SecondaryColors =
-            //    new Dictionary<string, string>
-            //    {
-            //        { "Red", "#7D1B0A" },
-            //        { "Yellow", "#E6A607" },
-            //        { "Green", "#71A305" },
-            //        { "Blue", "#0494D6" },
-            //        { "Black", "#4D4D4D" }
-            //    };
+            public static readonly Dictionary<string, string> SecondaryColors =
+                new Dictionary<string, string>
+                {
+                    { "varname", "secondaryColor" },
+                    { "Red", "#7D1B0A" },
+                    { "Yellow", "#E6A607" },
+                    { "Green", "#71A305" },
+                    { "Blue", "#0494D6" },
+                    { "Black", "#4D4D4D" }
+                };
 
-            public static string AuxiliaryColor = "auxiliarColor";
-            //public static readonly Dictionary<string, string> AuxiliaryColors =
-            //    new Dictionary<string, string>
-            //    {
-            //        { "Black", "#FFFFFF" },
-            //        { "White", "#000000" }
-            //    };
+            public static readonly Dictionary<string, string> AuxiliaryColors =
+                new Dictionary<string, string>
+                {
+                    { "varname", "auxiliarColor" },
+                    { "Black", "#000000" },
+                    { "White", "#FFFFFF" }
+                };
         }
     }
 }

@@ -55,7 +55,7 @@
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                         <ColumnDefinition Width="6*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding DisplayValue}"></TextBlock>
+                                    <TextBlock Text="{Binding DisplayValue}" Foreground="{Binding ColorResources.AuxiliaryColor}"></TextBlock>
                                 </Grid>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
@@ -64,18 +64,42 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="2">
                     <TextBlock FontSize="16" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.TextIconColor}" TextAlignment="Left"></TextBlock>
-                    <ComboBox HorizontalAlignment="Stretch"></ComboBox>
+                    <ComboBox HorizontalAlignment="Stretch" Name="AuxiliaryColorComboBox">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding ColorResources.AccentColor}" HorizontalAlignment="Stretch" BorderBrush="{Binding ColorResources.SecondaryColor}" BorderThickness="0,0,0,1" VerticalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding DisplayValue}" Foreground="{Binding ColorResources.AuxiliaryColor}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
 
 
                 <StackPanel Grid.Column="2" Grid.Row="0">
                     <TextBlock FontSize="16" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.SecondaryColor}" TextAlignment="Left"></TextBlock>
-                    <ComboBox HorizontalAlignment="Stretch"></ComboBox>
+                    <ComboBox HorizontalAlignment="Stretch" Name="SecondaryColorComboBox">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="{Binding ColorResources.AccentColor}" HorizontalAlignment="Stretch" BorderBrush="{Binding ColorResources.SecondaryColor}" BorderThickness="0,0,0,1" VerticalAlignment="Stretch">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="6*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding DisplayValue}" Foreground="{Binding ColorResources.AuxiliaryColor}"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Grid.Row="2">
                     <TextBlock FontSize="16" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.PreferredLanguage}" TextAlignment="Left"></TextBlock>
-                    <ComboBox HorizontalAlignment="Stretch"></ComboBox>
+                    <ComboBox HorizontalAlignment="Stretch" Foreground="{Binding ColorResources.AuxiliaryColor}"></ComboBox>
                 </StackPanel>
             </Grid>
         </ScrollViewer>

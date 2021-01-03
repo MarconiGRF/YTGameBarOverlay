@@ -23,9 +23,9 @@ namespace YoutubeGameBarWidget.Utilities
         public static ThemeResources GetTheme()
         {
             ThemeResources Theme = new ThemeResources();
-            Theme.AccentColor = (string)Utils.GetSettingValue(Constants.Settings.AccentColor);
-            Theme.SecondaryColor = (string)Utils.GetSettingValue(Constants.Settings.SecondaryColor);
-            Theme.AuxiliaryColor = (string)Utils.GetSettingValue(Constants.Settings.AuxiliaryColor);
+            Theme.AccentColor = (string)Utils.GetSettingValue(Constants.Settings.AccentColors["varname"]);
+            Theme.SecondaryColor = (string)Utils.GetSettingValue(Constants.Settings.SecondaryColors["varname"]);
+            Theme.AuxiliaryColor = (string)Utils.GetSettingValue(Constants.Settings.AuxiliaryColors["varname"]);
 
             return Theme;
         }
