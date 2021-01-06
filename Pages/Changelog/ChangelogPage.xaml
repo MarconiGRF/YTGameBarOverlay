@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="#C92306">
+    <Grid Background="{x:Bind ColorResources.AccentColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="2*"/>
@@ -34,23 +34,23 @@
         
         <ProgressRing 
             Name="LoadingRing" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3"
-            Foreground="#FFFFFF" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         <Button 
             Name="BackButton" 
             Grid.Row="5" Grid.Column="1" 
             HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
             Click="BackButton_Click"
-            Background="#C92306">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="White" FontSize="18"></FontIcon>
+            Background="{x:Bind ColorResources.AccentColor}">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
         </Button>
 
         <Viewbox Grid.Row="5" Grid.Column="3" >
-            <TextBlock Foreground="#FFFFFF" TextAlignment="Center" Name="Title" Text="{x:Bind LangResources.Title}"></TextBlock>
+            <TextBlock Foreground="{x:Bind ColorResources.AuxiliaryColor}" TextAlignment="Center" Name="Title" Text="{x:Bind LangResources.Title}"></TextBlock>
         </Viewbox>
 
         <Viewbox Grid.Row="5" Grid.Column="5">
-            <TextBlock Name="VersionDisplayer" Foreground="#FFFFFF" xml:space="preserve" FontWeight="Light" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{x:Bind LangResources.VersionDisplayer}">
+            <TextBlock Name="VersionDisplayer" Foreground="{x:Bind ColorResources.AuxiliaryColor}" xml:space="preserve" FontWeight="Light" TextWrapping="Wrap" TextAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Top" Text="{x:Bind LangResources.VersionDisplayer}">
             </TextBlock>
         </Viewbox>
     </Grid>

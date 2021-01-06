@@ -19,19 +19,23 @@ namespace YoutubeGameBarOverlay
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private Search search;
+        private Search Search;
         private MainPageResources LangResources;
+        private ThemeResources ColorResources;
         private bool inLoadingState;
         public string MediaURL;
 
         public MainPage()
         {
-            this.search = new Search();
-            this.search.FinishedFetchingResults += PresentResults;
-            this.LangResources = BabelTower.getTranslatedResources<MainPageResources>();
-            this.search.FailedFetchingResults += PresentSearchError;
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.InitializeComponent();
+            Search = new Search();
+            Search.FinishedFetchingResults += PresentResults;
+            Search.FailedFetchingResults += PresentSearchError;
+
+            LangResources = BabelTower.getTranslatedResources<MainPageResources>();
+            ColorResources = Painter.GetTheme();
+
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            InitializeComponent();
         }
 
         /// <summary>
@@ -40,9 +44,9 @@ namespace YoutubeGameBarOverlay
         /// <param name="e">The navigation arguments.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.MediaURL = Constants.Common.EmptyString;
-            this.inputBox.Text = Constants.Common.EmptyString;
-            this.InLoadingState(false);
+            MediaURL = Constants.Common.EmptyString;
+            inputBox.Text = Constants.Common.EmptyString;
+            InLoadingState(false);
 
             base.OnNavigatedTo(e);
         }
@@ -56,7 +60,7 @@ namespace YoutubeGameBarOverlay
         /// <param name="eventArgs"></param>
         private void HandlePlayButton(object sender, RoutedEventArgs eventArgs)
         {
-            ListItems list = (ListItems)this.inputBox.ItemsSource;
+            ListItems list = (ListItems)inputBox.ItemsSource;
 
             if (list != null && list.Count > 0)
             {
@@ -65,7 +69,7 @@ namespace YoutubeGameBarOverlay
             }
             else
             {
-                ShowErrorMessage(this.LangResources.VideoNotSelectedError);
+                ShowErrorMessage(LangResources.VideoNotSelectedError);
             }
         }
 
@@ -76,7 +80,7 @@ namespace YoutubeGameBarOverlay
         /// <param name="eventArgs"></param>
         private void HandleFeedbackButton(object sender, RoutedEventArgs eventArgs)
         {
-            this.Frame.Navigate(typeof(FeedbackPage));
+            Frame.Navigate(typeof(FeedbackPage));
         }
 
         /// <summary>
@@ -86,7 +90,17 @@ namespace YoutubeGameBarOverlay
         /// <param name="eventArgs"></param>
         private void HandleChangelogButton(object sender, RoutedEventArgs eventArgs)
         {
-            this.Frame.Navigate(typeof(ChangelogPage));
+            Frame.Navigate(typeof(ChangelogPage));
+        }
+
+        /// <summary>
+        /// Handles the click at the SettingsPage Button navigating to it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void HandleSettingsButton(object sender, RoutedEventArgs eventArgs)
+        {
+            Frame.Navigate(typeof(SettingsPage));
         }
 
         /// <summary>
@@ -96,14 +110,14 @@ namespace YoutubeGameBarOverlay
         {
             InLoadingState(true);
 
-            if (Validator.IsMediaURLValid(this.MediaURL) == true)
+            if (Validator.IsMediaURLValid(MediaURL) == true)
             {
                 StartPlayback();
             }
             else
             {
                 InLoadingState(false);
-                ShowErrorMessage(this.LangResources.URLNotValidError);
+                ShowErrorMessage(LangResources.URLNotValidError);
             }
         }
 
@@ -113,7 +127,7 @@ namespace YoutubeGameBarOverlay
         /// <param name="input">The string to be set as MediaURL</param>
         private void SetAsMediaURL(string input)
         {
-            this.MediaURL = input;
+            MediaURL = input;
         }
 
         /// <summary>
@@ -121,13 +135,17 @@ namespace YoutubeGameBarOverlay
         /// 
         /// These elements are:
         /// 1 - The Information payload to be passed to Webpage.
-        /// 2 - Navigate to Webpage.
+        /// 2 - Clean, if any, garbage left on memory.
+        /// 3 - Navigate to VideoUI's Webpage.
         /// </summary>
         private void StartPlayback()
         {
-            InformationPayload information = new InformationPayload(Utils.GetProperVideoUIUri(this.MediaURL));
+            InformationPayload information = new InformationPayload(Utils.GetProperVideoUIUri(MediaURL));
+            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
-            this.Frame.Navigate(typeof(Webpage), information);
+            Frame.Navigate(typeof(Webpage), information);
         }
 
         /// <summary>
@@ -189,15 +207,15 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         private async Task DoSearch()
         {
-            if (this.inLoadingState == false)
+            if (inLoadingState == false)
             {
-                this.inLoadingState = true;
+                inLoadingState = true;
                 Painter.RunUIUpdateByMethod(WeakLoading);
             }
 
             try
             {
-                await this.search.ByTerm(inputBox.Text);
+                await Search.ByTerm(inputBox.Text);
             }
             catch (Exception ex)
             {
@@ -216,12 +234,12 @@ namespace YoutubeGameBarOverlay
         /// <param name="e"></param>
         public void PresentResults(Object sender, EventArgs e)
         {
-            if (this.inLoadingState == true)
+            if (inLoadingState == true)
             {
                 InLoadingState(false);
             }
-
-            inputBox.ItemsSource = this.search.Retreive();
+            inputBox.ItemsSource = null;
+            inputBox.ItemsSource = Search.Retreive();
             inputBox.IsSuggestionListOpen = true;
         }
 
@@ -233,7 +251,7 @@ namespace YoutubeGameBarOverlay
         public void PresentSearchError(Object sender, EventArgs e)
         {
             InLoadingState(false);
-            ShowErrorMessage(this.LangResources.SearchNotAvailableError);
+            ShowErrorMessage(LangResources.SearchNotAvailableError);
         }
 
         /// <summary>
@@ -260,12 +278,12 @@ namespace YoutubeGameBarOverlay
         {
             if (value == true)
             {
-                this.inLoadingState = true;
+                inLoadingState = true;
                 Painter.RunUIUpdateByMethod(TrueLoading);
             }
             else
             {
-                this.inLoadingState = false;
+                inLoadingState = false;
                 Painter.RunUIUpdateByMethod(FalseLoading);
             }
         }
@@ -316,6 +334,7 @@ namespace YoutubeGameBarOverlay
                     {
                         LoadingRing.IsActive = true;
                         inputBox.IsSuggestionListOpen = false;
+                        ErrorMessage.Text = Constants.Common.EmptyString;
                         ErrorMessage.Visibility = Visibility.Collapsed;
                     }
                 );

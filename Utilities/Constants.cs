@@ -1,4 +1,6 @@
-﻿namespace YoutubeGameBarWidget.Utilities
+﻿using System.Collections.Generic;
+
+namespace YoutubeGameBarWidget.Utilities
 {
     /// <summary>
     /// A class with contant values common to the code.
@@ -91,6 +93,55 @@
             public const string POSTMethod = "POST";
             public const string RequestNotSupportedException = "Request Method not supported: ";
             public const string VideoUIFilePath = "VideoUI\\";
+        }
+
+        /// <summary>
+        /// Common Constants to Local Settings key names.
+        /// </summary>
+        public static class Settings
+        {
+            public static string[] LanguagesNames = { "English", "Portuguese" };
+            public const string DefaultPreferredLanguage = "en-US";
+            public static readonly Dictionary<string, string> Languages =
+                new Dictionary<string, string>
+                {
+                    { "varname", "preferredLanguage" },
+                    { "English", "en-US" },
+                    { "Portuguese", "pt-BR" },
+                };
+
+            public static string[] ColorNames = { "Red", "Yellow", "Green", "Blue", "Black" };
+            public static string[] AuxiliaryNames = { "Black", "White" };
+
+            public static readonly Dictionary<string, string> AccentColors =
+                new Dictionary<string, string>
+                {
+                    { "varname", "accentColor" },
+                    { "Red", "#C92306" },
+                    { "Yellow", "#FFBA08" },
+                    { "Green", "#81BC06" },
+                    { "Blue", "#05A6F0" },
+                    { "Black", "#000000" }
+                };
+
+            public static readonly Dictionary<string, string> SecondaryColors =
+                new Dictionary<string, string>
+                {
+                    { "varname", "secondaryColor" },
+                    { "Red", "#7D1B0A" },
+                    { "Yellow", "#E6A607" },
+                    { "Green", "#71A305" },
+                    { "Blue", "#0494D6" },
+                    { "Black", "#4D4D4D" }
+                };
+
+            public static readonly Dictionary<string, string> AuxiliaryColors =
+                new Dictionary<string, string>
+                {
+                    { "varname", "auxiliarColor" },
+                    { "Black", "#000000" },
+                    { "White", "#FFFFFF" }
+                };
         }
     }
 }

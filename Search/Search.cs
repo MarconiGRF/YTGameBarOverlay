@@ -70,6 +70,7 @@ namespace YoutubeGameBarWidget.Search
         private void ParseResults(Object sender, DownloadStringCompletedEventArgs e)
         {
             this.parsedResults = new ListItems();
+            ThemeResources colorResources = Painter.GetTheme();
 
             try
             {
@@ -77,11 +78,13 @@ namespace YoutubeGameBarWidget.Search
                 foreach (JsonValue jValue in jArray)
                 {
                     JsonObject jObject = jValue.GetObject();
-                    this.parsedResults.Add(new ListItem(
+                    ListItem resultItem = new ListItem(
                             jObject.GetNamedString("mediaType"),
                             jObject.GetNamedString("mediaTitle"),
                             jObject.GetNamedString("channelTitle"),
-                            jObject.GetNamedString("mediaUrl")));
+                            jObject.GetNamedString("mediaUrl"));
+                    resultItem.ColorResources = colorResources;
+                    this.parsedResults.Add(resultItem);
                 }
 
                 this.OnFinishedFetchingResults(EventArgs.Empty);

@@ -9,72 +9,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
-        <Style x:Key="ButtonWithoutHover" TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource ButtonBackground}"/>
-            <Setter Property="BackgroundSizing" Value="OuterBorderEdge"/>
-            <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}"/>
-            <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}"/>
-            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
-            <Setter Property="Padding" Value="{StaticResource ButtonPadding}"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
-            <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}"/>
-            <Setter Property="FocusVisualMargin" Value="-3"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BackgroundSizing="{TemplateBinding BackgroundSizing}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" CornerRadius="{TemplateBinding CornerRadius}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal">
-                                        <Storyboard>
-                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPointerOver}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPointerOver}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPressed}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPressed}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <PointerDownThemeAnimation Storyboard.TargetName="ContentPresenter"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </ContentPresenter>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <Style x:Key="YTGBOTextBox" TargetType="TextBox">
             <Setter Property="Foreground" Value="{ThemeResource TextControlForeground}"/>
             <Setter Property="Background" Value="{ThemeResource TextControlBackground}"/>
             <Setter Property="BorderBrush" Value="{ThemeResource TextControlBorderBrush}"/>
-            <Setter Property="SelectionHighlightColor" Value="#7D1B0A"/>
+            <Setter Property="SelectionHighlightColor" Value="{x:Bind ColorResources.SecondaryColor}"/>
             <Setter Property="BorderThickness" Value="{ThemeResource TextControlBorderThemeThickness}"/>
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
@@ -229,7 +168,7 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="#C92306">
+    <Grid Background="{x:Bind ColorResources.AccentColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="2*"/>
@@ -241,41 +180,41 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5">
-            <TextBlock Foreground="#FFFFFF" Text="{x:Bind LangResources.Title}"></TextBlock>
+            <TextBlock Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.Title}"></TextBlock>
         </Viewbox>
 
         <TextBox 
             Name="FeedbackTextBox" IsSpellCheckEnabled="False"
             Style="{StaticResource YTGBOTextBox}" PlaceholderText="{x:Bind LangResources.MessagePlaceholder}"
-            Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="5" TextWrapping="Wrap"
-            VerticalAlignment="Center" MinHeight="40" FontSize="12"
-            BorderBrush="#7D1B0A" SelectionHighlightColor="#7D1B0A">
+            Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="5" TextWrapping="Wrap"
+            VerticalAlignment="Stretch" MinHeight="40" FontSize="12"
+            BorderBrush="{x:Bind ColorResources.SecondaryColor}" SelectionHighlightColor="{x:Bind ColorResources.SecondaryColor}">
         </TextBox>
 
         <TextBox 
             Name="FeedBackAuthor" IsSpellCheckEnabled="False"
             Style="{StaticResource YTGBOTextBox}" PlaceholderText="{x:Bind LangResources.AuthorPlaceholder}"
-            Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" 
+            Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5" 
             VerticalAlignment="Center" FontSize="12"
-            BorderBrush="#7D1B0A" SelectionHighlightColor="#7D1B0A">
+            BorderBrush="{x:Bind ColorResources.SecondaryColor}" SelectionHighlightColor="{x:Bind ColorResources.SecondaryColor}">
         </TextBox>
 
         <Button 
-            Name="SendButton" Style="{StaticResource ButtonWithoutHover}" 
+            Name="SendButton" 
             Grid.Row="5" Grid.Column="5" 
             HorizontalAlignment="Right" MinWidth="32"
             Click="SendButton_Click"
-            Background="#7D1B0A" BorderBrush="#7D1B0A">
-            <TextBlock Name="SendButtonText" Foreground="#FFFFFF" FontSize="18" Text="{x:Bind LangResources.Send}"></TextBlock>
+            Background="{x:Bind ColorResources.AccentColor}">
+            <TextBlock Name="SendButtonText" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18" Text="{x:Bind LangResources.Send}"></TextBlock>
         </Button>
 
         <Button 
@@ -283,13 +222,13 @@
             Grid.Row="5" Grid.Column="1" 
             HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
             Click="BackButton_Click"
-            Background="#C92306">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="White" FontSize="18"></FontIcon>
+            Background="{x:Bind ColorResources.AccentColor}">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
         </Button>
 
-        <TextBlock Name="ErrorMessage" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFFFF" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+        <TextBlock Name="ErrorMessage" Grid.Row="5" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{x:Bind ColorResources.AuxiliaryColor}" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
         <ProgressRing 
             Name="LoadingRing" Grid.Row="5" Grid.Column="3"
-            Foreground="#FFFFFF" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"/>
+            Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"/>
     </Grid>
 </Page>

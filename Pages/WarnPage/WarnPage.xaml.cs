@@ -14,10 +14,12 @@ namespace YoutubeGameBarWidget.Pages
     public partial class WarnPage : Page
     {
         private WarnPayload Payload;
+        private ThemeResources ColorResources;
         public WarnPage()
         {
-            this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+            ColorResources = Painter.GetTheme();
+            InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         /// <summary>
@@ -26,8 +28,8 @@ namespace YoutubeGameBarWidget.Pages
         /// <param name="e">The navigation arguments containing a WarnPayload.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.Payload = (WarnPayload)e.Parameter;
-            this.WarnMessage.Text = Payload.Message;
+            Payload = (WarnPayload)e.Parameter;
+            WarnMessage.Text = Payload.Message;
 
             Painter.RunUIUpdateByMethod(WarnAndReturn);
             
@@ -46,13 +48,13 @@ namespace YoutubeGameBarWidget.Pages
                         }
                     );
 
-            Thread.Sleep(1500);
+            Thread.Sleep(Payload.BackoffTime);
 
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
                             ExitWarn.Begin();
-                            this.Frame.Navigate(typeof(Webpage)); ;
+                            this.Frame.Navigate(Payload.DestinationPage);
                         }
                     );
         }

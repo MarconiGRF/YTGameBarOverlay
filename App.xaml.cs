@@ -8,7 +8,9 @@ using Microsoft.Gaming.XboxGameBar;
 using YoutubeGameBarWidget.WebServer;
 using System.IO;
 using System.Linq;
+using YoutubeGameBarWidget.Utilities;
 using YoutubeGameBarWidget.Pages;
+using System.Globalization;
 
 namespace YoutubeGameBarOverlay
 {
@@ -17,7 +19,7 @@ namespace YoutubeGameBarOverlay
     /// </summary>
     sealed partial class App : Application
     {
-        private XboxGameBarWidget widget;
+        private XboxGameBarWidget ytgbw;
         private WebServer ws;
 
         /// <summary>
@@ -27,6 +29,7 @@ namespace YoutubeGameBarOverlay
         public App()
         {
             SetEnvVars();
+            SetupLocalSettings();
             this.ws = new WebServer();
             this.InitializeComponent();
             this.Suspending += OnSuspending;
@@ -44,6 +47,39 @@ namespace YoutubeGameBarOverlay
                 string key = var.Split("=").First();
                 string value = var.Split("=").Last();
                 Environment.SetEnvironmentVariable(key, value, EnvironmentVariableTarget.Process);
+            }
+        }
+
+        /// <summary>
+        /// Sets up the local settings of color and language based on stored config.
+        /// Language preferences, if not already set, will be fetched by system's language.
+        /// Color preferences, if not already set, will be failsafe default to Red theme.
+        /// </summary>
+        private void SetupLocalSettings()
+        {
+            String accentColor = (string) Utils.GetSettingValue(Constants.Settings.AccentColors["varname"]);
+            String secondaryColor = (string) Utils.GetSettingValue(Constants.Settings.SecondaryColors["varname"]);
+            String auxiliaryColor = (string) Utils.GetSettingValue(Constants.Settings.AuxiliaryColors["varname"]);
+            String prefferedLanguage = (string) Utils.GetSettingValue(Constants.Settings.Languages["varname"]);
+
+            if (accentColor == null)
+            {
+                Utils.setSettingValue(Constants.Settings.AccentColors["varname"], Constants.Settings.AccentColors["Red"]);
+            }
+
+            if (secondaryColor == null)
+            { 
+                Utils.setSettingValue(Constants.Settings.SecondaryColors["varname"], Constants.Settings.SecondaryColors["Red"]);
+            }
+
+            if (auxiliaryColor == null)
+            {
+                Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], Constants.Settings.AuxiliaryColors["White"]);
+            }
+
+            if (prefferedLanguage == null)
+            {
+                Utils.setSettingValue(Constants.Settings.Languages["varname"], CultureInfo.InstalledUICulture.Name);
             }
         }
 
@@ -79,22 +115,13 @@ namespace YoutubeGameBarOverlay
                     rootFrame.NavigationFailed += OnNavigationFailed;
                     Window.Current.Content = rootFrame;
 
-                    widget = new XboxGameBarWidget(
-                        widgetArgs,
-                        Window.Current.CoreWindow,
-                        rootFrame);
+                    ytgbw = new XboxGameBarWidget(widgetArgs, Window.Current.CoreWindow, rootFrame);
                     rootFrame.Navigate(typeof(MainPage));
-
-                    Window.Current.Closed += MainPageWindow_Closed;
-
+                        
+                    Window.Current.Closed += WidgetWindow_Closed;
                     Window.Current.Activate();
                 }
             }
-            else
-            {
-                // Do something accordingly.
-            }
-        
         }
 
         /// <summary>
@@ -102,10 +129,11 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MainPageWindow_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
+        private void WidgetWindow_Closed(object sender, Windows.UI.Core.CoreWindowEventArgs e)
         {
-            widget = null;
-            Window.Current.Closed -= MainPageWindow_Closed;
+            ytgbw = null;
+            ws = null;
+            Window.Current.Closed -= WidgetWindow_Closed;
         }
 
         /// <summary>

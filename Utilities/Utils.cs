@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Windows.Storage;
+using System;
 using System.Linq;
 
 namespace YoutubeGameBarWidget.Utilities
@@ -27,7 +28,7 @@ namespace YoutubeGameBarWidget.Utilities
         {
             Uri properVideoUIURI;
             string baseAddress = Constants.VideoUI.BaseAddress;
-            string ytgbwsPort = Utils.GetVar(Constants.Vars.WSPort);
+            string ytgbwsPort = GetVar(Constants.Vars.WSPort);
             string videoQS = Constants.VideoUI.VideoQueryString;
             string playlistQS = Constants.VideoUI.PlaylistQueryString;
 
@@ -71,6 +72,35 @@ namespace YoutubeGameBarWidget.Utilities
                     return url.Split(dashSeparator).Last();
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets and returns the local settings for the YTGBO application.
+        /// </summary>
+        /// <returns>The application local settings.</returns>
+        private static ApplicationDataContainer getLocalSettings()
+        {
+            return ApplicationData.Current.LocalSettings;
+        }
+
+        /// <summary>
+        /// Gets and returns a value for a local setting by the given key.
+        /// </summary>
+        /// <param name="key">The key to search value for.</param>
+        /// <returns>The value that the key has stored.</returns>
+        public static Object GetSettingValue(String key)
+        {
+            return Utils.getLocalSettings().Values[key];
+        }
+
+        /// <summary>
+        /// Sets a value for the key on the application local settings.
+        /// </summary>
+        /// <param name="key">The key to set the value.</param>
+        /// <param name="value">The value to be set.</param>
+        public static void setSettingValue(String key, String value)
+        {
+            Utils.getLocalSettings().Values[key] = value;
         }
     }
 }

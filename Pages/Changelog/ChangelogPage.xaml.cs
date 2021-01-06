@@ -5,7 +5,6 @@ using System.Net;
 using System.Text;
 using Windows.ApplicationModel;
 using Windows.Data.Json;
-using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -22,16 +21,18 @@ namespace YoutubeGameBarWidget.Pages
     public sealed partial class ChangelogPage : Page
     {
         private ChangelogResources LangResources;
+        private ThemeResources ColorResources;
         List<String> changelogContent;
         string currentVersion;
         string githubReleasesEndpoint;
 
         public ChangelogPage()
         {
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
-            this.githubReleasesEndpoint = Constants.Endpoints.Github;
-            this.LangResources = BabelTower.getTranslatedResources<ChangelogResources>();
-            this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
+            githubReleasesEndpoint = Constants.Endpoints.Github;
+            LangResources = BabelTower.getTranslatedResources<ChangelogResources>();
+            ColorResources = Painter.GetTheme(); 
+            InitializeComponent();
         }
 
         /// <summary>
@@ -40,13 +41,13 @@ namespace YoutubeGameBarWidget.Pages
         /// <param name="e">The navigation arguments.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (this.currentVersion == null)
+            if (currentVersion == null)
             {
                 GetFormattedAppVersion();
-                this.LangResources.VersionDisplayer += this.currentVersion;
+                LangResources.VersionDisplayer += currentVersion;
             }
 
-            if (this.changelogContent == null)
+            if (changelogContent == null)
             {
                 Painter.RunUIUpdateByMethod(StartLoading);
                 GetGithubContent();
@@ -64,9 +65,9 @@ namespace YoutubeGameBarWidget.Pages
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.ScrollableContent.Visibility = Visibility.Collapsed;
-                        this.LoadingRing.IsEnabled = true;
-                        this.LoadingRing.IsActive = true;
+                        ScrollableContent.Visibility = Visibility.Collapsed;
+                        LoadingRing.IsEnabled = true;
+                        LoadingRing.IsActive = true;
                     }
                 );
             
@@ -81,9 +82,9 @@ namespace YoutubeGameBarWidget.Pages
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        this.LoadingRing.IsEnabled = false;
-                        this.LoadingRing.IsActive = false;
-                        this.ScrollableContent.Visibility = Visibility.Visible;
+                        LoadingRing.IsEnabled = false;
+                        LoadingRing.IsActive = false;
+                        ScrollableContent.Visibility = Visibility.Visible;
                     }
                 );
             
@@ -99,7 +100,7 @@ namespace YoutubeGameBarWidget.Pages
             client.Headers.Add(HttpRequestHeader.Accept, Constants.Headers.GithubJson);
             client.Headers.Add(HttpRequestHeader.UserAgent, Constants.Headers.CommonUserAgent);
             
-            client.DownloadDataAsync(new Uri(this.githubReleasesEndpoint));
+            client.DownloadDataAsync(new Uri(githubReleasesEndpoint));
         }
 
         /// <summary>
@@ -111,21 +112,21 @@ namespace YoutubeGameBarWidget.Pages
         /// <param name="e"></param>
         public void ParseResults(Object sender, DownloadDataCompletedEventArgs e)
         {
-            this.changelogContent = new List<string>();
+            changelogContent = new List<string>();
 
             try { 
                 JsonArray jArray = JsonArray.Parse(Encoding.UTF8.GetString(e.Result));
                 foreach(JsonValue jValue in jArray)
                 {
                     JsonObject jObject = jValue.GetObject();
-                    this.changelogContent.Add(jObject.GetNamedString("name"));
-                    this.changelogContent.Add(jObject.GetNamedString("body"));
+                    changelogContent.Add(jObject.GetNamedString("name"));
+                    changelogContent.Add(jObject.GetNamedString("body"));
                 }
             }
             catch
             {
-                this.changelogContent.Add(this.LangResources.AmazingError);
-                this.changelogContent.Add(this.LangResources.GithubCommunicationError);
+                changelogContent.Add(LangResources.AmazingError);
+                changelogContent.Add(LangResources.GithubCommunicationError);
             }
 
             DisplayResults();
@@ -138,15 +139,15 @@ namespace YoutubeGameBarWidget.Pages
         /// </summary>
         public void DisplayResults()
         {
-            for(int i = 0; i < this.changelogContent.Count; i++)
+            for(int i = 0; i < changelogContent.Count; i++)
             {
                 if (i%2 == 0)
                 {
-                    ScrollableContent.Children.Add(GetStyledTextBlock(this.changelogContent.ElementAt(i), "version"));
+                    ScrollableContent.Children.Add(GetStyledTextBlock(changelogContent.ElementAt(i), "version"));
                 }
                 else
                 {
-                    ScrollableContent.Children.Add(GetStyledTextBlock(GetFormattedDescription(this.changelogContent.ElementAt(i)), "description"));
+                    ScrollableContent.Children.Add(GetStyledTextBlock(GetFormattedDescription(changelogContent.ElementAt(i)), "description"));
                 }
             }
 
@@ -183,7 +184,7 @@ namespace YoutubeGameBarWidget.Pages
         public TextBlock GetStyledTextBlock(string message, string styling)
         {
             TextBlock styledTextBlock = new TextBlock();
-            styledTextBlock.Foreground = new SolidColorBrush(Color.FromArgb(Byte.MaxValue, Byte.MaxValue, Byte.MaxValue, Byte.MaxValue));
+            styledTextBlock.Foreground = new SolidColorBrush(Painter.GetFromHex(ColorResources.AuxiliaryColor));
             styledTextBlock.Text = message;
 
             if (styling == "version")
@@ -207,7 +208,7 @@ namespace YoutubeGameBarWidget.Pages
         private void GetFormattedAppVersion()
         {
             PackageVersion version = Package.Current.Id.Version;
-            this.currentVersion = version.Major + "." + version.Minor + "." + version.Build;
+            currentVersion = version.Major + "." + version.Minor + "." + version.Build;
         }
 
         /// <summary>
@@ -217,7 +218,7 @@ namespace YoutubeGameBarWidget.Pages
         /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

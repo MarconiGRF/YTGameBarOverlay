@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsResources>
+	<Title>Settings</Title>
+	<AccentColor>Accent color</AccentColor>
+	<SecondaryColor>Secondary color</SecondaryColor>
+	<TextIconColor>Text and Icon color</TextIconColor>
+	<PreferredLanguage>Language</PreferredLanguage>
+	<Save>Save</Save>
+	<Black>Black</Black>
+	<White>White</White>
+	<Blue>Blue</Blue>
+	<Red>Red</Red>
+	<Yellow>Yellow</Yellow>
+	<Green>Green</Green>
+	<EnglishUS>English - US</EnglishUS>
+	<PortugueseBR>Portuguese - BR</PortugueseBR>
+	<RestartMessage>Restart the widget for changes to take effect!</RestartMessage>
+</SettingsResources>
