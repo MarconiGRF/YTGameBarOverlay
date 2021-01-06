@@ -48,13 +48,13 @@ namespace YoutubeGameBarWidget.Pages
                         }
                     );
 
-            Thread.Sleep(1500);
+            Thread.Sleep(Payload.BackoffTime);
 
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
                         {
                             ExitWarn.Begin();
-                            this.Frame.Navigate(typeof(Webpage)); ;
+                            this.Frame.Navigate(Payload.DestinationPage);
                         }
                     );
         }

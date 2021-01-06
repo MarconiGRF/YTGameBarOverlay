@@ -158,13 +158,14 @@ namespace YoutubeGameBarOverlay
             Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], selectedAuxiliary.RawValue);
             Utils.setSettingValue(Constants.Settings.Languages["varname"], selectedLanguage.RawValue);
 
-            CleanAndNavigateBack();
+            ClearObjects();
+            Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.RestartMessage, typeof(MainPage), 5000));
         }
 
         /// <summary>
         /// Cleans the UI objects and calls a GC collect to prevent memory leaks, then navigates to MainPage.
         /// </summary>
-        private void CleanAndNavigateBack()
+        private void ClearObjects()
         {
             AccentColorComboBox.ItemsSource = null;
             AccentComboValues = null;
@@ -178,10 +179,12 @@ namespace YoutubeGameBarOverlay
             AuxiliaryComboValues = null;
             AuxiliaryColorComboBox.ItemsSource = AuxiliaryComboValues;
 
+            LanguageComboBox.ItemsSource = null;
+            LanguageComboValues = null;
+            LanguageComboBox.ItemsSource = LanguageComboValues;
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
-
-            Frame.Navigate(typeof(MainPage));
         }
 
         /// <summary>
@@ -191,7 +194,8 @@ namespace YoutubeGameBarOverlay
         /// <param name="e"></param>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            CleanAndNavigateBack();
+            ClearObjects();
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

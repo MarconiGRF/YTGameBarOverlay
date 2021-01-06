@@ -106,13 +106,13 @@ namespace YoutubeGameBarWidget
 
             if (Validator.IsMediaURLValid(redirectUrl) == true)
             {
-                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.LoadingWarn));
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.LoadingWarn, typeof(Webpage), 2500));
 
                 VideoUIWebpage.Navigate(Utils.GetProperVideoUIUri(redirectUrl));
             }
             else
             {
-                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.InvalidURLWarn));
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.InvalidURLWarn, typeof(Webpage), 1500));
             }
             
             args.Handled = true;

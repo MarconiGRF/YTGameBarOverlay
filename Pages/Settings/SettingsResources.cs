@@ -51,5 +51,8 @@ namespace YoutubeGameBarWidget.Pages
 
         [XmlElement("PortugueseBR")]
         public String PortugueseBR { get; set; }
+
+        [XmlElement("RestartMessage")]
+        public String RestartMessage { get; set; }
     }
 }
