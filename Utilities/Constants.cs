@@ -100,8 +100,15 @@ namespace YoutubeGameBarWidget.Utilities
         /// </summary>
         public static class Settings
         {
-            public const string PreferredLanguage = "preferredLanguage";
+            public static string[] LanguagesNames = { "English", "Portuguese" };
             public const string DefaultPreferredLanguage = "en-US";
+            public static readonly Dictionary<string, string> Languages =
+                new Dictionary<string, string>
+                {
+                    { "varname", "preferredLanguage" },
+                    { "English", "en-US" },
+                    { "Portuguese", "pt-BR" },
+                };
 
             public static string[] ColorNames = { "Red", "Yellow", "Green", "Blue", "Black" };
             public static string[] AuxiliaryNames = { "Black", "White" };

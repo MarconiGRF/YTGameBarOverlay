@@ -20,6 +20,7 @@ namespace YoutubeGameBarOverlay
         private List<SettingItem> AccentComboValues;
         private List<SettingItem> SecondaryComboValues;
         private List<SettingItem> AuxiliaryComboValues;
+        private List<SettingItem> LanguageComboValues;
 
         public SettingsPage()
         {
@@ -39,6 +40,7 @@ namespace YoutubeGameBarOverlay
             BuildAccentComboValues();
             BuildSecondaryComboValues();
             BuildAuxiliaryComboValues();
+            BuildLanguageComboValues();
         }
 
         /// <summary>
@@ -84,6 +86,30 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
+        /// Builds a list of Setting Items based on the "Secondary Color" constants.
+        /// </summary>
+        /// <returns>The list of Setting Items with the Secondary Color names and values.</returns>
+        private void BuildLanguageComboValues()
+        {
+            string currentLanguageValue = (string)Utils.GetSettingValue(Constants.Settings.Languages["varname"]);
+            SettingItem currentOption = new SettingItem(null, currentLanguageValue);
+
+            LanguageComboValues = new List<SettingItem>();
+            foreach (string languageName in Constants.Settings.LanguagesNames)
+            {
+                SettingItem comboOption = new SettingItem(languageName, Constants.Settings.Languages[languageName]);
+                if (comboOption.RawValue == currentOption.RawValue)
+                {
+                    currentOption = comboOption;
+                }
+                LanguageComboValues.Add(comboOption);
+            }
+
+            LanguageComboBox.ItemsSource = LanguageComboValues;
+            LanguageComboBox.SelectedItem = currentOption;
+        }
+
+        /// <summary>
         /// Builds and returns a List of SettingItem of colors, its values will be based on the given parameters so it can fit any color type.
         /// </summary>
         /// <param name="current">The current value of the color, to be filled with name.</param>
@@ -115,6 +141,7 @@ namespace YoutubeGameBarOverlay
             SettingItem selectedAccent = (SettingItem)AccentColorComboBox.SelectedItem;
             SettingItem selectedSecondary = (SettingItem)SecondaryColorComboBox.SelectedItem;
             SettingItem selectedAuxiliary = (SettingItem)AuxiliaryColorComboBox.SelectedItem;
+            SettingItem selectedLanguage= (SettingItem)LanguageComboBox.SelectedItem;
 
             if (selectedAccent.RawValue == Constants.Settings.AccentColors["Black"])
             {
@@ -129,6 +156,7 @@ namespace YoutubeGameBarOverlay
             Utils.setSettingValue(Constants.Settings.AccentColors["varname"], selectedAccent.RawValue);
             Utils.setSettingValue(Constants.Settings.SecondaryColors["varname"], selectedSecondary.RawValue);
             Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], selectedAuxiliary.RawValue);
+            Utils.setSettingValue(Constants.Settings.Languages["varname"], selectedLanguage.RawValue);
 
             CleanAndNavigateBack();
         }

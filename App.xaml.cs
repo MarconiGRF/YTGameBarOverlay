@@ -60,7 +60,7 @@ namespace YoutubeGameBarOverlay
             String accentColor = (string) Utils.GetSettingValue(Constants.Settings.AccentColors["varname"]);
             String secondaryColor = (string) Utils.GetSettingValue(Constants.Settings.SecondaryColors["varname"]);
             String auxiliaryColor = (string) Utils.GetSettingValue(Constants.Settings.AuxiliaryColors["varname"]);
-            String prefferedLanguage = (string) Utils.GetSettingValue(Constants.Settings.PreferredLanguage);
+            String prefferedLanguage = (string) Utils.GetSettingValue(Constants.Settings.Languages["varname"]);
 
             if (accentColor == null)
             {
@@ -79,7 +79,7 @@ namespace YoutubeGameBarOverlay
 
             if (prefferedLanguage == null)
             {
-                Utils.setSettingValue(Constants.Settings.PreferredLanguage, CultureInfo.InstalledUICulture.Name);
+                Utils.setSettingValue(Constants.Settings.Languages["varname"], CultureInfo.InstalledUICulture.Name);
             }
         }
 

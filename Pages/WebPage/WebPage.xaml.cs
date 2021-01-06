@@ -108,7 +108,6 @@ namespace YoutubeGameBarWidget
             {
                 Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.LoadingWarn));
 
-
                 VideoUIWebpage.Navigate(Utils.GetProperVideoUIUri(redirectUrl));
             }
             else

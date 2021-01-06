@@ -15,13 +15,13 @@ namespace YoutubeGameBarWidget.Utilities
         /// <returns>A resource object filled with the information parsed from XML.</returns>
         public static T getTranslatedResources<T>()
         {
-            string currentLanguage = (string) Utils.GetSettingValue(Constants.Settings.PreferredLanguage);
+            string currentLanguage = (string) Utils.GetSettingValue(Constants.Settings.Languages["varname"]);
             string requestedClass = typeof(T).Name;
             string filePath = "Resources\\" + requestedClass + "\\" + currentLanguage + ".xml";
 
             if (!File.Exists(filePath))
             {
-                Utils.setSettingValue(Constants.Settings.PreferredLanguage, Constants.Settings.DefaultPreferredLanguage);
+                Utils.setSettingValue(Constants.Settings.Languages["varname"], Constants.Settings.DefaultPreferredLanguage);
                 currentLanguage = Constants.Settings.DefaultPreferredLanguage;
                 filePath = "Resources\\" + requestedClass + "\\" + currentLanguage + ".xml";
             }
