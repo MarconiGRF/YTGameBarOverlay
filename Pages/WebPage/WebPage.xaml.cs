@@ -121,7 +121,12 @@ namespace YoutubeGameBarWidget
             args.Handled = true;
         }
 
-        private void VideoUIWebpage_ScriptNotify(object sender, NotifyEventArgs e)
+        /// <summary>
+        /// Handles the codes sent by the webpage catch by the ScriptNotify event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ScriptNotifyHandler(object sender, NotifyEventArgs e)
         {
             if (e.Value == "goback")
             {
