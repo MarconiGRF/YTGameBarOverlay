@@ -21,6 +21,9 @@ namespace YoutubeGameBarWidget.Pages
 
         [XmlElement("TextIconColor")]
         public String TextIconColor { get; set; }
+        
+        [XmlElement("ShowTips")]
+        public String ShowTips { get; set; }
 
         [XmlElement("Save")]
         public String Save { get; set; }

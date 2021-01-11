@@ -100,6 +100,14 @@ namespace YoutubeGameBarWidget.Utilities
         /// </summary>
         public static class Settings
         {
+            public static readonly Dictionary<string, string> ShowTips =
+                new Dictionary<string, string>
+                {
+                    { "varname", "showTips" },
+                    { "True", "true" },
+                    { "False", "false" }
+                };
+
             public static string[] LanguagesNames = { "English", "Portuguese" };
             public const string DefaultPreferredLanguage = "en-US";
             public static readonly Dictionary<string, string> Languages =

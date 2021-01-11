@@ -46,9 +46,12 @@ namespace YoutubeGameBarWidget
             if (e.Parameter != null)
             {
                 InformationPayload information = (InformationPayload)e.Parameter;
-
                 VideoUIWebpage.Navigate(information.VideoURI);
-                Painter.RunUIUpdateByMethod(PresentPage);
+
+                if ((string) Utils.GetSettingValue(Constants.Settings.ShowTips["varname"]) == Constants.Settings.ShowTips["True"])
+                {
+                    Painter.RunUIUpdateByMethod(ShowTips);
+                }
 
                 base.OnNavigatedTo(e);
             }
@@ -59,7 +62,7 @@ namespace YoutubeGameBarWidget
         /// 
         /// Hides the WebView, showing the tips and finally presents Webview.
         /// </summary>
-        private async void PresentPage()
+        private async void ShowTips()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>

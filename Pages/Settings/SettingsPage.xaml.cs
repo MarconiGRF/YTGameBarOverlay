@@ -41,6 +41,7 @@ namespace YoutubeGameBarOverlay
             BuildSecondaryComboValues();
             BuildAuxiliaryComboValues();
             BuildLanguageComboValues();
+            GetTipsPreference();
         }
 
         /// <summary>
@@ -132,6 +133,23 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
+        /// Gets the tips preference for the user. 
+        /// Based on the stored values checks or not its setting checkbox.
+        /// </summary>
+        private void GetTipsPreference()
+        {
+            string tipsPreference = (string) Utils.GetSettingValue(Constants.Settings.ShowTips["varname"]);
+            if (tipsPreference == Constants.Settings.ShowTips["True"])
+            {
+                ShowTipsCheckbox.IsChecked = true;
+            } 
+            else
+            {
+                ShowTipsCheckbox.IsChecked = false;
+            }
+        }
+
+        /// <summary>
         /// Handles the app behavior when Save button is clicked.
         /// </summary>
         /// <param name="sender"></param>
@@ -142,6 +160,7 @@ namespace YoutubeGameBarOverlay
             SettingItem selectedSecondary = (SettingItem)SecondaryColorComboBox.SelectedItem;
             SettingItem selectedAuxiliary = (SettingItem)AuxiliaryColorComboBox.SelectedItem;
             SettingItem selectedLanguage= (SettingItem)LanguageComboBox.SelectedItem;
+            bool selectedTipsPreference = ShowTipsCheckbox.IsChecked.GetValueOrDefault();
 
             if (selectedAccent.RawValue == Constants.Settings.AccentColors["Black"])
             {
@@ -157,6 +176,14 @@ namespace YoutubeGameBarOverlay
             Utils.setSettingValue(Constants.Settings.SecondaryColors["varname"], selectedSecondary.RawValue);
             Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], selectedAuxiliary.RawValue);
             Utils.setSettingValue(Constants.Settings.Languages["varname"], selectedLanguage.RawValue);
+
+            if (selectedTipsPreference == true)
+            {
+                Utils.setSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["True"]);
+            } else
+            {
+                Utils.setSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["False"]);
+            }
 
             ClearObjects();
             Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.RestartMessage, typeof(MainPage), 5000));
