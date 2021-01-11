@@ -243,6 +243,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="0.12*"/>
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
@@ -295,31 +296,48 @@
             Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"/>
 
         <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Button 
             Name="SettingsButton" 
-            Grid.Row="2" Grid.Column="1" 
-            HorizontalAlignment="Left" MinWidth="32" MinHeight="32" 
+            Grid.Row="0" Grid.Column="0" 
+            HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
             Click="HandleSettingsButton"
             Background="{x:Bind ColorResources.AccentColor}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9E9;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9E9;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
             </Button>
 
             <Button 
             Name="FeedbackButton" 
-            Grid.Row="2" Grid.Column="1" 
-            HorizontalAlignment="Center" MinWidth="32" MinHeight="32" 
+            Grid.Row="0" Grid.Column="1" 
+            HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
             Click="HandleFeedbackButton"
             Background="{x:Bind ColorResources.AccentColor}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE715;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE715;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
             </Button>
 
             <Button 
             Name="ChangelogButton" 
-            Grid.Row="2" Grid.Column="2" 
-            HorizontalAlignment="right" MinWidth="32" MinHeight="32" 
+            Grid.Row="1" Grid.Column="0" 
+            HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
             Click="HandleChangelogButton"
             Background="{x:Bind ColorResources.AccentColor}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D5;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D5;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
+            </Button>
+            
+            <Button 
+            Name="SupportMeButton" 
+            Grid.Row="2" Grid.Column="2" 
+            HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
+            Click="HandleChangelogButton"
+            Background="{x:Bind ColorResources.AccentColor}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE76E;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="14"></FontIcon>
             </Button>
         </Grid>
 
