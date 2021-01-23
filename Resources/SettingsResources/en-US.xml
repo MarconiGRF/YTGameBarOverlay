@@ -16,4 +16,5 @@
 	<PortugueseBR>Portuguese - BR</PortugueseBR>
 	<RestartMessage>Restart the widget for changes to take effect!</RestartMessage>
 	<ShowTips>Show tips before playback starts</ShowTips>
+	<ShowThumbnails>Show thumbnails on search</ShowThumbnails>
 </SettingsResources>

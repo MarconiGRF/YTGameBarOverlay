@@ -108,6 +108,14 @@ namespace YoutubeGameBarWidget.Utilities
                     { "False", "false" }
                 };
 
+            public static readonly Dictionary<string, string> ShowThumbnails =
+                new Dictionary<string, string>
+                {
+                    { "varname", "showThumbnails" },
+                    { "True", "true" },
+                    { "False", "false" }
+                };
+
             public static string[] LanguagesNames = { "English", "Portuguese" };
             public const string DefaultPreferredLanguage = "en-US";
             public static readonly Dictionary<string, string> Languages =

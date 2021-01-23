@@ -41,7 +41,9 @@ namespace YoutubeGameBarOverlay
             BuildSecondaryComboValues();
             BuildAuxiliaryComboValues();
             BuildLanguageComboValues();
+            
             GetTipsPreference();
+            GetThumbnailsPreference();
         }
 
         /// <summary>
@@ -139,13 +141,30 @@ namespace YoutubeGameBarOverlay
         private void GetTipsPreference()
         {
             string tipsPreference = (string) Utils.GetSettingValue(Constants.Settings.ShowTips["varname"]);
-            if (tipsPreference == Constants.Settings.ShowTips["True"])
+            if (bool.Parse(tipsPreference))
             {
                 ShowTipsCheckbox.IsChecked = true;
             } 
             else
             {
                 ShowTipsCheckbox.IsChecked = false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the thumbnails preference for the user. 
+        /// Based on the stored values checks or not its setting checkbox.
+        /// </summary>
+        private void GetThumbnailsPreference()
+        {
+            string thumbnailsPreference = (string)Utils.GetSettingValue(Constants.Settings.ShowThumbnails["varname"]);
+            if (bool.Parse(thumbnailsPreference))
+            {
+                ShowThumbnailsCheckbox.IsChecked = true;
+            }
+            else
+            {
+                ShowThumbnailsCheckbox.IsChecked = false;
             }
         }
 
@@ -161,6 +180,7 @@ namespace YoutubeGameBarOverlay
             SettingItem selectedAuxiliary = (SettingItem)AuxiliaryColorComboBox.SelectedItem;
             SettingItem selectedLanguage= (SettingItem)LanguageComboBox.SelectedItem;
             bool selectedTipsPreference = ShowTipsCheckbox.IsChecked.GetValueOrDefault();
+            bool selectedThumbnailsPreference = ShowThumbnailsCheckbox.IsChecked.GetValueOrDefault();
 
             if (selectedAccent.RawValue == Constants.Settings.AccentColors["Black"])
             {
@@ -183,6 +203,15 @@ namespace YoutubeGameBarOverlay
             } else
             {
                 Utils.setSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["False"]);
+            }
+
+            if (selectedThumbnailsPreference == true)
+            {
+                Utils.setSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["True"]);
+            }
+            else
+            {
+                Utils.setSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["False"]);
             }
 
             ClearObjects();

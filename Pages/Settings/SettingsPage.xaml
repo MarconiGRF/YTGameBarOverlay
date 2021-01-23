@@ -113,9 +113,8 @@
                     </ComboBox>
                 </StackPanel>
 
-                <StackPanel Grid.Row="4" VerticalAlignment="Center" Grid.ColumnSpan="3">
-                    <CheckBox Content="{x:Bind LangResources.ShowTips}" Name="ShowTipsCheckbox"></CheckBox>
-                </StackPanel>
+                <CheckBox Content="{x:Bind LangResources.ShowTips}" Name="ShowTipsCheckbox" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Grid.Row="4"/>
+                <CheckBox Content="{x:Bind LangResources.ShowThumbnails}" Name="ShowThumbnailsCheckbox" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Grid.Row="4" Grid.Column="2"></CheckBox>
             </Grid>
         </ScrollViewer>
 

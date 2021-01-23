@@ -25,6 +25,9 @@ namespace YoutubeGameBarWidget.Pages
         [XmlElement("ShowTips")]
         public String ShowTips { get; set; }
 
+        [XmlElement("ShowThumbnails")]
+        public String ShowThumbnails { get; set; }
+
         [XmlElement("Save")]
         public String Save { get; set; }
 
