@@ -273,8 +273,8 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <!-- <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding MediaType}" Grid.RowSpan="2" Foreground="{Binding ColorResources.AuxiliaryColor}"></FontIcon> -->
-                        <Image Source="{Binding Thumbnail}" Grid.RowSpan="2" />
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding MediaType}" Grid.RowSpan="2" Foreground="{Binding ColorResources.AuxiliaryColor}"/>
+                        <Image Visibility="{Binding ThumbnailVisibility}" Source="{Binding Thumbnail}" Grid.RowSpan="2" />
                         <TextBlock Text="{Binding MediaTitle}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" FontSize="14" HorizontalAlignment="Left" Foreground="{Binding ColorResources.AuxiliaryColor}"/>
                         <TextBlock Text="{Binding ChannelTitle}" Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Left"  Foreground="{Binding ColorResources.AuxiliaryColor}"/>
                     </Grid>

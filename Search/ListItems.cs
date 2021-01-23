@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Windows.UI.Xaml;
 
 namespace YoutubeGameBarWidget.Search
 {
@@ -16,6 +17,8 @@ namespace YoutubeGameBarWidget.Search
         public string MediaTitle { get; set; }
         public string ChannelTitle { get; set; }
         public string MediaUrl { get; set; }
+        public string Thumbnail { get; set; }
+        public Visibility ThumbnailVisibility { get; set; }
         public ThemeResources ColorResources { get; set; }
 
         /// <summary>
@@ -25,20 +28,17 @@ namespace YoutubeGameBarWidget.Search
         /// <param name="videoTitle">The Media title of the item.</param>
         /// <param name="channelTitle">The Channel title of the item.</param>
         /// <param name="mediaUrl">The Media URL of the item.</param>
-        public ListItem(string mediaType, string mediaTitle, string channelTitle, string mediaUrl)
+        /// <param name="thumbnail">The thumbnail URL of the item.</param>
+        /// <param name="visibility">The thumbnail visibility for the item.</param>
+        public ListItem(string mediaType, string mediaTitle, string channelTitle, string mediaUrl, string thumbnail, Visibility visibility)
         {
-            if (mediaType == "playlist")
-            {
-                this.MediaType = "\xE8FD";
-            }
-            else
-            {
-                this.MediaType = "\xF5B0";
-            }
+            _ = mediaType == "playlist" ? this.MediaType = "\xE8FD" : this.MediaType = "\xF5B0";
 
             this.MediaTitle = mediaTitle;
             this.ChannelTitle = channelTitle;
             this.MediaUrl = mediaUrl;
+            this.Thumbnail = thumbnail;
+            this.ThumbnailVisibility = visibility;
         }
     }
 }
