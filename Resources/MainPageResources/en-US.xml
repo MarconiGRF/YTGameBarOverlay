@@ -4,5 +4,5 @@
 	<SearchFieldPlaceholder>Search or paste your video/live link here</SearchFieldPlaceholder>
 	<VideoNotSelectedError>Please select a video!</VideoNotSelectedError>
 	<URLNotValidError>The URL is not valid!</URLNotValidError>
-	<SearchNotAvailableError>Search is not available now! Please use links.</SearchNotAvailableError>
+	<SearchNotAvailableError>Search is not available now! Use links or try again.</SearchNotAvailableError>
 </MainPageResources>
