@@ -160,5 +160,7 @@ namespace YoutubeGameBarWidget.Utilities
                     { "White", "#FFFFFF" }
                 };
         }
+
+        public static string DonationURL = "https://www.paypal.com/donate?hosted_button_id=CDGQF2GN2J6KL&source=url";
     }
 }

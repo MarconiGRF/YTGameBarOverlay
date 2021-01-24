@@ -93,6 +93,15 @@ namespace YoutubeGameBarOverlay
             Frame.Navigate(typeof(ChangelogPage));
         }
 
+        /// Handles the click at the Changelog Page Button navigating to it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void HandleSupportMeButton(object sender, RoutedEventArgs eventArgs)
+        {
+            Frame.Navigate(typeof(SupportMePage));
+        }
+
         /// <summary>
         /// Handles the click at the SettingsPage Button navigating to it.
         /// </summary>

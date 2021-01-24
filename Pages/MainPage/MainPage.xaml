@@ -314,7 +314,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button 
-            Name="SettingsButton" 
+            Name="SettingsButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
             Grid.Row="0" Grid.Column="0" 
             HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
             Click="HandleSettingsButton"
@@ -323,7 +323,7 @@
             </Button>
 
             <Button 
-            Name="FeedbackButton" 
+            Name="FeedbackButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
             Grid.Row="0" Grid.Column="1" 
             HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
             Click="HandleFeedbackButton"
@@ -332,7 +332,7 @@
             </Button>
 
             <Button 
-            Name="ChangelogButton" 
+            Name="ChangelogButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
             Grid.Row="1" Grid.Column="0" 
             HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
             Click="HandleChangelogButton"
@@ -341,10 +341,10 @@
             </Button>
             
             <Button 
-            Name="SupportMeButton" 
+            Name="SupportMeButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
             Grid.Row="2" Grid.Column="2" 
             HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
-            Click="HandleChangelogButton"
+            Click="HandleSupportMeButton"
             Background="{x:Bind ColorResources.AccentColor}">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="14"></FontIcon>
             </Button>
