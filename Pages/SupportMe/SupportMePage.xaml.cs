@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -11,7 +10,7 @@ using YoutubeGameBarWidget.Utilities;
 namespace YoutubeGameBarWidget
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// A "Support me" page to let users show some love to YTGBO <3.
     /// </summary>
     public sealed partial class SupportMePage : Page
     {

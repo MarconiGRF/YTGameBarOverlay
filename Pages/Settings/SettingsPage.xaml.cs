@@ -11,7 +11,7 @@ using System;
 namespace YoutubeGameBarOverlay
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// A settings page used to define and manage user preferences.
     /// </summary>
     public sealed partial class SettingsPage : Page
     {

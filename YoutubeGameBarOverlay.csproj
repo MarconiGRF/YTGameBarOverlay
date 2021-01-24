@@ -138,6 +138,10 @@
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Feedback\FeedbackResources.cs" />
+    <Compile Include="Pages\History\HistoryPage.xaml.cs">
+      <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\History\HistoryPageResources.cs" />
     <Compile Include="Pages\MainPage\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -190,6 +194,8 @@
     <Content Include="Resources\ChangelogResources\pt-BR.xml" />
     <Content Include="Resources\FeedbackResources\en-US.xml" />
     <Content Include="Resources\FeedbackResources\pt-BR.xml" />
+    <Content Include="Resources\HistoryPageResources\en-US.xml" />
+    <Content Include="Resources\HistoryPageResources\pt-BR.xml" />
     <Content Include="Resources\MainPageResources\pt-BR.xml" />
     <Content Include="Resources\MainPageResources\en-US.xml" />
     <Content Include="Resources\SettingsResources\en-US.xml" />
@@ -222,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Feedback\FeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\History\HistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
