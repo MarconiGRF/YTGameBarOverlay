@@ -145,6 +145,7 @@
     <Compile Include="Pages\MainPage\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageObjects\HistoryEntry.cs" />
     <Compile Include="Pages\PageObjects\InformationPayload.cs" />
     <Compile Include="Pages\MainPage\MainPageResources.cs" />
     <Compile Include="Pages\PageObjects\SettingItem.cs" />
@@ -169,6 +170,7 @@
       <DependentUpon>WebPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\BabelTower.cs" />
+    <Compile Include="Utilities\Cabinet.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\Painter.cs" />
     <Compile Include="Utilities\Utils.cs" />
@@ -257,6 +259,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>5.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Gaming.XboxGameBar">
       <Version>5.3.200605002</Version>
     </PackageReference>
