@@ -21,7 +21,7 @@ namespace YoutubeGameBarWidget.Utilities
 
             if (!File.Exists(filePath))
             {
-                Utils.setSettingValue(Constants.Settings.Languages["varname"], Constants.Settings.DefaultPreferredLanguage);
+                Utils.SetSettingValue(Constants.Settings.Languages["varname"], Constants.Settings.DefaultPreferredLanguage);
                 currentLanguage = Constants.Settings.DefaultPreferredLanguage;
                 filePath = "Resources\\" + requestedClass + "\\" + currentLanguage + ".xml";
             }

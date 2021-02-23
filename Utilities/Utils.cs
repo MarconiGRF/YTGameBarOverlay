@@ -98,7 +98,7 @@ namespace YoutubeGameBarWidget.Utilities
         /// </summary>
         /// <param name="key">The key to set the value.</param>
         /// <param name="value">The value to be set.</param>
-        public static void setSettingValue(String key, String value)
+        public static void SetSettingValue(String key, String value)
         {
             Utils.getLocalSettings().Values[key] = value;
         }

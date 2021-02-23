@@ -192,26 +192,26 @@ namespace YoutubeGameBarOverlay
                 }
             }
 
-            Utils.setSettingValue(Constants.Settings.AccentColors["varname"], selectedAccent.RawValue);
-            Utils.setSettingValue(Constants.Settings.SecondaryColors["varname"], selectedSecondary.RawValue);
-            Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], selectedAuxiliary.RawValue);
-            Utils.setSettingValue(Constants.Settings.Languages["varname"], selectedLanguage.RawValue);
+            Utils.SetSettingValue(Constants.Settings.AccentColors["varname"], selectedAccent.RawValue);
+            Utils.SetSettingValue(Constants.Settings.SecondaryColors["varname"], selectedSecondary.RawValue);
+            Utils.SetSettingValue(Constants.Settings.AuxiliaryColors["varname"], selectedAuxiliary.RawValue);
+            Utils.SetSettingValue(Constants.Settings.Languages["varname"], selectedLanguage.RawValue);
 
             if (selectedTipsPreference == true)
             {
-                Utils.setSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["True"]);
+                Utils.SetSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["True"]);
             } else
             {
-                Utils.setSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["False"]);
+                Utils.SetSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["False"]);
             }
 
             if (selectedThumbnailsPreference == true)
             {
-                Utils.setSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["True"]);
+                Utils.SetSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["True"]);
             }
             else
             {
-                Utils.setSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["False"]);
+                Utils.SetSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["False"]);
             }
 
             ClearObjects();

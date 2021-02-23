@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using YoutubeGameBarOverlay;
 using YoutubeGameBarWidget.Pages;
+using YoutubeGameBarWidget.Pages.PageObjects;
 using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget
@@ -14,11 +16,21 @@ namespace YoutubeGameBarWidget
     {
         private ThemeResources ColorResources;
         private HistoryPageResources LangResources;
+        private Cabinet Cabinet;
+        private List<HistoryEntry> HistoryEntries;
         public HistoryPage()
         {
             LangResources = BabelTower.getTranslatedResources<HistoryPageResources>();
             ColorResources = Painter.GetTheme();
-            this.InitializeComponent();
+            Cabinet = new Cabinet();
+
+            GetEntries();
+            InitializeComponent();
+        }
+
+        private void GetEntries()
+        {
+            this.HistoryEntries = Cabinet.GetEntries();
         }
 
         /// <summary>
