@@ -67,8 +67,8 @@
 										<Width>426</Width>
 										<MinHeight>185</MinHeight>
 										<MinWidth>328</MinWidth>
-										<MaxHeight>720</MaxHeight>
-										<MaxWidth>1280</MaxWidth>
+										<MaxHeight>2160</MaxHeight>
+										<MaxWidth>3840</MaxWidth>
 									</Size>
 									<ResizeSupported>
 										<Horizontal>true</Horizontal>
