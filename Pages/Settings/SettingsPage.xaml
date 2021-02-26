@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Grid Background="{x:Bind ColorResources.AccentColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
@@ -113,8 +112,12 @@
                     </ComboBox>
                 </StackPanel>
 
-                <CheckBox Content="{x:Bind LangResources.ShowTips}" Name="ShowTipsCheckbox" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Grid.Row="4"/>
-                <CheckBox Content="{x:Bind LangResources.ShowThumbnails}" Name="ShowThumbnailsCheckbox" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Grid.Row="4" Grid.Column="2"></CheckBox>
+                <CheckBox Name="ShowTipsCheckbox" Grid.Row="4">
+                    <TextBlock Text="{x:Bind LangResources.ShowTips}" FontSize="13" Foreground="{x:Bind ColorResources.AuxiliaryColor}"/>
+                </CheckBox>
+                <CheckBox Name="ShowThumbnailsCheckbox" Grid.Row="4" Grid.Column="2">
+                    <TextBlock Text="{x:Bind LangResources.ShowThumbnails}" FontSize="13" Foreground="{x:Bind ColorResources.AuxiliaryColor}" />
+                </CheckBox>
             </Grid>
         </ScrollViewer>
 
