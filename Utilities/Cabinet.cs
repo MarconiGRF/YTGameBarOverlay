@@ -32,10 +32,7 @@ namespace YoutubeGameBarWidget.Utilities
 
         private string DatabasePath;
 
-        public Cabinet()
-        {
-            Initialize();
-        }
+        public Cabinet() { }
 
         public async void Initialize()
         {

@@ -324,11 +324,11 @@
             </Button>
 
             <Button 
-            Name="HistoryButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
-            Grid.Row="0" Grid.Column="1" 
-            HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
-            Click="HandleHistoryButton"
-            Background="{x:Bind ColorResources.AccentColor}">
+                Name="HistoryButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
+                Grid.Row="0" Grid.Column="1" 
+                HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
+                Click="HandleHistoryButton"
+                Background="{x:Bind ColorResources.AccentColor}">
                 <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE81C;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
             </Button>
 

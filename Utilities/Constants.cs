@@ -18,6 +18,15 @@ namespace YoutubeGameBarWidget.Utilities
         }
 
         /// <summary>
+        /// Enumarator for the media types.
+        /// </summary>
+        public enum MediaTypes
+        {
+            Video,
+            Playlist
+        }
+
+        /// <summary>
         /// Constant endpoints.
         /// </summary>
         public static class Endpoints

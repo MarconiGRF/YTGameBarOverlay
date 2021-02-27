@@ -15,14 +15,16 @@ namespace YoutubeGameBarWidget
     public sealed partial class HistoryPage : Page
     {
         private ThemeResources ColorResources;
-        private HistoryPageResources LangResources;
+        public HistoryPageResources LangResources;
         private Cabinet Cabinet;
         private List<HistoryEntry> HistoryEntries;
         public HistoryPage()
         {
             LangResources = BabelTower.getTranslatedResources<HistoryPageResources>();
             ColorResources = Painter.GetTheme();
+            
             Cabinet = new Cabinet();
+            Cabinet.Initialize();
 
             GetEntries();
             InitializeComponent();

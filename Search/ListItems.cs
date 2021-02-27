@@ -32,7 +32,14 @@ namespace YoutubeGameBarWidget.Search
         /// <param name="visibility">The thumbnail visibility for the item.</param>
         public ListItem(string mediaType, string mediaTitle, string channelTitle, string mediaUrl, string thumbnail, Visibility visibility)
         {
-            _ = mediaType == "playlist" ? this.MediaType = "\xE8FD" : this.MediaType = "\xF5B0";
+            if (mediaType == "playlist")
+            {
+                this.MediaType = "\xE8FD";
+            }
+            else
+            {
+                this.MediaType = "\xF5B0";
+            }
 
             this.MediaTitle = mediaTitle;
             this.ChannelTitle = channelTitle;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget.Pages.PageObjects
 {
@@ -11,31 +12,42 @@ namespace YoutubeGameBarWidget.Pages.PageObjects
     /// </summary>
     public class HistoryEntry
     {
-        private String Title { get; set; }
+        public String Title { get; set; }
+        public String Channel { get; set; }
+        public String ThumbnailURL { get; set; }
+        public Constants.MediaTypes Type { get; set; }
+        public String IconGlyph { get; set; }
+        public String Timestamp { get; set; }
+        public ThemeResources ColorResources { get; set; }
+        public HistoryPageResources LangResources { get; set; }
 
-        private String ThumbnailURL { get; set; }
-
-        private String Type { get; set; }
-
-        private String Timestamp { get; set; }
-
-        public HistoryEntry(String title, String thumbnailURL, String type, String timestamp)
+        public HistoryEntry(String title, String channel, String thumbnailURL, Constants.MediaTypes type, String timestamp)
         {
             this.Title = title;
+            this.Channel = channel;
             this.ThumbnailURL = thumbnailURL;
             this.Timestamp = timestamp;
             this.Type = type;
+
+            if (this.Type == Constants.MediaTypes.Video)
+            {
+                this.IconGlyph = "\xF5B0";
+            }
+            else
+            {
+                this.IconGlyph = "\xE8FD";
+            }
         }
 
         public string ToStorable()
         {
-            return "(NULL,'" + Title + "','" + ThumbnailURL + "','" + Type + "','" + Timestamp + "')";
+            return "(NULL,'" + Title + "','" + Channel + "','" + ThumbnailURL + "','" + Type + "','" + Timestamp + "')";
         }
 
         public static HistoryEntry ofRaw(String rawEntry)
         {
             string[] entryData = rawEntry.Split(',');
-            return new HistoryEntry(entryData[1], entryData[2], entryData[3], entryData[4]);
+            return new HistoryEntry(entryData[1], entryData[2], entryData[3], (Constants.MediaTypes)int.Parse(entryData[4]), entryData[5]);
         }
     }
 }

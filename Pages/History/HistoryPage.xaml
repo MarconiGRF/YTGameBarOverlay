@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:YoutubeGameBarWidget"
+    xmlns:objects="using:YoutubeGameBarWidget.Pages.PageObjects"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -32,7 +33,45 @@
             <TextBlock x:Name="Title" Grid.Column="0" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.Title}"></TextBlock>
         </Viewbox>
 
-        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3" x:Name="HistoryList">
+        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3">
+            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{x:Bind HistoryEntries}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:Name="HistoryEntryTemplate" x:DataType="objects:HistoryEntry" >
+                        <Grid MaxHeight="70" BorderBrush="{x:Bind ColorResources.SecondaryColor}" BorderThickness="1, 1, 1, 1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Rectangle Grid.Column="0" Grid.RowSpan="3" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+                                <Rectangle.Fill>
+                                    <ImageBrush ImageSource="{x:Bind ThumbnailURL}" />
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center" Text="{x:Bind Title}" Foreground="{x:Bind ColorResources.AuxiliaryColor}">
+                            </TextBlock>
+                            <Grid Grid.Column="1" Grid.Row="1">
+                                <TextBlock FontSize="14" HorizontalAlignment="Left" Text="{x:Bind Channel}" Foreground="{x:Bind ColorResources.AuxiliaryColor}">
+                                </TextBlock>
+                                <Button Padding="0" HorizontalAlignment="Right">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="14"></FontIcon>
+                                </Button>
+                            </Grid>
+                            <FontIcon Grid.Column="1" Grid.Row="2" FontSize="12" FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconGlyph}" Foreground="{x:Bind ColorResources.AuxiliaryColor}" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </ScrollViewer>
 
         <Button 
