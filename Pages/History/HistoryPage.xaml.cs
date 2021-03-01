@@ -25,10 +25,7 @@ namespace YoutubeGameBarWidget
         {
             LangResources = BabelTower.getTranslatedResources<HistoryPageResources>();
             ColorResources = Painter.GetTheme();
-            
             Cabinet = new Cabinet();
-            Cabinet.Initialize();
-            this.HistoryEntries = new List<HistoryEntry>();
 
             InitializeComponent();
         }
@@ -48,7 +45,8 @@ namespace YoutubeGameBarWidget
 
         private void GetEntries()
         {
-            this.HistoryEntries = Cabinet.GetEntries();
+            HistoryEntries = Cabinet.GetEntries();
+            GroupedEntries.Source = from he in this.HistoryEntries group he by he.Timestamp;
         }
 
         /// <summary>

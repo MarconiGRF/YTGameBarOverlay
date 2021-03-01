@@ -32,12 +32,14 @@ namespace YoutubeGameBarWidget.Utilities
 
         private string DatabasePath;
 
-        public Cabinet() { }
+        public Cabinet() 
+        {
+            DatabasePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DatabaseFilename);
+        }
 
         public async void Initialize()
         {
             await ApplicationData.Current.LocalFolder.CreateFileAsync(DatabaseFilename, CreationCollisionOption.OpenIfExists);
-            this.DatabasePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DatabaseFilename);
 
             using (SqliteConnection database = new SqliteConnection($"Filename={DatabasePath}"))
             {
