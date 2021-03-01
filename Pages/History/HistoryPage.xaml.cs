@@ -38,7 +38,6 @@ namespace YoutubeGameBarWidget
         {
             Painter.RunUIUpdateByMethod(StartLoading);
             GetEntries();
-            Painter.RunUIUpdateByMethod(FinishLoading);
 
             base.OnNavigatedTo(e);
         }
@@ -46,7 +45,16 @@ namespace YoutubeGameBarWidget
         private void GetEntries()
         {
             HistoryEntries = Cabinet.GetEntries();
-            GroupedEntries.Source = from he in this.HistoryEntries group he by he.Timestamp;
+
+            if (HistoryEntries.Count == 0)
+            {
+                Painter.RunUIUpdateByMethod(ShowEmptyMessage);
+            }
+            else
+            {
+                GroupedEntries.Source = from he in this.HistoryEntries group he by he.Timestamp;
+                Painter.RunUIUpdateByMethod(FinishLoading);
+            }
         }
 
         /// <summary>
@@ -64,7 +72,6 @@ namespace YoutubeGameBarWidget
         /// </summary>
         public async void StartLoading()
         {
-
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
@@ -81,13 +88,29 @@ namespace YoutubeGameBarWidget
         /// </summary>
         public async void FinishLoading()
         {
-
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
                         LoadingRing.IsEnabled = false;
                         LoadingRing.IsActive = false;
                         HistoryList.Visibility = Visibility.Visible;
+                    }
+                );
+
+        }
+
+        /// <summary>
+        /// Auxiliary method to asynchronously update UI to show "Empty Message" elementss.
+        /// </summary>
+        public async void ShowEmptyMessage()
+        {
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        HistoryList.Visibility = Visibility.Collapsed;
+                        LoadingRing.IsEnabled = false;
+                        LoadingRing.IsActive = false;
+                        EmptyMessage.Visibility = Visibility.Visible;
                     }
                 );
 

@@ -16,5 +16,8 @@ namespace YoutubeGameBarWidget.Pages
     {
         [XmlElement("Title")]
         public string Title { get; set; }
+
+        [XmlElement("EmptyMessage")]
+        public string EmptyMessage { get; set; }
     }
 }

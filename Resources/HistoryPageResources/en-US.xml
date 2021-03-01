@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <HistoryPageResources>
 	<Title>Playback history</Title>
+	<EmptyMessage>There's nothing here yet, the media you play will be shown here.</EmptyMessage>
 </HistoryPageResources>

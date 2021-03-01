@@ -41,6 +41,10 @@
             <TextBlock x:Name="Title" Grid.Column="0" Style="{StaticResource YTGBOTextBlock}" Text="{x:Bind LangResources.Title}"></TextBlock>
         </Viewbox>
 
+        <ProgressRing 
+            Name="LoadingRing" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4"
+            Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        
         <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3">
             <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{Binding Source={StaticResource GroupedEntries}}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ListView.ItemContainerStyle>
@@ -91,10 +95,16 @@
             </ListView>
         </ScrollViewer>
 
-        <ProgressRing 
-            Name="LoadingRing" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4"
-            Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        
+        <Grid Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3" x:Name="EmptyMessage" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB91;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="64pt"/>
+            <TextBlock Grid.Row="1" Style="{StaticResource YTGBOTextBlock}" Text="{x:Bind LangResources.EmptyMessage}" 
+                       FontSize="16pt" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWholeWords" TextAlignment="Center"/>
+        </Grid>        
+
         <Button 
             Name="BackButton" 
             Grid.Row="5" Grid.Column="1" 
