@@ -18,8 +18,8 @@ namespace YoutubeGameBarWidget.Pages.PageObjects
         public Constants.MediaTypes Type { get; set; }
         public String IconGlyph { get; set; }
         public String Timestamp { get; set; }
+        public bool group1 { get; set; }
         public ThemeResources ColorResources { get; set; }
-        public HistoryPageResources LangResources { get; set; }
 
         public HistoryEntry(String title, String channel, String thumbnailURL, Constants.MediaTypes type, String timestamp)
         {

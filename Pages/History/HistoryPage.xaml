@@ -8,6 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <CollectionViewSource x:Key="GroupedEntries" x:Name="GroupedEntries" IsSourceGrouped="True" />
+    </Page.Resources>
 
     <Grid Background="{x:Bind ColorResources.AccentColor}">
         <Grid.ColumnDefinitions>
@@ -28,13 +31,18 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Style x:Key="YTGBOTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{x:Bind ColorResources.AuxiliaryColor}"/>
+            </Style>
+        </Grid.Resources>
 
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" x:Name="TitleGrid">
-            <TextBlock x:Name="Title" Grid.Column="0" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.Title}"></TextBlock>
+            <TextBlock x:Name="Title" Grid.Column="0" Style="{StaticResource YTGBOTextBlock}" Text="{x:Bind LangResources.Title}"></TextBlock>
         </Viewbox>
 
         <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3">
-            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{x:Bind HistoryEntries}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{Binding Source={StaticResource GroupedEntries}}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -42,7 +50,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
-                    <DataTemplate x:Name="HistoryEntryTemplate" x:DataType="objects:HistoryEntry" >
+                    <DataTemplate x:Name="HistoryEntryTemplate" x:DataType="objects:HistoryEntry">
                         <Grid MaxHeight="70" BorderBrush="{x:Bind ColorResources.SecondaryColor}" BorderThickness="1, 1, 1, 1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"/>
@@ -58,7 +66,7 @@
                                     <ImageBrush ImageSource="{x:Bind ThumbnailURL}" />
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center" Text="{x:Bind Title}" Foreground="{x:Bind ColorResources.AuxiliaryColor}">
+                            <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center" Text="{x:Bind Title}" Style="{StaticResource YTGBOTextBlock}">
                             </TextBlock>
                             <Grid Grid.Column="1" Grid.Row="1">
                                 <TextBlock FontSize="14" HorizontalAlignment="Left" Text="{x:Bind Channel}" Foreground="{x:Bind ColorResources.AuxiliaryColor}">
@@ -71,9 +79,22 @@
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Key}" Margin="5, 0" Style="{StaticResource YTGBOTextBlock}" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
             </ListView>
         </ScrollViewer>
 
+        <ProgressRing 
+            Name="LoadingRing" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4"
+            Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        
         <Button 
             Name="BackButton" 
             Grid.Row="5" Grid.Column="1" 

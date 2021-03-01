@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using YoutubeGameBarOverlay;
 using YoutubeGameBarWidget.Pages;
 using YoutubeGameBarWidget.Pages.PageObjects;
@@ -25,9 +28,22 @@ namespace YoutubeGameBarWidget
             
             Cabinet = new Cabinet();
             Cabinet.Initialize();
+            this.HistoryEntries = new List<HistoryEntry>();
 
-            GetEntries();
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Checks if contents have already been loaded then presents the page as soon as frame navigates to Changelog Page.
+        /// </summary>
+        /// <param name="e">The navigation arguments.</param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Painter.RunUIUpdateByMethod(StartLoading);
+            GetEntries();
+            Painter.RunUIUpdateByMethod(FinishLoading);
+
+            base.OnNavigatedTo(e);
         }
 
         private void GetEntries()
@@ -43,6 +59,40 @@ namespace YoutubeGameBarWidget
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        /// <summary>
+        /// Auxiliary method to asynchronously update UI on a Started Loading ocasion.
+        /// </summary>
+        public async void StartLoading()
+        {
+
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        HistoryList.Visibility = Visibility.Collapsed;
+                        LoadingRing.IsEnabled = true;
+                        LoadingRing.IsActive = true;
+                    }
+                );
+
+        }
+
+        /// <summary>
+        /// Auxiliary method to asynchronously update UI on a Finished Loading ocasion.
+        /// </summary>
+        public async void FinishLoading()
+        {
+
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        LoadingRing.IsEnabled = false;
+                        LoadingRing.IsActive = false;
+                        HistoryList.Visibility = Visibility.Visible;
+                    }
+                );
+
         }
     }
 }
