@@ -15,6 +15,7 @@ namespace YoutubeGameBarWidget.Utilities
         private class Columns
         {
             public const string Title = "title";
+            public const string Channel = "channel";
             public const string ThumbnailUrl = "thumbnail_url";
             public const string Type = "type";
             public const string Timestamp = "timestamp";
@@ -25,6 +26,7 @@ namespace YoutubeGameBarWidget.Utilities
         private const string CreateTableIfNotExists = "CREATE TABLE IF NOT EXISTS " + TableName;
         private const string ColumnIdPrimary = "id INTEGER PRIMARY KEY";
         private const string ColumnTitle = Columns.Title + " TEXT NOT NULL";
+        private const string ColumnChannel = Columns.Channel + " TEXT NOT NULL";
         private const string ColumnThumbnailUrl = Columns.ThumbnailUrl + " TEXT NOT NULL";
         private const string ColumnType = Columns.Type + " TEXT NOT NULL";
         private const string ColumnTimestamp = Columns.Timestamp + " TEXT NOT NULL";
@@ -48,6 +50,7 @@ namespace YoutubeGameBarWidget.Utilities
                 string createTable = CreateTableIfNotExists +
                     "(" + ColumnIdPrimary + "," +
                     ColumnTitle + "," +
+                    ColumnChannel + "," +
                     ColumnThumbnailUrl + "," +
                     ColumnType + "," +
                     ColumnTimestamp + ");";
@@ -81,8 +84,13 @@ namespace YoutubeGameBarWidget.Utilities
                 SqliteDataReader rows = new SqliteCommand(selectValues, database).ExecuteReader();
                 while(rows.Read())
                 {
-                    string rawEntryData = rows.GetString(0) + "," + rows.GetString(1) + "," + rows.GetString(2) + "," + rows.GetString(3) + "," + rows.GetString(4);
-                    entries.Add(HistoryEntry.ofRaw(rawEntryData));
+                    string rawEntryData = rows.GetString(0) + "," + 
+                        rows.GetString(1) + "," + 
+                        rows.GetString(2) + "," + 
+                        rows.GetString(3) + "," + 
+                        rows.GetString(4) + "," + 
+                        rows.GetString(5);
+                    entries.Add(HistoryEntry.OfRaw(rawEntryData));
                 }
                 
                 database.Close();

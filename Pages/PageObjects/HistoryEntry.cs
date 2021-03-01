@@ -28,7 +28,7 @@ namespace YoutubeGameBarWidget.Pages.PageObjects
             this.Timestamp = timestamp;
             this.Type = type;
 
-            if (this.Type == Constants.MediaTypes.Video)
+            if (this.Type == Constants.MediaTypes.video)
             {
                 this.IconGlyph = "\xF5B0";
             }
@@ -43,10 +43,10 @@ namespace YoutubeGameBarWidget.Pages.PageObjects
             return "(NULL,'" + Title + "','" + Channel + "','" + ThumbnailURL + "','" + Type + "','" + Timestamp + "')";
         }
 
-        public static HistoryEntry ofRaw(String rawEntry)
+        public static HistoryEntry OfRaw(String rawEntry)
         {
             string[] entryData = rawEntry.Split(',');
-            return new HistoryEntry(entryData[1], entryData[2], entryData[3], (Constants.MediaTypes)int.Parse(entryData[4]), entryData[5]);
+            return new HistoryEntry(entryData[1], entryData[2], entryData[3], Enum.Parse<Constants.MediaTypes>(entryData[4]), entryData[5]);
         }
     }
 }

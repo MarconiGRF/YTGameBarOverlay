@@ -13,6 +13,7 @@ namespace YoutubeGameBarWidget.Search
 
     public class ListItem
     {
+        public string MediaTypeLiteral { get; set; }
         public string MediaType { get; set; }
         public string MediaTitle { get; set; }
         public string ChannelTitle { get; set; }
@@ -41,6 +42,7 @@ namespace YoutubeGameBarWidget.Search
                 this.MediaType = "\xF5B0";
             }
 
+            this.MediaTypeLiteral = mediaType;
             this.MediaTitle = mediaTitle;
             this.ChannelTitle = channelTitle;
             this.MediaUrl = mediaUrl;

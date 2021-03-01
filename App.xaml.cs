@@ -30,7 +30,6 @@ namespace YoutubeGameBarOverlay
         {
             SetEnvVars();
             SetupLocalSettings();
-            new Cabinet().Initialize();
             this.ws = new WebServer();
             this.InitializeComponent();
             this.Suspending += OnSuspending;

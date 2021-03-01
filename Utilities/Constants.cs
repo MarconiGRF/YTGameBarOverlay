@@ -22,8 +22,8 @@ namespace YoutubeGameBarWidget.Utilities
         /// </summary>
         public enum MediaTypes
         {
-            Video,
-            Playlist
+            video,
+            playlist
         }
 
         /// <summary>

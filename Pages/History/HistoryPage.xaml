@@ -35,6 +35,9 @@
             <Style x:Key="YTGBOTextBlock" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{x:Bind ColorResources.AuxiliaryColor}"/>
             </Style>
+            <Style x:Key="YTGBOFontIcon" TargetType="FontIcon">
+                <Setter Property="Foreground" Value="{x:Bind ColorResources.AuxiliaryColor}"/>
+            </Style>
         </Grid.Resources>
 
         <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" x:Name="TitleGrid">
@@ -65,21 +68,17 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Rectangle Grid.Column="0" Grid.RowSpan="3" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
-                                <Rectangle.Fill>
-                                    <ImageBrush ImageSource="{x:Bind ThumbnailURL}" />
-                                </Rectangle.Fill>
-                            </Rectangle>
+                            <Image Grid.Column="0" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Source="{x:Bind ThumbnailURL}"/>
                             <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center" Text="{x:Bind Title}" Style="{StaticResource YTGBOTextBlock}">
                             </TextBlock>
                             <Grid Grid.Column="1" Grid.Row="1">
-                                <TextBlock FontSize="14" HorizontalAlignment="Left" Text="{x:Bind Channel}" Foreground="{x:Bind ColorResources.AuxiliaryColor}">
+                                <TextBlock FontSize="14" HorizontalAlignment="Left" Text="{x:Bind Channel}" Style="{StaticResource YTGBOTextBlock}">
                                 </TextBlock>
                                 <Button Padding="0" HorizontalAlignment="Right">
-                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="14"></FontIcon>
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;" Style="{StaticResource YTGBOFontIcon}" FontSize="14"></FontIcon>
                                 </Button>
                             </Grid>
-                            <FontIcon Grid.Column="1" Grid.Row="2" FontSize="12" FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconGlyph}" Foreground="{x:Bind ColorResources.AuxiliaryColor}" HorizontalAlignment="Left"/>
+                            <FontIcon Grid.Column="1" Grid.Row="2" FontSize="12" FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconGlyph}" Style="{StaticResource YTGBOFontIcon}" HorizontalAlignment="Left"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -111,7 +110,7 @@
             HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
             Click="BackButton_Click"
             Background="{x:Bind ColorResources.AccentColor}">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Style="{StaticResource YTGBOFontIcon}" FontSize="18"></FontIcon>
         </Button>
     </Grid>
 </Page>

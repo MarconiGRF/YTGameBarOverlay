@@ -22,6 +22,7 @@ namespace YoutubeGameBarOverlay
         private Search Search;
         private MainPageResources LangResources;
         private ThemeResources ColorResources;
+        private Cabinet Cabinet;
         private bool inLoadingState;
         public string MediaURL;
 
@@ -33,6 +34,9 @@ namespace YoutubeGameBarOverlay
 
             LangResources = BabelTower.getTranslatedResources<MainPageResources>();
             ColorResources = Painter.GetTheme();
+
+            Cabinet = new Cabinet();
+            Cabinet.Initialize();
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
             InitializeComponent();
@@ -213,10 +217,23 @@ namespace YoutubeGameBarOverlay
             {
                 InLoadingState(true);
                 ListItem chosenItem = (ListItem)args.ChosenSuggestion;
+                SaveItem(chosenItem);
                 SetAsMediaURL(chosenItem.MediaUrl);
 
                 StartPlayback();
             }
+        }
+
+        private void SaveItem(ListItem chosenItem)
+        {
+            string title = chosenItem.MediaTitle;
+            string channel = chosenItem.ChannelTitle;
+            string thumb = chosenItem.Thumbnail;
+
+            Constants.MediaTypes type = Enum.Parse<Constants.MediaTypes>(chosenItem.MediaTypeLiteral);
+            string timestamp = DateTime.Now.ToShortDateString();
+            HistoryEntry historyEntry = new HistoryEntry(title, channel, thumb, type, timestamp);
+            Cabinet.SaveEntry(historyEntry);
         }
 
         /// <summary>
