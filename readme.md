@@ -40,3 +40,6 @@ Once that this overlay is intended to be used on Xbox Game Bar, and you're proba
 * 8: Since step 7 Visual Studio should have already attached to the YTGBO's process and you are now able to debug it properly.
 
 Everytime you change the code you'll need to redeploy to debug (Steps 4-7).
+
+## Special Thanks
+[Arthur Bryan](https://github.com/arthur-bryan) - For adding Spanish resource files.
