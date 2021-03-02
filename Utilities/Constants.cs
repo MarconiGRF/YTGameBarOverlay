@@ -108,6 +108,7 @@ namespace YoutubeGameBarWidget.Utilities
                     { "varname", "preferredLanguage" },
                     { "English", "en-US" },
                     { "Portuguese", "pt-BR" },
+                    { "Spanish", "es-ES" }
                 };
 
             public static string[] ColorNames = { "Red", "Yellow", "Green", "Blue", "Black" };
