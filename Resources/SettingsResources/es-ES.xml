@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SettingsResources>
+	<Title>Ajustes</Title>
+	<AccentColor>Color principal</AccentColor>
+	<SecondaryColor>Color secundario</SecondaryColor>
+	<TextIconColor>Color del icono y del texto</TextIconColor>
+	<PreferredLanguage>Idioma</PreferredLanguage>
+	<Save>Guardar</Save>
+	<Black>Negro</Black>
+	<White>Blanco</White>
+	<Blue>Azul</Blue>
+	<Red>Rojo</Red>
+	<Yellow>Amarillo</Yellow>
+	<Green>Verde</Green>
+	<EnglishUS>English - US</EnglishUS>
+	<PortugueseBR>Portuguese - BR</PortugueseBR>
+    <SpanishES>Spanish - ES </SpanishES>
+	<RestartMessage>¡Reinicia para aplicar los cambios!</RestartMessage>
+</SettingsResources>

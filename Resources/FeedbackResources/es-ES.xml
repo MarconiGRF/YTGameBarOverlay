@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FeedbackResources>
+	<Title>¿Tienes algo que decir?</Title>
+	<MessagePlaceholder>Comparte conmigo cualquier sugerencia, bug or comentario por aquí :)</MessagePlaceholder>
+	<AuthorPlaceholder>¿Como te llamas?</AuthorPlaceholder>
+	<FailedError>¡Ocurrió un fallo!</FailedError>
+	<TryAgainWarn>Vuelve a intentarlo más tarde.</TryAgainWarn>
+	<NoFeedbackMessageError>¡No has ecrito la sugerencia!</NoFeedbackMessageError>
+	<NoFeedbackAuthorError>¡No has escrito tu nombre!</NoFeedbackAuthorError>
+	<Send>Enviar</Send>
+	<Sent>¡Enviado!</Sent>
+</FeedbackResources>
