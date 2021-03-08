@@ -12,18 +12,21 @@ namespace YoutubeGameBarWidget.Pages.PageObjects
     /// </summary>
     public class HistoryEntry
     {
+        public long Id { get; set; }
         public String Title { get; set; }
         public String Channel { get; set; }
         public String ThumbnailURL { get; set; }
+        public String MediaURL { get; set; }
         public Constants.MediaTypes Type { get; set; }
         public String IconGlyph { get; set; }
         public String Timestamp { get; set; }
         public ThemeResources ColorResources { get; set; }
 
-        public HistoryEntry(String title, String channel, String thumbnailURL, Constants.MediaTypes type, String timestamp)
+        public HistoryEntry(String title, String channel, String mediaURL, String thumbnailURL, Constants.MediaTypes type, String timestamp)
         {
             this.Title = title;
             this.Channel = channel;
+            this.MediaURL = mediaURL;
             this.ThumbnailURL = thumbnailURL;
             this.Timestamp = timestamp;
             this.Type = type;
@@ -40,13 +43,20 @@ namespace YoutubeGameBarWidget.Pages.PageObjects
 
         public string ToStorable()
         {
-            return "(NULL,'" + Title + "','" + Channel + "','" + ThumbnailURL + "','" + Type + "','" + Timestamp + "')";
+            return "(NULL,'" + Title + "','" + Channel + "','" + MediaURL + "','" + ThumbnailURL + "','" + Type + "','" + Timestamp + "')";
         }
 
         public static HistoryEntry OfRaw(String rawEntry)
         {
             string[] entryData = rawEntry.Split(',');
-            return new HistoryEntry(entryData[1], entryData[2], entryData[3], Enum.Parse<Constants.MediaTypes>(entryData[4]), entryData[5]);
+            HistoryEntry storedEntry = new HistoryEntry(
+                entryData[1],
+                entryData[2],
+                entryData[3],
+                entryData[4],
+                Enum.Parse<Constants.MediaTypes>(entryData[5]), entryData[6]);
+            storedEntry.Id = long.Parse(entryData[0]);
+            return storedEntry;
         }
     }
 }

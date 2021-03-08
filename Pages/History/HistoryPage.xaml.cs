@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -52,9 +53,16 @@ namespace YoutubeGameBarWidget
             }
             else
             {
-                GroupedEntries.Source = from he in this.HistoryEntries group he by he.Timestamp;
+                IEnumerable<IGrouping<string, HistoryEntry>> entries = from he in this.HistoryEntries orderby he.Id descending group he by he.Timestamp;
+                GroupedEntries.Source = entries;
+
                 Painter.RunUIUpdateByMethod(FinishLoading);
             }
+        }
+
+        private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            HistoryEntry selected = HistoryList.SelectedItem as HistoryEntry;
         }
 
         /// <summary>

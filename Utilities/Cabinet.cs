@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Windows.Storage;
 using YoutubeGameBarWidget.Pages.PageObjects;
 
@@ -16,6 +17,7 @@ namespace YoutubeGameBarWidget.Utilities
         {
             public const string Title = "title";
             public const string Channel = "channel";
+            public const string MediaUrl = "media_url";
             public const string ThumbnailUrl = "thumbnail_url";
             public const string Type = "type";
             public const string Timestamp = "timestamp";
@@ -27,6 +29,7 @@ namespace YoutubeGameBarWidget.Utilities
         private const string ColumnIdPrimary = "id INTEGER PRIMARY KEY";
         private const string ColumnTitle = Columns.Title + " TEXT NOT NULL";
         private const string ColumnChannel = Columns.Channel + " TEXT NOT NULL";
+        private const string ColumnMediaUrl = Columns.MediaUrl + " TEXT NOT NULL";
         private const string ColumnThumbnailUrl = Columns.ThumbnailUrl + " TEXT NOT NULL";
         private const string ColumnType = Columns.Type + " TEXT NOT NULL";
         private const string ColumnTimestamp = Columns.Timestamp + " TEXT NOT NULL";
@@ -51,6 +54,7 @@ namespace YoutubeGameBarWidget.Utilities
                     "(" + ColumnIdPrimary + "," +
                     ColumnTitle + "," +
                     ColumnChannel + "," +
+                    ColumnMediaUrl + "," +
                     ColumnThumbnailUrl + "," +
                     ColumnType + "," +
                     ColumnTimestamp + ");";
@@ -60,15 +64,69 @@ namespace YoutubeGameBarWidget.Utilities
             } 
         }
 
-        public void SaveEntry(HistoryEntry entry)
+        public async Task<bool> SaveEntry(HistoryEntry newEntry)
+        {
+            HistoryEntry latestSavedValue = GetLatestEntry();
+            if (latestSavedValue != null)
+            {
+                if (latestSavedValue.MediaURL == newEntry.MediaURL)
+                {
+                    return true;
+                }
+            }
+
+            return InsertEntry(newEntry);
+        }
+
+        private bool InsertEntry(HistoryEntry entry)
         {
             string insertValues = "INSERT INTO " + TableName + " VALUES " + entry.ToStorable() + ";";
+            SqliteConnection database = new SqliteConnection($"Filename={DatabasePath}");
 
+            try
+            {
+                database.Open();
+                
+                new SqliteCommand(insertValues, database).ExecuteReader();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                database.Close();
+            }
+        }
+
+        private HistoryEntry GetLatestEntry()
+        {
+            string selectLastValue = "SELECT * FROM " + TableName + " WHERE id = (SELECT MAX(id) FROM " + TableName + ")";
             using (SqliteConnection database = new SqliteConnection($"Filename={DatabasePath}"))
             {
                 database.Open();
-                new SqliteCommand(insertValues, database).ExecuteReader();
-                database.Close();
+                
+                SqliteDataReader row = new SqliteCommand(selectLastValue, database).ExecuteReader();
+                if (!row.HasRows)
+                {
+                    return null;
+                }
+                else
+                {
+                    string rawData = "";
+                    while (row.Read())
+                    {
+                        rawData = row.GetString(0) + "," +
+                            row.GetString(1) + "," +
+                            row.GetString(2) + "," +
+                            row.GetString(3) + "," +
+                            row.GetString(4) + "," +
+                            row.GetString(5) + "," +
+                            row.GetString(6);
+                    }
+                    return HistoryEntry.OfRaw(rawData);
+                }
             }
         }
 
@@ -89,8 +147,11 @@ namespace YoutubeGameBarWidget.Utilities
                         rows.GetString(2) + "," + 
                         rows.GetString(3) + "," + 
                         rows.GetString(4) + "," + 
-                        rows.GetString(5);
-                    entries.Add(HistoryEntry.OfRaw(rawEntryData));
+                        rows.GetString(5) + "," + 
+                        rows.GetString(6);
+                    HistoryEntry entry = HistoryEntry.OfRaw(rawEntryData);
+                    entry.Id = long.Parse(rows.GetString(0));
+                    entries.Add(entry);
                 }
                 
                 database.Close();

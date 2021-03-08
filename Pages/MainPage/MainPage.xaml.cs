@@ -224,16 +224,22 @@ namespace YoutubeGameBarOverlay
             }
         }
 
-        private void SaveItem(ListItem chosenItem)
+        private async void SaveItem(ListItem chosenItem)
         {
-            string title = chosenItem.MediaTitle;
-            string channel = chosenItem.ChannelTitle;
-            string thumb = chosenItem.Thumbnail;
+            HistoryEntry historyEntry = new HistoryEntry(
+                chosenItem.MediaTitle,
+                chosenItem.ChannelTitle,
+                chosenItem.MediaUrl,
+                chosenItem.Thumbnail,
+                Enum.Parse<Constants.MediaTypes>(chosenItem.MediaTypeLiteral),
+                DateTime.Now.ToShortDateString()
+            );
+            bool successfullySaved = await Cabinet.SaveEntry(historyEntry);
 
-            Constants.MediaTypes type = Enum.Parse<Constants.MediaTypes>(chosenItem.MediaTypeLiteral);
-            string timestamp = DateTime.Now.ToShortDateString();
-            HistoryEntry historyEntry = new HistoryEntry(title, channel, thumb, type, timestamp);
-            Cabinet.SaveEntry(historyEntry);
+            if (!successfullySaved)
+            {
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.HistorySaveError, typeof(MainPage), 2000));
+            }
         }
 
         /// <summary>

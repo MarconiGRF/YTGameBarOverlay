@@ -49,7 +49,7 @@
             Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         
         <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3">
-            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{Binding Source={StaticResource GroupedEntries}}" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{Binding Source={StaticResource GroupedEntries}}" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="HistoryList_SelectionChanged">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -86,7 +86,7 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Key}" Margin="5, 0" Style="{StaticResource YTGBOTextBlock}" />
+                                <TextBlock Text="{Binding Key}" Margin="5, 0" Style="{StaticResource YTGBOTextBlock}" FontSize="16pt" />
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>
