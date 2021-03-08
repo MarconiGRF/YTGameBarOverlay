@@ -5,4 +5,5 @@
 	<VideoNotSelectedError>Por favor, selecione um vídeo!</VideoNotSelectedError>
 	<URLNotValidError>A URL é inválida!</URLNotValidError>
 	<SearchNotAvailableError>A pesquisa está indisponível no momento. Use links ou tente novamente.</SearchNotAvailableError>
+	<HistorySaveError>Ocorreu um erro ao tentar salvar no histórico.</HistorySaveError>
 </MainPageResources>

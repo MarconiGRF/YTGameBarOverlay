@@ -5,4 +5,5 @@
 	<VideoNotSelectedError>Please select a video!</VideoNotSelectedError>
 	<URLNotValidError>The URL is not valid!</URLNotValidError>
 	<SearchNotAvailableError>Search is not available now! Use links or try again.</SearchNotAvailableError>
+	<HistorySaveError>There was an error while saving to history.</HistorySaveError>
 </MainPageResources>

@@ -2,4 +2,5 @@
 <HistoryPageResources>
 	<Title>Playback history</Title>
 	<EmptyMessage>There's nothing here yet, the media you play will be shown here.</EmptyMessage>
+	<ClearHistory>Clear history</ClearHistory>
 </HistoryPageResources>
