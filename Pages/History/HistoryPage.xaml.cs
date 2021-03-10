@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -45,6 +44,10 @@ namespace YoutubeGameBarWidget
             base.OnNavigatedTo(e);
         }
 
+        /// <summary>
+        /// Gets the entries from database, divides them on groups based on TimeStamp and orders it descending and finally sets as source for UI elements.
+        /// If no entries were found a message about empty history is shown.
+        /// </summary>
         private void GetEntries()
         {
             HistoryEntries = Cabinet.GetEntries();
@@ -62,7 +65,14 @@ namespace YoutubeGameBarWidget
             }
         }
 
-        private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Handles the selection changed event for History List.
+        /// In case of first opening the page (where the selectiion changed fires up) it selects null so no action must be taken, it also updates the pristine flag.
+        /// In case user selecting a item (where the pristine flag is false) it will follow the normal workflow to playback the media.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (IsFirstOpening)
             {
@@ -72,8 +82,25 @@ namespace YoutubeGameBarWidget
             else 
             {
                 HistoryEntry selected = HistoryList.SelectedItem as HistoryEntry;
-                Debug.WriteLine(selected.ToStorable());
+                selected.Id = 0;
+                await Cabinet.SaveEntry(selected);
+
+                StartPlayback(selected.MediaURL);
             }
+        }
+
+        /// <summary>
+        /// Playbacks the selected video on the WebPage.
+        /// </summary>
+        /// <param name="mediaURL">The Media URL to be played.</param>
+        private void StartPlayback(string mediaURL)
+        {
+            InformationPayload information = new InformationPayload(Utils.GetProperVideoUIUri(mediaURL));
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            Frame.Navigate(typeof(Webpage), information);
         }
 
         /// <summary>
