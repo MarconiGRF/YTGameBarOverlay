@@ -112,5 +112,14 @@
             Background="{x:Bind ColorResources.AccentColor}">
             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Style="{StaticResource YTGBOFontIcon}" FontSize="18"></FontIcon>
         </Button>
+
+        <Button 
+            Name="ClearHistoryButton" 
+            Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3"
+            HorizontalAlignment="Right" MinWidth="32" MinHeight="32" 
+            Click="ClearHistoryButton_Click"
+            Background="{x:Bind ColorResources.AccentColor}">
+            <TextBlock Style="{StaticResource YTGBOTextBlock}" Text="{x:Bind LangResources.CleanHistory}" FontSize="18"></TextBlock>
+        </Button>
     </Grid>
 </Page>

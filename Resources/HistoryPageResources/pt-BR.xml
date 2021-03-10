@@ -2,5 +2,6 @@
 <HistoryPageResources>
 	<Title>Histórico de reprodução</Title>
 	<EmptyMessage>Não há nada aqui ainda, as mídias que você reproduzir serão mostradas aqui.</EmptyMessage>
-	<ClearHistory>Limpar histórico</ClearHistory>
+	<CleanHistory>Limpar histórico</CleanHistory>
+	<ErrorCleaningHistory>Ocorreu um erro ao tentar limpar o histórico, tente novamente ou reinstale o YTGBO.</ErrorCleaningHistory>
 </HistoryPageResources>

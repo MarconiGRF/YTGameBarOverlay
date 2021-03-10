@@ -238,7 +238,7 @@ namespace YoutubeGameBarOverlay
 
             if (!successfullySaved)
             {
-                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.HistorySaveError, typeof(MainPage), 2000));
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.HistorySaveError, typeof(Webpage), 2000));
             }
         }
 

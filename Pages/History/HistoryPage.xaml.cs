@@ -18,10 +18,11 @@ namespace YoutubeGameBarWidget
     /// </summary>
     public sealed partial class HistoryPage : Page
     {
-        private ThemeResources ColorResources;
         public HistoryPageResources LangResources;
+        private bool IsFirstOpening;
         private Cabinet Cabinet;
         private List<HistoryEntry> HistoryEntries;
+        private ThemeResources ColorResources;
         public HistoryPage()
         {
             LangResources = BabelTower.getTranslatedResources<HistoryPageResources>();
@@ -37,6 +38,7 @@ namespace YoutubeGameBarWidget
         /// <param name="e">The navigation arguments.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            IsFirstOpening = true;
             Painter.RunUIUpdateByMethod(StartLoading);
             GetEntries();
 
@@ -62,7 +64,16 @@ namespace YoutubeGameBarWidget
 
         private void HistoryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            HistoryEntry selected = HistoryList.SelectedItem as HistoryEntry;
+            if (IsFirstOpening)
+            {
+                HistoryList.SelectedItem = null;
+                IsFirstOpening = false;
+            }
+            else 
+            {
+                HistoryEntry selected = HistoryList.SelectedItem as HistoryEntry;
+                Debug.WriteLine(selected.ToStorable());
+            }
         }
 
         /// <summary>
@@ -73,6 +84,25 @@ namespace YoutubeGameBarWidget
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        /// <summary>
+        /// Event Handler for clicks on the Clear History Button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void ClearHistoryButton_Click(object sender, RoutedEventArgs e)
+        {
+            Painter.RunUIUpdateByMethod(StartLoading);
+            bool operationSuccess = await Cabinet.DeleteAll();
+
+            if (operationSuccess)
+            {
+                GetEntries();
+            }
+            else{
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.ErrorCleaningHistory, typeof(HistoryPage), 2700));
+            }
         }
 
         /// <summary>

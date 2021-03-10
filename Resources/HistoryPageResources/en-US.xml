@@ -2,5 +2,6 @@
 <HistoryPageResources>
 	<Title>Playback history</Title>
 	<EmptyMessage>There's nothing here yet, the media you play will be shown here.</EmptyMessage>
-	<ClearHistory>Clear history</ClearHistory>
+	<CleanHistory>Clear history</CleanHistory>
+	<ErrorCleaningHistory>There was an error while cleaning the history, please try again or reinstall YTGBO.</ErrorCleaningHistory>
 </HistoryPageResources>

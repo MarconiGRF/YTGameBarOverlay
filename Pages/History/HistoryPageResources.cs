@@ -19,5 +19,11 @@ namespace YoutubeGameBarWidget.Pages
 
         [XmlElement("EmptyMessage")]
         public string EmptyMessage { get; set; }
+
+        [XmlElement("CleanHistory")]
+        public string CleanHistory { get; set; }
+
+        [XmlElement("ErrorCleaningHistory")]
+        public string ErrorCleaningHistory { get; set; }
     }
 }

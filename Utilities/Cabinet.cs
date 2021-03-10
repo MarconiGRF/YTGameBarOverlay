@@ -15,6 +15,7 @@ namespace YoutubeGameBarWidget.Utilities
     {
         private class Columns
         {
+            public const string Id = "id";
             public const string Title = "title";
             public const string Channel = "channel";
             public const string MediaUrl = "media_url";
@@ -42,6 +43,10 @@ namespace YoutubeGameBarWidget.Utilities
             DatabasePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, DatabaseFilename);
         }
 
+        /// <summary>
+        /// Initializes the database file, creating one if the file do not exists.
+        /// It also will create the history table if it does not exist.
+        /// </summary>
         public async void Initialize()
         {
             await ApplicationData.Current.LocalFolder.CreateFileAsync(DatabaseFilename, CreationCollisionOption.OpenIfExists);
@@ -64,30 +69,65 @@ namespace YoutubeGameBarWidget.Utilities
             } 
         }
 
+        /// <summary>
+        /// Asynchronally Performs the necessary checks and calls to save a History Entry.
+        /// </summary>
+        /// <param name="newEntry"></param>
+        /// <returns>True if operations were well succeeded, false otherwise.</returns>
         public async Task<bool> SaveEntry(HistoryEntry newEntry)
         {
             HistoryEntry latestSavedValue = GetLatestEntry();
             if (latestSavedValue != null)
             {
-                if (latestSavedValue.MediaURL == newEntry.MediaURL)
+                if (latestSavedValue.MediaURL != newEntry.MediaURL)
                 {
-                    return true;
+                    return Save(newEntry);
+                }
+                else
+                {
+                    if (latestSavedValue.Timestamp != newEntry.Timestamp)
+                    {
+                        newEntry.Id = latestSavedValue.Id;
+                        return Save(newEntry);
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
             }
 
-            return InsertEntry(newEntry);
+            return Save(newEntry);
         }
 
-        private bool InsertEntry(HistoryEntry entry)
+        /// <summary>
+        /// Saves an HistoryEntry on databse.
+        /// If such entry has an id different of 0 it will update its information.
+        /// </summary>
+        /// <param name="entry"></param>
+        /// <returns>True if the operation was well succeeded, false otherwise.</returns>
+        private bool Save(HistoryEntry entry)
         {
-            string insertValues = "INSERT INTO " + TableName + " VALUES " + entry.ToStorable() + ";";
+            string query = "";
+            if (entry.Id != 0)
+            {
+                query = "UPDATE " + TableName + " SET ";
+                query += Columns.Title + "='" + entry.Title + "', ";
+                query += Columns.ThumbnailUrl + "='" + entry.ThumbnailURL+ "', ";
+                query += Columns.Timestamp + "='" + entry.Timestamp + "' ";
+                query += "WHERE " + Columns.Id + "=" + entry.Id + ";";
+            }
+            else
+            {
+                query = "INSERT INTO " + TableName + " VALUES " + entry.ToStorable() + ";";
+            }
             SqliteConnection database = new SqliteConnection($"Filename={DatabasePath}");
 
             try
             {
                 database.Open();
                 
-                new SqliteCommand(insertValues, database).ExecuteReader();
+                new SqliteCommand(query, database).ExecuteReader();
                 return true;
             }
             catch
@@ -100,6 +140,35 @@ namespace YoutubeGameBarWidget.Utilities
             }
         }
 
+        /// <summary>
+        /// Deletes all history entries stored on database.
+        /// </summary>
+        public async Task<bool> DeleteAll()
+        {
+            string deleteAllValues = "DELETE FROM " + TableName + ";";
+            SqliteConnection database = new SqliteConnection($"Filename={DatabasePath}");
+
+            try
+            {
+                database.Open();
+
+                new SqliteCommand(deleteAllValues, database).ExecuteReader();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                database.Close();
+            }
+        }
+
+        /// <summary>
+        /// Gets the latest entry stored on database.
+        /// </summary>
+        /// <returns>The latest entry on databse or null if there's no entry.</returns>
         private HistoryEntry GetLatestEntry()
         {
             string selectLastValue = "SELECT * FROM " + TableName + " WHERE id = (SELECT MAX(id) FROM " + TableName + ")";
@@ -130,6 +199,10 @@ namespace YoutubeGameBarWidget.Utilities
             }
         }
 
+        /// <summary>
+        /// Gets and returns a list of all entries stored on database.
+        /// </summary>
+        /// <returns>THe list of newly formed HistoryEntry objects with the stored data.</returns>
         public List<HistoryEntry> GetEntries()
         {
             string selectValues = "SELECT * FROM " + TableName + ";";
