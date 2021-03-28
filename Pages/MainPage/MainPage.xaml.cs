@@ -227,8 +227,8 @@ namespace YoutubeGameBarOverlay
         private async void SaveItem(ListItem chosenItem)
         {
             HistoryEntry historyEntry = new HistoryEntry(
-                chosenItem.MediaTitle.Replace("\'", ""),
-                chosenItem.ChannelTitle,
+                chosenItem.MediaTitle.Replace("\'", "").Replace(",", ""),
+                chosenItem.ChannelTitle.Replace("\'", "").Replace(",", ""),
                 chosenItem.MediaUrl,
                 chosenItem.Thumbnail,
                 Enum.Parse<Constants.MediaTypes>(chosenItem.MediaTypeLiteral),

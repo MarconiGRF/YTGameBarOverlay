@@ -33,7 +33,8 @@ namespace YoutubeGameBarWidget
         /// <param name="e"></param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            VideoUIWebpage.Source = new Uri("about: blank");
+            VideoUIWebpage.Navigate(new Uri("about:blank"));
+
             UnloadObject(VideoUIWebpage);
             base.OnNavigatedFrom(e);
         }
