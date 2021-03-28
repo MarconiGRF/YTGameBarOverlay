@@ -22,6 +22,7 @@ namespace YoutubeGameBarOverlay
         private Search Search;
         private MainPageResources LangResources;
         private ThemeResources ColorResources;
+        private Cabinet Cabinet;
         private bool inLoadingState;
         public string MediaURL;
 
@@ -33,6 +34,9 @@ namespace YoutubeGameBarOverlay
 
             LangResources = BabelTower.getTranslatedResources<MainPageResources>();
             ColorResources = Painter.GetTheme();
+
+            Cabinet = new Cabinet();
+            Cabinet.Initialize();
 
             NavigationCacheMode = NavigationCacheMode.Enabled;
             InitializeComponent();
@@ -91,6 +95,24 @@ namespace YoutubeGameBarOverlay
         private void HandleChangelogButton(object sender, RoutedEventArgs eventArgs)
         {
             Frame.Navigate(typeof(ChangelogPage));
+        }
+
+        /// Handles the click at the SupportMe Page Button navigating to it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void HandleSupportMeButton(object sender, RoutedEventArgs eventArgs)
+        {
+            Frame.Navigate(typeof(SupportMePage));
+        }
+
+        /// Handles the click at the History Page Button navigating to it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="eventArgs"></param>
+        private void HandleHistoryButton(object sender, RoutedEventArgs eventArgs)
+        {
+            Frame.Navigate(typeof(HistoryPage));
         }
 
         /// <summary>
@@ -195,9 +217,28 @@ namespace YoutubeGameBarOverlay
             {
                 InLoadingState(true);
                 ListItem chosenItem = (ListItem)args.ChosenSuggestion;
+                SaveItem(chosenItem);
                 SetAsMediaURL(chosenItem.MediaUrl);
 
                 StartPlayback();
+            }
+        }
+
+        private async void SaveItem(ListItem chosenItem)
+        {
+            HistoryEntry historyEntry = new HistoryEntry(
+                chosenItem.MediaTitle.Replace("\'", "").Replace(",", ""),
+                chosenItem.ChannelTitle.Replace("\'", "").Replace(",", ""),
+                chosenItem.MediaUrl,
+                chosenItem.Thumbnail,
+                Enum.Parse<Constants.MediaTypes>(chosenItem.MediaTypeLiteral),
+                DateTime.Today.ToString(Constants.Common.StorableDateFormat)
+            );
+            bool successfullySaved = await Cabinet.SaveEntry(historyEntry);
+
+            if (!successfullySaved)
+            {
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.HistorySaveError, typeof(Webpage), 2000));
             }
         }
 

@@ -15,6 +15,16 @@ namespace YoutubeGameBarWidget.Utilities
         {
             public const string AuthorSignature = "Author: ";
             public const string EmptyString = "";
+            public const string StorableDateFormat = "yyyyMMdd";
+        }
+
+        /// <summary>
+        /// Enumarator for the media types.
+        /// </summary>
+        public enum MediaTypes
+        {
+            video,
+            playlist
         }
 
         /// <summary>
@@ -100,6 +110,22 @@ namespace YoutubeGameBarWidget.Utilities
         /// </summary>
         public static class Settings
         {
+            public static readonly Dictionary<string, string> ShowTips =
+                new Dictionary<string, string>
+                {
+                    { "varname", "showTips" },
+                    { "True", "true" },
+                    { "False", "false" }
+                };
+
+            public static readonly Dictionary<string, string> ShowThumbnails =
+                new Dictionary<string, string>
+                {
+                    { "varname", "showThumbnails" },
+                    { "True", "true" },
+                    { "False", "false" }
+                };
+
             public static string[] LanguagesNames = { "English", "Portuguese" };
             public const string DefaultPreferredLanguage = "en-US";
             public static readonly Dictionary<string, string> Languages =
@@ -144,5 +170,7 @@ namespace YoutubeGameBarWidget.Utilities
                     { "White", "#FFFFFF" }
                 };
         }
+
+        public static string DonationURL = "https://www.paypal.com/donate?hosted_button_id=CDGQF2GN2J6KL&source=url";
     }
 }

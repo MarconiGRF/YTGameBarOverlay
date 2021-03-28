@@ -7,7 +7,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Grid Background="{x:Bind ColorResources.AccentColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
@@ -23,7 +22,6 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.25*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
@@ -41,7 +39,9 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="0.1*"></RowDefinition>
+                    <RowDefinition Height="0.25*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="0.25*"></RowDefinition>
                     <RowDefinition Height="1*"></RowDefinition>
                 </Grid.RowDefinitions>
                 
@@ -81,7 +81,6 @@
                     </ComboBox>
                 </StackPanel>
 
-
                 <StackPanel Grid.Column="2" Grid.Row="0">
                     <TextBlock FontSize="16" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.SecondaryColor}" TextAlignment="Left"></TextBlock>
                     <ComboBox HorizontalAlignment="Stretch" Name="SecondaryColorComboBox">
@@ -112,12 +111,19 @@
                         </ComboBox.ItemTemplate>
                     </ComboBox>
                 </StackPanel>
+
+                <CheckBox Name="ShowTipsCheckbox" Grid.Row="4">
+                    <TextBlock Text="{x:Bind LangResources.ShowTips}" FontSize="13" Foreground="{x:Bind ColorResources.AuxiliaryColor}"/>
+                </CheckBox>
+                <CheckBox Name="ShowThumbnailsCheckbox" Grid.Row="4" Grid.Column="2">
+                    <TextBlock Text="{x:Bind LangResources.ShowThumbnails}" FontSize="13" Foreground="{x:Bind ColorResources.AuxiliaryColor}" />
+                </CheckBox>
             </Grid>
         </ScrollViewer>
 
         <Button 
             Name="SaveButton" 
-            Grid.Row="5" Grid.Column="5" 
+            Grid.Row="4" Grid.Column="5" 
             HorizontalAlignment="Right" MinWidth="32" MinHeight="32"
             Click="SaveButton_Click"
             Background="{x:Bind ColorResources.AccentColor}">
@@ -126,7 +132,7 @@
 
         <Button 
             Name="BackButton" 
-            Grid.Row="5" Grid.Column="1" 
+            Grid.Row="4" Grid.Column="1" 
             HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
             Click="BackButton_Click"
             Background="{x:Bind ColorResources.AccentColor}">

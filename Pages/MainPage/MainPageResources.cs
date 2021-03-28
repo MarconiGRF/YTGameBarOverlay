@@ -24,5 +24,8 @@ namespace YoutubeGameBarWidget.Pages
 
         [XmlElement("SearchNotAvailableError")]
         public String SearchNotAvailableError { get; set; }
+
+        [XmlElement("HistorySaveError")]
+        public String HistorySaveError { get; set; }
     }
 }

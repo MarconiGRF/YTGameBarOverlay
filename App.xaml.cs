@@ -57,29 +57,41 @@ namespace YoutubeGameBarOverlay
         /// </summary>
         private void SetupLocalSettings()
         {
-            String accentColor = (string) Utils.GetSettingValue(Constants.Settings.AccentColors["varname"]);
-            String secondaryColor = (string) Utils.GetSettingValue(Constants.Settings.SecondaryColors["varname"]);
-            String auxiliaryColor = (string) Utils.GetSettingValue(Constants.Settings.AuxiliaryColors["varname"]);
-            String prefferedLanguage = (string) Utils.GetSettingValue(Constants.Settings.Languages["varname"]);
+            string accentColor = (string) Utils.GetSettingValue(Constants.Settings.AccentColors["varname"]);
+            string secondaryColor = (string) Utils.GetSettingValue(Constants.Settings.SecondaryColors["varname"]);
+            string auxiliaryColor = (string) Utils.GetSettingValue(Constants.Settings.AuxiliaryColors["varname"]);
+            string prefferedLanguage = (string) Utils.GetSettingValue(Constants.Settings.Languages["varname"]);
+            string tipsPreference = (string) Utils.GetSettingValue(Constants.Settings.ShowTips["varname"]);
+            string thumbnailsPreference = (string) Utils.GetSettingValue(Constants.Settings.ShowThumbnails["varname"]);
 
             if (accentColor == null)
             {
-                Utils.setSettingValue(Constants.Settings.AccentColors["varname"], Constants.Settings.AccentColors["Red"]);
+                Utils.SetSettingValue(Constants.Settings.AccentColors["varname"], Constants.Settings.AccentColors["Red"]);
             }
 
             if (secondaryColor == null)
             { 
-                Utils.setSettingValue(Constants.Settings.SecondaryColors["varname"], Constants.Settings.SecondaryColors["Red"]);
+                Utils.SetSettingValue(Constants.Settings.SecondaryColors["varname"], Constants.Settings.SecondaryColors["Red"]);
             }
 
             if (auxiliaryColor == null)
             {
-                Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], Constants.Settings.AuxiliaryColors["White"]);
+                Utils.SetSettingValue(Constants.Settings.AuxiliaryColors["varname"], Constants.Settings.AuxiliaryColors["White"]);
             }
 
             if (prefferedLanguage == null)
             {
-                Utils.setSettingValue(Constants.Settings.Languages["varname"], CultureInfo.InstalledUICulture.Name);
+                Utils.SetSettingValue(Constants.Settings.Languages["varname"], CultureInfo.InstalledUICulture.Name);
+            }
+
+            if (tipsPreference == null)
+            {
+                Utils.SetSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["True"]);
+            }
+            
+            if (thumbnailsPreference == null)
+            {
+                Utils.SetSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["True"]);
             }
         }
 

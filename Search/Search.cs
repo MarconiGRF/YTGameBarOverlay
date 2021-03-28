@@ -2,6 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using Windows.UI.Xaml;
 using YoutubeGameBarWidget.Utilities;
 
 namespace YoutubeGameBarWidget.Search
@@ -18,6 +19,7 @@ namespace YoutubeGameBarWidget.Search
         public ListItems parsedResults;
         public event EventHandler FinishedFetchingResults;
         public event EventHandler FailedFetchingResults;
+        public Visibility ThumbnailsVisibility;
 
         /// <summary>
         /// The FinishedFetchingResults event method manager.
@@ -45,10 +47,27 @@ namespace YoutubeGameBarWidget.Search
         public Search()
         {
             this.ytgbssEndPoint = String.Format(Constants.Endpoints.SSBase, Utils.GetVar(Constants.Vars.SSAddress), Utils.GetVar(Constants.Vars.SSPort));
+            this.DetermineThumbnailVisibility();
 
             this.client = new WebClient();
             this.client.Headers.Add(HttpRequestHeader.ContentType, Constants.Headers.Json);
             this.client.DownloadStringCompleted += new DownloadStringCompletedEventHandler(ParseResults);
+        }
+
+        /// <summary>
+        /// Determines wheter thumbnails are visible or not on each ListItem based on stored setting value.
+        /// </summary>
+        private void DetermineThumbnailVisibility()
+        {
+            bool thumbsMustBeShown = bool.Parse((string)Utils.GetSettingValue(Constants.Settings.ShowThumbnails["varname"]));
+            if (thumbsMustBeShown)
+            {
+                this.ThumbnailsVisibility = Visibility.Visible;
+            } 
+            else
+            {
+                this.ThumbnailsVisibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -82,7 +101,9 @@ namespace YoutubeGameBarWidget.Search
                             jObject.GetNamedString("mediaType"),
                             jObject.GetNamedString("mediaTitle"),
                             jObject.GetNamedString("channelTitle"),
-                            jObject.GetNamedString("mediaUrl"));
+                            jObject.GetNamedString("mediaUrl"),
+                            jObject.GetNamedString("thumbnail"),
+                            this.ThumbnailsVisibility);
                     resultItem.ColorResources = colorResources;
                     this.parsedResults.Add(resultItem);
                 }

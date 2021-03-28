@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace YoutubeGameBarWidget.Pages 
 {
     /// <summary>
-    /// The resources for the Main Page.
+    /// The resources for the Resources Page.
     /// Its values are intended to be set with the content on the user language's XML and with user preferences.
     /// </summary>
     [XmlRoot("SettingsResources")]
@@ -21,6 +21,12 @@ namespace YoutubeGameBarWidget.Pages
 
         [XmlElement("TextIconColor")]
         public String TextIconColor { get; set; }
+        
+        [XmlElement("ShowTips")]
+        public String ShowTips { get; set; }
+
+        [XmlElement("ShowThumbnails")]
+        public String ShowThumbnails { get; set; }
 
         [XmlElement("Save")]
         public String Save { get; set; }

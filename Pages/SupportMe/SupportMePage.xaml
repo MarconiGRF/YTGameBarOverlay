@@ -1,0 +1,66 @@
+﻿<Page
+    x:Class="YoutubeGameBarWidget.SupportMePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YoutubeGameBarWidget"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{x:Bind ColorResources.AccentColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="2.2*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" x:Name="TitleGrid">
+            <Grid Padding="0, 2, 0, 2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="Title" Grid.Column="0" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Text="{x:Bind LangResources.Title}"></TextBlock>
+                <FontIcon Grid.Column="1" Foreground="{x:Bind ColorResources.AuxiliaryColor}" Glyph="&#xEB52;" FontSize="14" Margin="5, 0 ,0 , 0"></FontIcon>
+            </Grid>
+        </Viewbox>
+
+        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3">
+            <TextBlock Foreground="{x:Bind ColorResources.AuxiliaryColor}"
+                   Text="{x:Bind LangResources.Message}" x:Name="Message" xml:space="preserve" TextWrapping="WrapWholeWords">
+            </TextBlock>
+        </ScrollViewer>
+
+        <Button 
+            Name="BackButton" 
+            Grid.Row="5" Grid.Column="1" 
+            HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
+            Click="BackButton_Click"
+            Background="{x:Bind ColorResources.AccentColor}">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+        </Button>
+
+        <Button 
+            Name="DonateButton" 
+            Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3" 
+            HorizontalAlignment="Right" MinWidth="32"
+            Click="DonateButton_Click"
+            Background="{x:Bind ColorResources.AccentColor}">
+            <TextBlock Name="SendButtonText" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18" Text="{x:Bind LangResources.Donate}"></TextBlock>
+        </Button>
+    </Grid>
+</Page>

@@ -33,6 +33,8 @@ namespace YoutubeGameBarWidget
         /// <param name="e"></param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
+            VideoUIWebpage.Navigate(new Uri("about:blank"));
+
             UnloadObject(VideoUIWebpage);
             base.OnNavigatedFrom(e);
         }
@@ -46,9 +48,12 @@ namespace YoutubeGameBarWidget
             if (e.Parameter != null)
             {
                 InformationPayload information = (InformationPayload)e.Parameter;
-
                 VideoUIWebpage.Navigate(information.VideoURI);
-                Painter.RunUIUpdateByMethod(PresentPage);
+
+                if ((string) Utils.GetSettingValue(Constants.Settings.ShowTips["varname"]) == Constants.Settings.ShowTips["True"])
+                {
+                    Painter.RunUIUpdateByMethod(ShowTips);
+                }
 
                 base.OnNavigatedTo(e);
             }
@@ -59,7 +64,7 @@ namespace YoutubeGameBarWidget
         /// 
         /// Hides the WebView, showing the tips and finally presents Webview.
         /// </summary>
-        private async void PresentPage()
+        private async void ShowTips()
         {
             await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
@@ -118,7 +123,12 @@ namespace YoutubeGameBarWidget
             args.Handled = true;
         }
 
-        private void VideoUIWebpage_ScriptNotify(object sender, NotifyEventArgs e)
+        /// <summary>
+        /// Handles the codes sent by the webpage catch by the ScriptNotify event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ScriptNotifyHandler(object sender, NotifyEventArgs e)
         {
             if (e.Value == "goback")
             {

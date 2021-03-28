@@ -11,7 +11,7 @@ using System;
 namespace YoutubeGameBarOverlay
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// A settings page used to define and manage user preferences.
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
@@ -41,6 +41,9 @@ namespace YoutubeGameBarOverlay
             BuildSecondaryComboValues();
             BuildAuxiliaryComboValues();
             BuildLanguageComboValues();
+            
+            GetTipsPreference();
+            GetThumbnailsPreference();
         }
 
         /// <summary>
@@ -132,6 +135,40 @@ namespace YoutubeGameBarOverlay
         }
 
         /// <summary>
+        /// Gets the tips preference for the user. 
+        /// Based on the stored values checks or not its setting checkbox.
+        /// </summary>
+        private void GetTipsPreference()
+        {
+            string tipsPreference = (string) Utils.GetSettingValue(Constants.Settings.ShowTips["varname"]);
+            if (bool.Parse(tipsPreference))
+            {
+                ShowTipsCheckbox.IsChecked = true;
+            } 
+            else
+            {
+                ShowTipsCheckbox.IsChecked = false;
+            }
+        }
+
+        /// <summary>
+        /// Gets the thumbnails preference for the user. 
+        /// Based on the stored values checks or not its setting checkbox.
+        /// </summary>
+        private void GetThumbnailsPreference()
+        {
+            string thumbnailsPreference = (string)Utils.GetSettingValue(Constants.Settings.ShowThumbnails["varname"]);
+            if (bool.Parse(thumbnailsPreference))
+            {
+                ShowThumbnailsCheckbox.IsChecked = true;
+            }
+            else
+            {
+                ShowThumbnailsCheckbox.IsChecked = false;
+            }
+        }
+
+        /// <summary>
         /// Handles the app behavior when Save button is clicked.
         /// </summary>
         /// <param name="sender"></param>
@@ -142,6 +179,8 @@ namespace YoutubeGameBarOverlay
             SettingItem selectedSecondary = (SettingItem)SecondaryColorComboBox.SelectedItem;
             SettingItem selectedAuxiliary = (SettingItem)AuxiliaryColorComboBox.SelectedItem;
             SettingItem selectedLanguage= (SettingItem)LanguageComboBox.SelectedItem;
+            bool selectedTipsPreference = ShowTipsCheckbox.IsChecked.GetValueOrDefault();
+            bool selectedThumbnailsPreference = ShowThumbnailsCheckbox.IsChecked.GetValueOrDefault();
 
             if (selectedAccent.RawValue == Constants.Settings.AccentColors["Black"])
             {
@@ -153,10 +192,27 @@ namespace YoutubeGameBarOverlay
                 }
             }
 
-            Utils.setSettingValue(Constants.Settings.AccentColors["varname"], selectedAccent.RawValue);
-            Utils.setSettingValue(Constants.Settings.SecondaryColors["varname"], selectedSecondary.RawValue);
-            Utils.setSettingValue(Constants.Settings.AuxiliaryColors["varname"], selectedAuxiliary.RawValue);
-            Utils.setSettingValue(Constants.Settings.Languages["varname"], selectedLanguage.RawValue);
+            Utils.SetSettingValue(Constants.Settings.AccentColors["varname"], selectedAccent.RawValue);
+            Utils.SetSettingValue(Constants.Settings.SecondaryColors["varname"], selectedSecondary.RawValue);
+            Utils.SetSettingValue(Constants.Settings.AuxiliaryColors["varname"], selectedAuxiliary.RawValue);
+            Utils.SetSettingValue(Constants.Settings.Languages["varname"], selectedLanguage.RawValue);
+
+            if (selectedTipsPreference == true)
+            {
+                Utils.SetSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["True"]);
+            } else
+            {
+                Utils.SetSettingValue(Constants.Settings.ShowTips["varname"], Constants.Settings.ShowTips["False"]);
+            }
+
+            if (selectedThumbnailsPreference == true)
+            {
+                Utils.SetSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["True"]);
+            }
+            else
+            {
+                Utils.SetSettingValue(Constants.Settings.ShowThumbnails["varname"], Constants.Settings.ShowThumbnails["False"]);
+            }
 
             ClearObjects();
             Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.RestartMessage, typeof(MainPage), 5000));

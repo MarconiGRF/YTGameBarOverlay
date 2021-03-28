@@ -138,9 +138,14 @@
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Feedback\FeedbackResources.cs" />
+    <Compile Include="Pages\History\HistoryPage.xaml.cs">
+      <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\History\HistoryPageResources.cs" />
     <Compile Include="Pages\MainPage\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\PageObjects\HistoryEntry.cs" />
     <Compile Include="Pages\PageObjects\InformationPayload.cs" />
     <Compile Include="Pages\MainPage\MainPageResources.cs" />
     <Compile Include="Pages\PageObjects\SettingItem.cs" />
@@ -149,6 +154,10 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Settings\SettingsResources.cs" />
+    <Compile Include="Pages\SupportMe\SupportMePage.xaml.cs">
+      <DependentUpon>SupportMePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SupportMe\SupportMeResources.cs" />
     <Compile Include="Pages\WarnPage\WarnPage.xaml.cs">
       <DependentUpon>WarnPage.xaml</DependentUpon>
     </Compile>
@@ -161,8 +170,10 @@
       <DependentUpon>WebPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\BabelTower.cs" />
+    <Compile Include="Utilities\Cabinet.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\Painter.cs" />
+    <Compile Include="Utilities\TimestampToDateConverter.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Utilities\Validator.cs" />
     <Compile Include="WebServer\WebServer.cs" />
@@ -186,10 +197,14 @@
     <Content Include="Resources\ChangelogResources\pt-BR.xml" />
     <Content Include="Resources\FeedbackResources\en-US.xml" />
     <Content Include="Resources\FeedbackResources\pt-BR.xml" />
+    <Content Include="Resources\HistoryPageResources\en-US.xml" />
+    <Content Include="Resources\HistoryPageResources\pt-BR.xml" />
     <Content Include="Resources\MainPageResources\pt-BR.xml" />
     <Content Include="Resources\MainPageResources\en-US.xml" />
     <Content Include="Resources\SettingsResources\en-US.xml" />
     <Content Include="Resources\SettingsResources\pt-BR.xml" />
+    <Content Include="Resources\SupportMeResources\en-US.xml" />
+    <Content Include="Resources\SupportMeResources\pt-BR.xml" />
     <Content Include="Resources\WebPageResources\en-US.xml" />
     <Content Include="Resources\WebPageResources\pt-BR.xml" />
     <Content Include="VideoUI\*.*">
@@ -219,11 +234,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\History\HistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\MainPage\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SupportMe\SupportMePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,6 +260,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>5.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Gaming.XboxGameBar">
       <Version>5.3.200605002</Version>
     </PackageReference>

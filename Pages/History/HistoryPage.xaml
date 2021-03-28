@@ -1,0 +1,127 @@
+﻿<Page
+    x:Class="YoutubeGameBarWidget.HistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:YoutubeGameBarWidget"
+    xmlns:objects="using:YoutubeGameBarWidget.Pages.PageObjects"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="using:YoutubeGameBarWidget.Utilities"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <CollectionViewSource x:Key="GroupedEntries" x:Name="GroupedEntries" IsSourceGrouped="True" />
+        <utils:TimestampToDateConverter x:Key="TimestampToDateConverterKey" />
+    </Page.Resources>
+
+    <Grid Background="{x:Bind ColorResources.AccentColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="2.2*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+        <Grid.Resources>
+            <Style x:Key="YTGBOTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{x:Bind ColorResources.AuxiliaryColor}"/>
+            </Style>
+            <Style x:Key="YTGBOFontIcon" TargetType="FontIcon">
+                <Setter Property="Foreground" Value="{x:Bind ColorResources.AuxiliaryColor}"/>
+            </Style>
+        </Grid.Resources>
+
+        <Viewbox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5" x:Name="TitleGrid">
+            <TextBlock x:Name="Title" Grid.Column="0" Style="{StaticResource YTGBOTextBlock}" Text="{x:Bind LangResources.Title}"></TextBlock>
+        </Viewbox>
+
+        <ProgressRing 
+            Name="LoadingRing" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4"
+            Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Hidden">
+            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{Binding Source={StaticResource GroupedEntries}}" SelectionChanged="HistoryList_SelectionChanged">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:Name="HistoryEntryTemplate" x:DataType="objects:HistoryEntry">
+                        <Grid MaxHeight="70" BorderBrush="{x:Bind ColorResources.SecondaryColor}" BorderThickness="1, 1, 1, 1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="7*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Column="0" Grid.RowSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5" Source="{x:Bind ThumbnailURL}"/>
+                            <TextBlock Grid.Column="1" FontSize="16" VerticalAlignment="Center" Text="{x:Bind Title}" Style="{StaticResource YTGBOTextBlock}">
+                            </TextBlock>
+                            <Grid Grid.Column="1" Grid.Row="1">
+                                <TextBlock FontSize="14" HorizontalAlignment="Left" Text="{x:Bind Channel}" Style="{StaticResource YTGBOTextBlock}">
+                                </TextBlock>
+                                <Button Padding="0" HorizontalAlignment="Right" Tag="{x:Bind Id}" Click="RemoveEntryButton_Click">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;" Style="{StaticResource YTGBOFontIcon}" FontSize="14"></FontIcon>
+                                </Button>
+                            </Grid>
+                            <FontIcon Grid.Column="1" Grid.Row="2" FontSize="12" FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind IconGlyph}" Style="{StaticResource YTGBOFontIcon}" HorizontalAlignment="Left"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Key, Converter={StaticResource TimestampToDateConverterKey}}" Margin="5, 0" Style="{StaticResource YTGBOTextBlock}" FontSize="16pt" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3" x:Name="EmptyMessage" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB91;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="64pt"/>
+            <TextBlock Grid.Row="1" Style="{StaticResource YTGBOTextBlock}" Text="{x:Bind LangResources.EmptyMessage}" 
+                       FontSize="16pt" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWholeWords" TextAlignment="Center"/>
+        </Grid>        
+
+        <Button 
+            Name="BackButton" 
+            Grid.Row="5" Grid.Column="1" 
+            HorizontalAlignment="left" MinWidth="32" MinHeight="32" 
+            Click="BackButton_Click"
+            Background="{x:Bind ColorResources.AccentColor}">
+            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72B;" Style="{StaticResource YTGBOFontIcon}" FontSize="18"></FontIcon>
+        </Button>
+
+        <Button 
+            Name="ClearHistoryButton" 
+            Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="3"
+            HorizontalAlignment="Right" MinWidth="32" MinHeight="32" 
+            Click="ClearHistoryButton_Click"
+            Background="{x:Bind ColorResources.AccentColor}">
+            <TextBlock Style="{StaticResource YTGBOTextBlock}" Text="{x:Bind LangResources.CleanHistory}" FontSize="18"></TextBlock>
+        </Button>
+    </Grid>
+</Page>

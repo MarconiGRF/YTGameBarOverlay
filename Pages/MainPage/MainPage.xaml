@@ -243,6 +243,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="0.12*"/>
         </Grid.RowDefinitions>
 
         <Viewbox Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3">
@@ -253,7 +254,7 @@
             Name="inputBox" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Center"
             PlaceholderText="{x:Bind LangResources.SearchFieldPlaceholder}"
             BorderBrush="{x:Bind ColorResources.SecondaryColor}" MinHeight="32" TextBoxStyle="{StaticResource YTGBOTextBox}"
-            TextChanged="inputBox_TextChanged" UpdateTextOnSelect="True" TextMemberPath="VideoTitle" QuerySubmitted="inputBox_QuerySubmitted">
+            TextChanged="inputBox_TextChanged" UpdateTextOnSelect="True" TextMemberPath="MediaTitle" QuerySubmitted="inputBox_QuerySubmitted">
             <AutoSuggestBox.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -272,9 +273,18 @@
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding MediaType}" Grid.RowSpan="2" Foreground="{Binding ColorResources.AuxiliaryColor}"></FontIcon>
-                        <TextBlock Text="{Binding MediaTitle}" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" FontSize="14" HorizontalAlignment="Left" Foreground="{Binding ColorResources.AuxiliaryColor}"/>
-                        <TextBlock Text="{Binding ChannelTitle}" Grid.Column="1" Grid.Row="1" FontSize="12" HorizontalAlignment="Left"  Foreground="{Binding ColorResources.AuxiliaryColor}"/>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{Binding MediaType}" Grid.RowSpan="2" Foreground="{Binding ColorResources.AuxiliaryColor}"/>
+                        <Image Visibility="{Binding ThumbnailVisibility}" Source="{Binding Thumbnail}" Grid.RowSpan="2" />
+                        <TextBlock Text="{Binding MediaTitle}" FontSize="14" HorizontalAlignment="Left"
+                                   Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" Margin="5, 0, 0, 0"
+                                   Foreground="{Binding ColorResources.AuxiliaryColor}"/>
+                        <TextBlock Text="{Binding ChannelTitle}" FontSize="12" HorizontalAlignment="Left"
+                                   Grid.Column="1" Grid.Row="1" Margin="5, 0, 0, 0"
+                                   Foreground="{Binding ColorResources.AuxiliaryColor}"/>
+                        <FontIcon Visibility="{Binding ThumbnailVisibility}"
+                                  FontFamily="Segoe MDL2 Assets" Glyph="{Binding MediaType}" FontSize="12" HorizontalAlignment="Right"
+                                  Grid.Row="1" Grid.Column="1" Margin="0, 0, 5, 0"
+                                  Foreground="{Binding ColorResources.AuxiliaryColor}"/>
                     </Grid>
                 </DataTemplate>
             </AutoSuggestBox.ItemTemplate>
@@ -295,31 +305,58 @@
             Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="30" MinHeight="30" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False"/>
 
         <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Button 
-            Name="SettingsButton" 
-            Grid.Row="2" Grid.Column="1" 
-            HorizontalAlignment="Left" MinWidth="32" MinHeight="32" 
-            Click="HandleSettingsButton"
-            Background="{x:Bind ColorResources.AccentColor}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9E9;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+                Name="SettingsButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
+                Grid.Row="0" Grid.Column="0" 
+                HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
+                Click="HandleSettingsButton"
+                Background="{x:Bind ColorResources.AccentColor}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9E9;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
             </Button>
 
             <Button 
-            Name="FeedbackButton" 
-            Grid.Row="2" Grid.Column="1" 
-            HorizontalAlignment="Center" MinWidth="32" MinHeight="32" 
-            Click="HandleFeedbackButton"
-            Background="{x:Bind ColorResources.AccentColor}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE715;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+                Name="HistoryButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
+                Grid.Row="0" Grid.Column="1" 
+                HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
+                Click="HandleHistoryButton"
+                Background="{x:Bind ColorResources.AccentColor}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE81C;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
             </Button>
 
             <Button 
-            Name="ChangelogButton" 
-            Grid.Row="2" Grid.Column="2" 
-            HorizontalAlignment="right" MinWidth="32" MinHeight="32" 
-            Click="HandleChangelogButton"
-            Background="{x:Bind ColorResources.AccentColor}">
-                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D5;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="18"></FontIcon>
+                Name="FeedbackButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
+                Grid.Row="1" Grid.Column="1" 
+                HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
+                Click="HandleFeedbackButton"
+                Background="{x:Bind ColorResources.AccentColor}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE715;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
+            </Button>
+
+            <Button 
+                Name="ChangelogButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
+                Grid.Row="1" Grid.Column="0" 
+                HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
+                Click="HandleChangelogButton"
+                Background="{x:Bind ColorResources.AccentColor}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D5;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="16"></FontIcon>
+            </Button>
+            
+            <Button 
+                Name="SupportMeButton" BorderBrush="{x:Bind ColorResources.SecondaryColor}"
+                Grid.Row="2" Grid.Column="2" 
+                HorizontalAlignment="Center" MinWidth="26" MinHeight="26" 
+                Click="HandleSupportMeButton"
+                Background="{x:Bind ColorResources.AccentColor}">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEB51;" Foreground="{x:Bind ColorResources.AuxiliaryColor}" FontSize="14"></FontIcon>
             </Button>
         </Grid>
 
