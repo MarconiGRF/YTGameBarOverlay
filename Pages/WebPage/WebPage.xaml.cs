@@ -19,6 +19,7 @@ namespace YoutubeGameBarWidget
     {
         WebPageResources LangResources;
         ThemeResources ColorResources;
+        Uri CurrentURI;
         public Webpage()
         {
             LangResources = BabelTower.getTranslatedResources<WebPageResources>();
@@ -48,7 +49,8 @@ namespace YoutubeGameBarWidget
             if (e.Parameter != null)
             {
                 InformationPayload information = (InformationPayload)e.Parameter;
-                VideoUIWebpage.Navigate(information.VideoURI);
+                CurrentURI = information.VideoURI;
+                VideoUIWebpage.Navigate(CurrentURI);
 
                 if ((string) Utils.GetSettingValue(Constants.Settings.ShowTips["varname"]) == Constants.Settings.ShowTips["True"])
                 {
@@ -112,12 +114,12 @@ namespace YoutubeGameBarWidget
             if (Validator.IsMediaURLValid(redirectUrl) == true)
             {
                 Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.LoadingWarn, typeof(Webpage), 2500));
-
                 VideoUIWebpage.Navigate(Utils.GetProperVideoUIUri(redirectUrl));
             }
             else
             {
                 Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.InvalidURLWarn, typeof(Webpage), 1500));
+                VideoUIWebpage.Navigate(CurrentURI);
             }
             
             args.Handled = true;

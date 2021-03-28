@@ -126,7 +126,7 @@ namespace YoutubeGameBarWidget.Utilities
                     { "False", "false" }
                 };
 
-            public static string[] LanguagesNames = { "English", "Portuguese" };
+            public static string[] LanguagesNames = { "English", "Portuguese", "Spanish" };
             public const string DefaultPreferredLanguage = "en-US";
             public static readonly Dictionary<string, string> Languages =
                 new Dictionary<string, string>

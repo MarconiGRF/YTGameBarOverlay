@@ -194,18 +194,25 @@
     <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-48_altform-unplated.png" />
     <Content Include="Resources\ChangelogResources\en-US.xml" />
+    <Content Include="Resources\ChangelogResources\es-ES.xml" />
     <Content Include="Resources\ChangelogResources\pt-BR.xml" />
     <Content Include="Resources\FeedbackResources\en-US.xml" />
+    <Content Include="Resources\FeedbackResources\es-ES.xml" />
     <Content Include="Resources\FeedbackResources\pt-BR.xml" />
     <Content Include="Resources\HistoryPageResources\en-US.xml" />
+    <Content Include="Resources\HistoryPageResources\es-ES.xml" />
     <Content Include="Resources\HistoryPageResources\pt-BR.xml" />
+    <Content Include="Resources\MainPageResources\es-ES.xml" />
     <Content Include="Resources\MainPageResources\pt-BR.xml" />
     <Content Include="Resources\MainPageResources\en-US.xml" />
     <Content Include="Resources\SettingsResources\en-US.xml" />
+    <Content Include="Resources\SettingsResources\es-ES.xml" />
     <Content Include="Resources\SettingsResources\pt-BR.xml" />
     <Content Include="Resources\SupportMeResources\en-US.xml" />
+    <Content Include="Resources\SupportMeResources\es-ES.xml" />
     <Content Include="Resources\SupportMeResources\pt-BR.xml" />
     <Content Include="Resources\WebPageResources\en-US.xml" />
+    <Content Include="Resources\WebPageResources\es-ES.xml" />
     <Content Include="Resources\WebPageResources\pt-BR.xml" />
     <Content Include="VideoUI\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
