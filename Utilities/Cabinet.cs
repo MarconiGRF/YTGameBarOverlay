@@ -77,7 +77,11 @@ namespace YoutubeGameBarWidget.Utilities
         public async Task<bool> SaveEntry(HistoryEntry newEntry)
         {
             HistoryEntry latestSavedValue = GetLatestEntry();
-            if (latestSavedValue != null)
+            if (latestSavedValue == null)
+            {
+                return Save(newEntry);
+            }
+            else
             {
                 if (latestSavedValue.MediaURL != newEntry.MediaURL)
                 {
@@ -85,19 +89,9 @@ namespace YoutubeGameBarWidget.Utilities
                 }
                 else
                 {
-                    if (latestSavedValue.Timestamp != newEntry.Timestamp)
-                    {
-                        newEntry.Id = latestSavedValue.Id;
-                        return Save(newEntry);
-                    }
-                    else
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
-
-            return Save(newEntry);
         }
 
         /// <summary>
@@ -109,24 +103,40 @@ namespace YoutubeGameBarWidget.Utilities
         private bool Save(HistoryEntry entry)
         {
             string query = "";
-            if (entry.Id != 0)
-            {
-                query = "UPDATE " + TableName + " SET ";
-                query += Columns.Title + "='" + entry.Title + "', ";
-                query += Columns.ThumbnailUrl + "='" + entry.ThumbnailURL+ "', ";
-                query += Columns.Timestamp + "='" + entry.Timestamp + "' ";
-                query += "WHERE " + Columns.Id + "=" + entry.Id + ";";
-            }
-            else
-            {
-                query = "INSERT INTO " + TableName + " VALUES " + entry.ToStorable() + ";";
-            }
+            query = "INSERT INTO " + TableName + " VALUES " + entry.ToStorable() + ";";
             SqliteConnection database = new SqliteConnection($"Filename={DatabasePath}");
 
             try
             {
                 database.Open();
                 
+                new SqliteCommand(query, database).ExecuteReader();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                database.Close();
+            }
+        }
+
+        /// <summary>
+        /// Deletes a HistoryEntry on databse.
+        /// </summary>
+        /// <param name="id">The id of the entry.</param>
+        /// <returns>True if the operation was well succeeded, false otherwise.</returns>
+        public async Task<bool> Delete(string id)
+        {
+            string query = "DELETE FROM " + TableName + " WHERE " + Columns.Id + "=" + id + ";";
+            SqliteConnection database = new SqliteConnection($"Filename={DatabasePath}");
+
+            try
+            {
+                database.Open();
+
                 new SqliteCommand(query, database).ExecuteReader();
                 return true;
             }

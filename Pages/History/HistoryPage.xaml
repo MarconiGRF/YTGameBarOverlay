@@ -6,10 +6,12 @@
     xmlns:objects="using:YoutubeGameBarWidget.Pages.PageObjects"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:utils="using:YoutubeGameBarWidget.Utilities"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <CollectionViewSource x:Key="GroupedEntries" x:Name="GroupedEntries" IsSourceGrouped="True" />
+        <utils:TimestampToDateConverter x:Key="TimestampToDateConverterKey" />
     </Page.Resources>
 
     <Grid Background="{x:Bind ColorResources.AccentColor}">
@@ -47,9 +49,9 @@
         <ProgressRing 
             Name="LoadingRing" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4"
             Foreground="{x:Bind ColorResources.AuxiliaryColor}" MinWidth="60" MinHeight="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        
-        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3">
-            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{Binding Source={StaticResource GroupedEntries}}" ScrollViewer.VerticalScrollBarVisibility="Hidden" SelectionChanged="HistoryList_SelectionChanged">
+
+        <ScrollViewer Grid.Column="1" Grid.ColumnSpan="5" Grid.Row="2" Grid.RowSpan="3" VerticalScrollBarVisibility="Hidden">
+            <ListView x:Name="HistoryList" Padding="0" Margin="0" ItemsSource="{Binding Source={StaticResource GroupedEntries}}" SelectionChanged="HistoryList_SelectionChanged">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -74,7 +76,7 @@
                             <Grid Grid.Column="1" Grid.Row="1">
                                 <TextBlock FontSize="14" HorizontalAlignment="Left" Text="{x:Bind Channel}" Style="{StaticResource YTGBOTextBlock}">
                                 </TextBlock>
-                                <Button Padding="0" HorizontalAlignment="Right">
+                                <Button Padding="0" HorizontalAlignment="Right" Tag="{x:Bind Id}" Click="RemoveEntryButton_Click">
                                     <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE711;" Style="{StaticResource YTGBOFontIcon}" FontSize="14"></FontIcon>
                                 </Button>
                             </Grid>
@@ -86,7 +88,7 @@
                     <GroupStyle>
                         <GroupStyle.HeaderTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Key}" Margin="5, 0" Style="{StaticResource YTGBOTextBlock}" FontSize="16pt" />
+                                <TextBlock Text="{Binding Key, Converter={StaticResource TimestampToDateConverterKey}}" Margin="5, 0" Style="{StaticResource YTGBOTextBlock}" FontSize="16pt" />
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                     </GroupStyle>

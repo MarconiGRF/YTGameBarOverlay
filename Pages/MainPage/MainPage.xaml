@@ -254,7 +254,7 @@
             Name="inputBox" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="5" VerticalAlignment="Center"
             PlaceholderText="{x:Bind LangResources.SearchFieldPlaceholder}"
             BorderBrush="{x:Bind ColorResources.SecondaryColor}" MinHeight="32" TextBoxStyle="{StaticResource YTGBOTextBox}"
-            TextChanged="inputBox_TextChanged" UpdateTextOnSelect="True" TextMemberPath="VideoTitle" QuerySubmitted="inputBox_QuerySubmitted">
+            TextChanged="inputBox_TextChanged" UpdateTextOnSelect="True" TextMemberPath="MediaTitle" QuerySubmitted="inputBox_QuerySubmitted">
             <AutoSuggestBox.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />

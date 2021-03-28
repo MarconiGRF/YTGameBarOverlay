@@ -227,12 +227,12 @@ namespace YoutubeGameBarOverlay
         private async void SaveItem(ListItem chosenItem)
         {
             HistoryEntry historyEntry = new HistoryEntry(
-                chosenItem.MediaTitle,
+                chosenItem.MediaTitle.Replace("\'", ""),
                 chosenItem.ChannelTitle,
                 chosenItem.MediaUrl,
                 chosenItem.Thumbnail,
                 Enum.Parse<Constants.MediaTypes>(chosenItem.MediaTypeLiteral),
-                DateTime.Now.ToShortDateString()
+                DateTime.Today.ToString(Constants.Common.StorableDateFormat)
             );
             bool successfullySaved = await Cabinet.SaveEntry(historyEntry);
 

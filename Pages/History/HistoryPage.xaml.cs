@@ -58,11 +58,19 @@ namespace YoutubeGameBarWidget
             }
             else
             {
-                IEnumerable<IGrouping<string, HistoryEntry>> entries = from he in this.HistoryEntries orderby he.Id descending group he by he.Timestamp;
-                GroupedEntries.Source = entries;
-
+                GroupedEntries.Source = GroupAndOrderByTimestamp(HistoryEntries);
                 Painter.RunUIUpdateByMethod(FinishLoading);
             }
+        }
+
+        /// <summary>
+        /// Groups the entries on the given lists and orders descending by their Id.
+        /// </summary>
+        /// <param name="entries">The entries to be grouped and sorted.</param>
+        /// <returns>A enumerable of groups of HistoryEntries.</returns>
+        private IEnumerable<IGrouping<string, HistoryEntry>> GroupAndOrderByTimestamp(List<HistoryEntry> entries)
+        {
+            return from he in entries orderby he.Id descending group he by he.Timestamp;
         }
 
         /// <summary>
@@ -83,6 +91,7 @@ namespace YoutubeGameBarWidget
             {
                 HistoryEntry selected = HistoryList.SelectedItem as HistoryEntry;
                 selected.Id = 0;
+                selected.Timestamp = DateTime.Today.ToString("yyyyMMdd");
                 await Cabinet.SaveEntry(selected);
 
                 StartPlayback(selected.MediaURL);
@@ -128,6 +137,28 @@ namespace YoutubeGameBarWidget
                 GetEntries();
             }
             else{
+                Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.ErrorCleaningHistory, typeof(HistoryPage), 2700));
+            }
+        }
+
+        /// <summary>
+        /// Event handler for clicks on "Remove Entry" button. It uses the button tag to delete a History Entry.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void RemoveEntryButton_Click(object sender, RoutedEventArgs e)
+        {
+            Painter.RunUIUpdateByMethod(StartLoading);
+            string senderId = ((Button)sender).Tag.ToString();
+
+            bool operationSuccess = await Cabinet.Delete(senderId);
+            if (operationSuccess)
+            {
+                IsFirstOpening = true;
+                GetEntries();
+            }
+            else
+            {
                 Frame.Navigate(typeof(WarnPage), new WarnPayload(LangResources.ErrorCleaningHistory, typeof(HistoryPage), 2700));
             }
         }

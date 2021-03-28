@@ -15,6 +15,7 @@ namespace YoutubeGameBarWidget.Utilities
         {
             public const string AuthorSignature = "Author: ";
             public const string EmptyString = "";
+            public const string StorableDateFormat = "yyyyMMdd";
         }
 
         /// <summary>

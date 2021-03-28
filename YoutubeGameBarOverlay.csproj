@@ -173,6 +173,7 @@
     <Compile Include="Utilities\Cabinet.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\Painter.cs" />
+    <Compile Include="Utilities\TimestampToDateConverter.cs" />
     <Compile Include="Utilities\Utils.cs" />
     <Compile Include="Utilities\Validator.cs" />
     <Compile Include="WebServer\WebServer.cs" />
