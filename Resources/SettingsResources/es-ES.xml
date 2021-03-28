@@ -16,4 +16,6 @@
 	<PortugueseBR>Portuguese - BR</PortugueseBR>
     <SpanishES>Spanish - ES </SpanishES>
 	<RestartMessage>¡Reinicia para aplicar los cambios!</RestartMessage>
+	<ShowTips>Mostrar consejos antes de tocar</ShowTips>
+	<ShowThumbnails>Mostrar miniaturas en la búsqueda</ShowThumbnails>
 </SettingsResources>

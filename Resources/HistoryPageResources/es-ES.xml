@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<HistoryPageResources>
+	<Title>Historial de reproducción</Title>
+	<EmptyMessage>No hay nada aquí todavía, los medios que reproduces se mostrarán aquí.</EmptyMessage>
+	<CleanHistory>Borrar historial</CleanHistory>
+	<ErrorCleaningHistory>There was an error while cleaning the history, please try again or reinstall YTGBO.</ErrorCleaningHistory>
+</HistoryPageResources>
