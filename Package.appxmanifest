@@ -10,7 +10,7 @@
 	<Identity
 	  Name="7772MarconiGomes.YoutubeGameBarOverlay"
 	  Publisher="CN=898CB6EC-BE9E-4A4A-B6D2-AF2A55B4118F"
-	  Version="1.8.0.0" />
+	  Version="1.8.1.0" />
 
 	<mp:PhoneIdentity PhoneProductId="e3aa7c77-81b5-4b21-a173-a7e411312ab5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

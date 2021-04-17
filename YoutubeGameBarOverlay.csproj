@@ -214,9 +214,10 @@
     <Content Include="Resources\WebPageResources\en-US.xml" />
     <Content Include="Resources\WebPageResources\es-ES.xml" />
     <Content Include="Resources\WebPageResources\pt-BR.xml" />
-    <Content Include="VideoUI\*.*">
+    <Content Include="VideoUI\3rdpartylicenses.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="VideoUI\*.*" />
     <Content Include="VideoUI\assets\*.*" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
