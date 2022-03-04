@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace YoutubeGameBarWidget.Utilities
+namespace YTGameBarWidget.Utilities
 {
     /// <summary>
     /// A class with contant values common to the code.
@@ -33,7 +33,7 @@ namespace YoutubeGameBarWidget.Utilities
         public static class Endpoints
         {
             public const string FSBase = "http://{0}:{1}/feedback/";
-            public const string Github = "https://api.github.com/repos/MarconiGRF/YoutubeGameBarOverlay/releases";
+            public const string Github = "https://api.github.com/repos/MarconiGRF/YTGameBarOverlay/releases";
             public const string SSBase = "http://{0}:{1}/current/search/";
         }
 

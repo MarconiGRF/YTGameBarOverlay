@@ -2,7 +2,7 @@
 using System.Threading;
 using Windows.UI;
 
-namespace YoutubeGameBarWidget.Utilities
+namespace YTGameBarWidget.Utilities
 {
     public class Painter
     {

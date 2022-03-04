@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace YoutubeGameBarWidget
+namespace YTGameBarWidget
 {
     /// <summary>
     /// The resources for the SupportMe Page.

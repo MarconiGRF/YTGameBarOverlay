@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace YoutubeGameBarWidget.Pages
+namespace YTGameBarWidget.Pages
 {
     /// <summary>
     /// The resources for the Changelog Page.

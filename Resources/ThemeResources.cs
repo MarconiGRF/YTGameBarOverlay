@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace YoutubeGameBarWidget
+namespace YTGameBarWidget
 {
     public class ThemeResources
     {

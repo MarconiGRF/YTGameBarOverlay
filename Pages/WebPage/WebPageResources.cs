@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace YoutubeGameBarWidget.Pages
+namespace YTGameBarWidget.Pages
 {
     /// <summary>
     /// The resources for the WebPage.

@@ -1,7 +1,7 @@
 ﻿using System;
-using YoutubeGameBarOverlay;
+using YTGameBarOverlay;
 
-namespace YoutubeGameBarWidget.Pages.PageObjects
+namespace YTGameBarWidget.Pages.PageObjects
 {
     /// <summary>
     /// An Information payload, intended to carry information between MainPage and Webpage.

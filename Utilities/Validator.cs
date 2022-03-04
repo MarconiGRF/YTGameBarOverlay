@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace YoutubeGameBarWidget.Utilities
+namespace YTGameBarWidget.Utilities
 {
     /// <summary>
     /// A class for all validations and regular expressions common to the application.
@@ -20,7 +20,7 @@ namespace YoutubeGameBarWidget.Utilities
         }
 
         /// <summary>
-        /// Checks if the MediaURL is a valid Youtube video, live  or playlist URL.
+        /// Checks if the MediaURL is a valid video, live or playlist URL.
         /// </summary>
         public static bool IsMediaURLValid(string mediaURL)
         {

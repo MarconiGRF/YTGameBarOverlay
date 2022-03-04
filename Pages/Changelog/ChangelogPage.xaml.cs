@@ -10,10 +10,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using YoutubeGameBarOverlay;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarOverlay;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget.Pages
+namespace YTGameBarWidget.Pages
 { 
     /// <summary>
     /// A changelog page aimed to show changes between YTGBO's versions using Github API.

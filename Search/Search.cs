@@ -3,14 +3,14 @@ using System.Net;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.UI.Xaml;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget.Search
+namespace YTGameBarWidget.Search
 {
     /// <summary>
-    /// Implements a Data Retriever using Youtube GameBar Search Server's service.
+    /// Implements a Data Retriever using YTGameBar Search Server's service.
     /// 
-    /// For more API details, see: https://github.com/MarconiGRF/YoutubeGameBarSearchServer
+    /// For more API details, see: https://github.com/MarconiGRF/YTGameBarSearchServer
     /// </summary>
     class Search
     {

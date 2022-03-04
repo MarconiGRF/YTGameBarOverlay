@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace YoutubeGameBarWidget.Utilities
+namespace YTGameBarWidget.Utilities
 {
     /// <summary>
     /// A translator aimed to parse XMLs and return filled language objects.

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget.Pages.PageObjects
+namespace YTGameBarWidget.Pages.PageObjects
 {
     /// <summary>
     /// A history entry class aimed to store information for a video and displayed on history page.

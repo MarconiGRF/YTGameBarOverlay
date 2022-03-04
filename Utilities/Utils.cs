@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace YoutubeGameBarWidget.Utilities
+namespace YTGameBarWidget.Utilities
 {
     /// <summary>
     /// A class with useful methods common to the code.
@@ -20,8 +20,8 @@ namespace YoutubeGameBarWidget.Utilities
         }
 
         /// <summary>
-        /// Gets the proper URI following Youtube Game Bar's VideoUI format.
-        /// Supported formats are described at https://github.com/MarconiGRF/YoutubeGameBarVideoUI
+        /// Gets the proper URI following YTGameBar's VideoUI format.
+        /// Supported formats are described at https://github.com/MarconiGRF/YTGameBarVideoUI
         /// </summary>
         /// <returns>A compatible VideoUI URI.</returns>
         public static Uri GetProperVideoUIUri(string _mediaUrl)

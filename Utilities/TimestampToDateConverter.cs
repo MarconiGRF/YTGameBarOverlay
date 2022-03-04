@@ -2,7 +2,7 @@
 using System.Globalization;
 using Windows.UI.Xaml.Data;
 
-namespace YoutubeGameBarWidget.Utilities
+namespace YTGameBarWidget.Utilities
 {
     public sealed class TimestampToDateConverter : IValueConverter
     {

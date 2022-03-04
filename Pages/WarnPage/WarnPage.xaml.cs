@@ -3,10 +3,10 @@ using System.Threading;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using YoutubeGameBarWidget.Pages.PageObjects;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarWidget.Pages.PageObjects;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget.Pages
+namespace YTGameBarWidget.Pages
 {
     /// <summary>
     /// A page to show a warning message to the user.

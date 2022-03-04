@@ -1,6 +1,6 @@
-﻿using YoutubeGameBarWidget.Utilities;
+﻿using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget.Pages.PageObjects
+namespace YTGameBarWidget.Pages.PageObjects
 {
     /// <summary>
     /// A class to hold the values of each setting. 

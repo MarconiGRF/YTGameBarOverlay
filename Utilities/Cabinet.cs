@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using YoutubeGameBarWidget.Pages.PageObjects;
+using YTGameBarWidget.Pages.PageObjects;
 
-namespace YoutubeGameBarWidget.Utilities
+namespace YTGameBarWidget.Utilities
 {
     /// <summary>
     /// A class to storage, retrieve and display data for the application general purposes.

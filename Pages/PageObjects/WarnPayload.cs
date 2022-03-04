@@ -1,8 +1,8 @@
 ﻿using System;
 using Windows.UI.Xaml.Controls;
-using YoutubeGameBarWidget.Pages;
+using YTGameBarWidget.Pages;
 
-namespace YoutubeGameBarWidget.Pages.PageObjects
+namespace YTGameBarWidget.Pages.PageObjects
 {
     /// <summary>
     /// An Warn payload, intended to carry information between Webpage and WarnPage.

@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 
-namespace YoutubeGameBarWidget.Search
+namespace YTGameBarWidget.Search
 {
     /// <summary>
     /// A custom class for the items to be shown on AutoSuggestBox's suggestion list.

@@ -6,13 +6,13 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using YoutubeGameBarWidget;
-using YoutubeGameBarWidget.Pages;
-using YoutubeGameBarWidget.Pages.PageObjects;
-using YoutubeGameBarWidget.Search;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarWidget;
+using YTGameBarWidget.Pages;
+using YTGameBarWidget.Pages.PageObjects;
+using YTGameBarWidget.Search;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarOverlay
+namespace YTGameBarOverlay
 {
     /// <summary>
     /// The main page of the overlay.

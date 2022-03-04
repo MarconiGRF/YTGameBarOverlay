@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap uap3 mp">
 
 	<Identity
-	  Name="7772MarconiGomes.YoutubeGameBarOverlay"
+	  Name="7772MarconiGomes.YTGameBarOverlay"
 	  Publisher="CN=Marconi Gomes"
 	  Version="1.8.2.0" />
 
 	<mp:PhoneIdentity PhoneProductId="e3aa7c77-81b5-4b21-a173-a7e411312ab5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
 	<Properties>
-		<DisplayName>Youtube GameBar Overlay</DisplayName>
+		<DisplayName>YT GameBar Overlay</DisplayName>
 		<PublisherDisplayName>Marconi Gomes</PublisherDisplayName>
 		<Logo>Assets\StoreLogo.png</Logo>
 	</Properties>
@@ -31,12 +31,12 @@
 	<Applications>
 		<Application Id="App"
 		  Executable="$targetnametoken$.exe"
-		  EntryPoint="YoutubeGameBarOverlay.App">
+		  EntryPoint="YTGameBarOverlay.App">
 			<uap:VisualElements
-			  DisplayName="Youtube GameBar Overlay"
+			  DisplayName="YT GameBar Overlay"
 			  Square150x150Logo="Assets\Square150x150Logo.png"
 			  Square44x44Logo="Assets\Square44x44Logo.png"
-			  Description="YoutubeGameBarOverlay"
+			  Description="YTGameBarOverlay"
 			  BackgroundColor="transparent"
 			  AppListEntry="none">
 				<uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
@@ -52,9 +52,9 @@
 			<Extensions>
 				<uap3:Extension Category="windows.appExtension">
 					<uap3:AppExtension Name="microsoft.gameBarUIExtension"
-                         Id="YoutubeGameBarOverlay"
-                         DisplayName="Youtube GameBar Overlay"
-                         Description="An Youtube Player Widget for Xbox Game Bar."
+                         Id="YTGameBarOverlay"
+                         DisplayName="YT GameBar Overlay"
+                         Description="A Player Widget for Xbox Game Bar."
                          PublicFolder="GameBar">
 						<uap3:Properties>
 							<GameBarWidget Type="Standard">

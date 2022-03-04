@@ -1,14 +1,14 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using YoutubeGameBarWidget.Pages;
-using YoutubeGameBarWidget.Utilities;
-using YoutubeGameBarWidget;
+using YTGameBarWidget.Pages;
+using YTGameBarWidget.Utilities;
+using YTGameBarWidget;
 using System.Collections.Generic;
-using YoutubeGameBarWidget.Pages.PageObjects;
+using YTGameBarWidget.Pages.PageObjects;
 using System;
 
-namespace YoutubeGameBarOverlay
+namespace YTGameBarOverlay
 {
     /// <summary>
     /// A settings page used to define and manage user preferences.

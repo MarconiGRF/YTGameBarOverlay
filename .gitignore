@@ -1,6 +1,9 @@
 # Visual Studio temporary files
 .vs/*
 
+# Rider Temporary Files
+.idea/*
+
 # Sandbox files
 obj/*
 VideoUI/*

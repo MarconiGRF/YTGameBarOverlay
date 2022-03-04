@@ -5,14 +5,13 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Gaming.XboxGameBar;
-using YoutubeGameBarWidget.WebServer;
+using YTGameBarWidget.WebServer;
 using System.IO;
 using System.Linq;
-using YoutubeGameBarWidget.Utilities;
-using YoutubeGameBarWidget.Pages;
+using YTGameBarWidget.Utilities;
 using System.Globalization;
 
-namespace YoutubeGameBarOverlay
+namespace YTGameBarOverlay
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

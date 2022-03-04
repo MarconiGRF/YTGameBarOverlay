@@ -6,15 +6,15 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using YoutubeGameBarOverlay;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarOverlay;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget
+namespace YTGameBarWidget
 {
     /// <summary>
-    /// A feedback page to share and improve app experiences using Youtube Game Bar Feedback Server's services.
+    /// A feedback page to share and improve app experiences using YTGameBar Feedback Server's services.
     /// 
-    /// For more API details, see: https://github.com/MarconiGRF/YoutubeGameBarFeedbackServer
+    /// For more API details, see: https://github.com/MarconiGRF/YTGameBarFeedbackServer
     /// </summary>
     public sealed partial class FeedbackPage : Page
     {

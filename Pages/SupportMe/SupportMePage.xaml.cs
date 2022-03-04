@@ -2,12 +2,12 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using YoutubeGameBarOverlay;
-using YoutubeGameBarWidget.Pages;
-using YoutubeGameBarWidget.Pages.PageObjects;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarOverlay;
+using YTGameBarWidget.Pages;
+using YTGameBarWidget.Pages.PageObjects;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget
+namespace YTGameBarWidget
 {
     /// <summary>
     /// A "Support me" page to let users show some love to YTGBO <3.

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 using Windows.Networking.Sockets;
 using Windows.Storage;
 using Windows.Storage.Streams;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget.WebServer
+namespace YTGameBarWidget.WebServer
 {
     class WebServer : IDisposable
     {

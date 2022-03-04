@@ -5,15 +5,15 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using YoutubeGameBarOverlay;
-using YoutubeGameBarWidget.Pages;
-using YoutubeGameBarWidget.Pages.PageObjects;
-using YoutubeGameBarWidget.Utilities;
+using YTGameBarOverlay;
+using YTGameBarWidget.Pages;
+using YTGameBarWidget.Pages.PageObjects;
+using YTGameBarWidget.Utilities;
 
-namespace YoutubeGameBarWidget
+namespace YTGameBarWidget
 {
     /// <summary>
-    /// A webview page able to display the desired video using Youtube Game Bar's VideoUI.
+    /// A webview page able to display the desired video using YTGameBar's VideoUI.
     /// </summary>
     public sealed partial class Webpage : Page
     {
