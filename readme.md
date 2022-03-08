@@ -3,7 +3,7 @@
 An extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
 
 ## Releases
-* [Get on Microsoft Store](https://www.microsoft.com/store/productId/9NK7J3V4LZS6)
+* [Get on Microsoft Store](https://www.microsoft.com/store/apps/9NQZ8GRMHHNS)
 * [Github Release](https://github.com/MarconiGRF/YTGameBarOverlay/releases)
 
 ## Setting up

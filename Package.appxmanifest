@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap uap3 mp">
 
 	<Identity
-	  Name="7772MarconiGomes.YTGameBarOverlay"
-	  Publisher="CN=Marconi Gomes"
-	  Version="1.8.2.0" />
+	  Name="7772MarconiGomes.46074A942FE23"
+	  Publisher="CN=898CB6EC-BE9E-4A4A-B6D2-AF2A55B4118F"
+	  Version="1.8.3.0" />
 
-	<mp:PhoneIdentity PhoneProductId="e3aa7c77-81b5-4b21-a173-a7e411312ab5" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+	<mp:PhoneIdentity PhoneProductId="22c7fe25-2475-4b95-84b2-b1955978aa9c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
 	<Properties>
-		<DisplayName>YT GameBar Overlay</DisplayName>
+		<DisplayName>YT Game Bar Overlay</DisplayName>
 		<PublisherDisplayName>Marconi Gomes</PublisherDisplayName>
 		<Logo>Assets\StoreLogo.png</Logo>
 	</Properties>
@@ -33,7 +33,7 @@
 		  Executable="$targetnametoken$.exe"
 		  EntryPoint="YTGameBarOverlay.App">
 			<uap:VisualElements
-			  DisplayName="YT GameBar Overlay"
+			  DisplayName="YT Game Bar Overlay"
 			  Square150x150Logo="Assets\Square150x150Logo.png"
 			  Square44x44Logo="Assets\Square44x44Logo.png"
 			  Description="YTGameBarOverlay"
