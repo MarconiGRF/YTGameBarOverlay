@@ -1,4 +1,4 @@
-# YTT GameBar Overlay
+# YT GameBar Overlay
 ![YT GameBar Logo](https://github.com/MarconiGRF/YTGameBarOverlay/blob/master/Assets/SplashScreen.scale-200.png)  
 An extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
 
