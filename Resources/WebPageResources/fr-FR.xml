@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<WebPageResources>
+	<!--The &#10; Characters indicate line breaks to XAML, so maintain the same amout of them for the expected layout.-->
+	<PinTip>Epnglez la fenêtre&#10;Pour la rendre visible partout.</PinTip>
+	<BackTip>Utilisez le bouton retour en haut à gauche&#10;ou le boutin retour arrière pour revenir à la page précedente.</BackTip>
+	<InvalidURLWarn>L'URL saisie est invalide!</InvalidURLWarn>
+	<LoadingWarn>Chargement...</LoadingWarn>
+</WebPageResources>

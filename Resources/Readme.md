@@ -1,7 +1,7 @@
 # TODO
  - [x] MainPageRessources
  - [x] HistoryPageRessources
- - [ ] WebPageRessources
+ - [x] WebPageRessources
  - [ ] SettingsPageRessources
  - [ ] SupportMeRessources
  - [ ] FeedbackRessources
