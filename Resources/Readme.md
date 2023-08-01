@@ -1,5 +1,5 @@
 # TODO
- - [ ] MainPageRessources
+ - [x] MainPageRessources
  - [ ] HistoryPageRessources
  - [ ] WebPageRessources
  - [ ] SettingsPageRessources
