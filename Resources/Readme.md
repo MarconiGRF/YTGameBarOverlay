@@ -1,6 +1,6 @@
 # TODO
  - [x] MainPageRessources
- - [ ] HistoryPageRessources
+ - [x] HistoryPageRessources
  - [ ] WebPageRessources
  - [ ] SettingsPageRessources
  - [ ] SupportMeRessources
