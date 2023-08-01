@@ -2,7 +2,9 @@
  - [x] MainPageRessources
  - [x] HistoryPageRessources
  - [x] WebPageRessources
- - [ ] SettingsPageRessources
+ - [x] SettingsPageRessources
+    - [x] Translation
+    - [ ] Add fr-FR field option
  - [ ] SupportMeRessources
  - [ ] FeedbackRessources
  - [ ] ChangelogRessources
