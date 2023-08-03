@@ -7,4 +7,4 @@
     - [ ] Add fr-FR field option
  - [x] SupportMeRessources
  - [x] FeedbackRessources
- - [ ] ChangelogRessources
+ - [x] ChangelogRessources
