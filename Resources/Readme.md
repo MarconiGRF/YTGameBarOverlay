@@ -6,5 +6,5 @@
     - [x] Translation
     - [ ] Add fr-FR field option
  - [x] SupportMeRessources
- - [ ] FeedbackRessources
+ - [x] FeedbackRessources
  - [ ] ChangelogRessources
