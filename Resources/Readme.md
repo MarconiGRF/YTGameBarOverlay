@@ -5,6 +5,6 @@
  - [x] SettingsPageRessources
     - [x] Translation
     - [ ] Add fr-FR field option
- - [ ] SupportMeRessources
+ - [x] SupportMeRessources
  - [ ] FeedbackRessources
  - [ ] ChangelogRessources
