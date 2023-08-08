@@ -2,7 +2,7 @@
 <SettingsResources>
 	<Title>Paramètres</Title>
 	<AccentColor>Couleur d'accentuation</AccentColor>
-	<SecondaryColor>SCouleur secondaire</SecondaryColor>
+	<SecondaryColor>Couleur secondaire</SecondaryColor>
 	<TextIconColor>Couleur des miniatures et du texte</TextIconColor>
 	<PreferredLanguage>Language</PreferredLanguage>
 	<Save>Sauvegarder</Save>
