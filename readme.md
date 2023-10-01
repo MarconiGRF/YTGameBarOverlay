@@ -42,5 +42,5 @@ Once that this overlay is intended to be used on Xbox Game Bar, and you're proba
 Everytime you change the code you'll need to redeploy to debug (Steps 4-7).
 
 ## Special Thanks
-[Arthur Bryan](https://github.com/arthur-bryan) - For adding Spanish resource files.
-[Arthur Bryan](https://github.com/jupiteur) - For adding French resource files.
+[Arthur Bryan](https://github.com/arthur-bryan) - For adding Spanish resource files.  
+[Jupiteur](https://github.com/jupiteur) - For adding French resource files.
