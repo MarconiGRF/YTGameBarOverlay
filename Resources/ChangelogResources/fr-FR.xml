@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ChangelogResources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Title>Changelog</Title>
+	<VersionDisplayer>Version: &#10;</VersionDisplayer>
+	<AmazingError>Erreur!!1!!</AmazingError>
+	<GithubCommunicationError>Une erreur est survenue lors de la communication avec Github! :(</GithubCommunicationError>
+</ChangelogResources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<HistoryPageResources>
+	<Title>Historique de lecture</Title>
+	<EmptyMessage>L'historique est vide poyur le moment, les vidéos que vous lirez seront ajoutées ici.</EmptyMessage>
+	<CleanHistory>Vider l'historique</CleanHistory>
+	<ErrorCleaningHistory>Une erreur rest survenue en vidant l'historique, réessayez ou réinstallez YTGBO.</ErrorCleaningHistory>
+</HistoryPageResources>

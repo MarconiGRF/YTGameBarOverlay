@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SettingsResources>
+	<Title>Paramètres</Title>
+	<AccentColor>Couleur d'accentuation</AccentColor>
+	<SecondaryColor>Couleur secondaire</SecondaryColor>
+	<TextIconColor>Couleur des miniatures et du texte</TextIconColor>
+	<PreferredLanguage>Language</PreferredLanguage>
+	<Save>Sauvegarder</Save>
+	<Black>Noir</Black>
+	<White>Blanc</White>
+	<Blue>Bleu</Blue>
+	<Red>Rouge</Red>
+	<Yellow>Jaune</Yellow>
+	<Green>Vert</Green>
+	<EnglishUS>Anglais - US</EnglishUS>
+	<PortugueseBR>Portugais - BR</PortugueseBR>
+	<SpanishES>Espagnol - ES </SpanishES>
+	<FrenchFR>Français - FR</FrenchFR>
+	<RestartMessage>Redémarrez le widget pour appliquer les changements!</RestartMessage>
+	<ShowTips>Afficher des astuces avant la lecture</ShowTips>
+	<ShowThumbnails>Afficher les miniatures pendent la recherche</ShowThumbnails>
+</SettingsResources>

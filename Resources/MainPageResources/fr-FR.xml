@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<MainPageResources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Greeting>Bienvenue.</Greeting>
+	<SearchFieldPlaceholder>Recherchez ou copiez le lien de votre vidéo/live ici</SearchFieldPlaceholder>
+	<VideoNotSelectedError>Selectionez une vidéo!</VideoNotSelectedError>
+	<URLNotValidError>L'URL est invalide!</URLNotValidError>
+	<SearchNotAvailableError>La recherche est actuellement indisponible! Utilisez une URL ou réessayez plus tard.</SearchNotAvailableError>
+	<HistorySaveError>Une erreur est survenue en tentant de sauvegarder votre historique.</HistorySaveError>
+</MainPageResources>
