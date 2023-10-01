@@ -13,9 +13,9 @@ An extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as
 * 4: Rename the .env_sample to .env and update the necessary environment variables, which currently are:
     *  YTGBFS_ADDRESS (The address of a running [YTGBFS](https://github.com/MarconiGRF/YTGameBarFeedbackServer) instance.)
     *  YTGBFS_PORT (The port of the previous YTGBFS instance.)
-    *  YTGBSS_ADDRESS= (The address of a running [YTGBSS](https://github.com/MarconiGRF/YTGameBarSearchServer) instance.)
-    *  YTGBSS_PORT= (The port of the previous YTGBFS instance.)
-    *  YTGBWS_PORT= (The port of the Webserver contained in YTGBO)
+    *  YTGBSS_ADDRESS (The address of a running [YTGBSS](https://github.com/MarconiGRF/YTGameBarSearchServer) instance.)
+    *  YTGBSS_PORT (The port of the previous YTGBFS instance.)
+    *  YTGBWS_PORT (The port of the Webserver contained in YTGBO)
 * 5: Open the `YTeGameBarOverlay.sln` on Visual Studio.  
 * 6: Add the VideoUI files to the project
     * On VS' Solution explorer, right click `VideoUI` Folder, then `Add...` > `Existing Item...`
