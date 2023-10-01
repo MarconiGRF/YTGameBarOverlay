@@ -1,3 +1,6 @@
+# Deprecation notice
+This project is now deprecated due to the difficulty of interacting with _the video provider APIs_. The limited search quota is not enough to fullfil global usage of the app and because of this it lacks one of the core features of the app, the search feature. Unfortunately is not of my interest to maintain or update the project anymore. Feel free to clone, redistribute or share the project since it is not licensed in any form.
+
 # YT GameBar Overlay
 ![YT GameBar Logo](https://github.com/MarconiGRF/YTGameBarOverlay/blob/master/Assets/SplashScreen.scale-200.png)  
 An extension developed on top of Windows' Xbox Game Bar SDK, aimed to be used as a pinned window while playing, making it possible to enjoy the video while gaming. 
